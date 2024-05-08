@@ -3,7 +3,7 @@ namespace OES;
 /// <summary>
 /// Represents a Maker user stored in the database.
 /// </summary>
-public class MarkerUser : User
+public class MarkerUser : UserWithDetailedName
 {
     /// <summary>
     /// Creates a MakerUser instance.
@@ -14,25 +14,7 @@ public class MarkerUser : User
     /// <param name="chiName">Full name of the marker in Chinese.</param>
     /// <param name="salt">Salt for logging in.</param>
     public MarkerUser(string id, string engFirstName, string engLastName, string chiName, string salt) : base(
-        UserType.Marker, id, salt)
+        UserType.Marker, id, engFirstName, engLastName, chiName, salt)
     {
-        EnglishFirstName = engFirstName;
-        EnglishLastName = engLastName;
-        ChineseFullName = chiName;
     }
-    
-    /// <summary>
-    /// The first name of the marker in English.
-    /// </summary>
-    public string EnglishFirstName { get; }
-    
-    /// <summary>
-    /// The last name of the marker in English.
-    /// </summary>
-    public string EnglishLastName { get; }
-    
-    /// <summary>
-    /// The full name of the marker in Chinese.
-    /// </summary>
-    public string ChineseFullName { get; }
 }
