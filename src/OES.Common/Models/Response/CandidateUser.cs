@@ -8,6 +8,9 @@ namespace OES;
 /// </summary>
 public class CandidateUser : UserWithDetailedName
 {
+    /// <summary>
+    /// Creates a CandidateUser instance.
+    /// </summary>
     public CandidateUser(
         string id,
         string engFirstName,
