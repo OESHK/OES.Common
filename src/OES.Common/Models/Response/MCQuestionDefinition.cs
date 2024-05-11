@@ -17,13 +17,19 @@ public class MCQuestionDefinition : QuestionDefinition
         ImageMargin questionRange,
         ICollection<MCOptionDefinition> optionsDefinition,
         MCMarkingMode markingMode,
-        int markPerOption) : base(id, scriptDefinitionId, panelId, questionNumber, questionName)
+        int markPerOption) : base(id, scriptDefinitionId, questionNumber, questionName)
     {
+        PanelId = panelId;
         QuestionRange = questionRange;
         OptionsDefinition = optionsDefinition;
         MarkingMode = markingMode;
         MarkPerOption = markPerOption;
     }
+    
+    /// <summary>
+    /// The ID of the marking panel which will be responsible for marking this question.
+    /// </summary>
+    public int PanelId { get; }
 
     /// <summary>
     /// The range of the question's image.

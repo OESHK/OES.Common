@@ -6,11 +6,10 @@ namespace OES;
 /// </summary>
 public abstract class QuestionDefinition
 {
-    protected QuestionDefinition(int id, int scriptDefinitionId, int panelId, int questionNumber, string questionName)
+    protected QuestionDefinition(int id, int scriptDefinitionId, int questionNumber, string questionName)
     {
         DefinitionId = id;
         ScriptDefinitionId = scriptDefinitionId;
-        PanelId = panelId;
         QuestionNumber = questionNumber;
         QuestionName = questionName;
     }
@@ -24,11 +23,6 @@ public abstract class QuestionDefinition
     /// The ID of the script definition to which this question definition belongs.
     /// </summary>
     public int ScriptDefinitionId { get; }
-    
-    /// <summary>
-    /// The ID of the marking panel which will be responsible of marking this question.
-    /// </summary>
-    public int PanelId { get; }
     
     /// <summary>
     /// The number of this question.

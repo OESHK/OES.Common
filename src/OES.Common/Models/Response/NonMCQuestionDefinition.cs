@@ -11,11 +11,10 @@ public class NonMCQuestionDefinition : QuestionDefinition
     public NonMCQuestionDefinition(
         int id,
         int scriptDefinitionId,
-        int panelId, 
         int questionNumber,
         string questionName,
         int maxMarks,
-        bool allowHalfMarks) : base(id, scriptDefinitionId, panelId, questionNumber, questionName)
+        bool allowHalfMarks) : base(id, scriptDefinitionId, questionNumber, questionName)
     {
         MaximumMarks = maxMarks;
         AllowHalfMarks = allowHalfMarks;
