@@ -9,9 +9,9 @@ public class MCQuestionDefinition : QuestionDefinition
     /// Creates an instance of an MCQ definition.
     /// </summary>
     public MCQuestionDefinition(
-        int id, 
+        int id,
         int scriptDefinitionId,
-        int panelId, 
+        int panelId,
         int questionNumber,
         string questionName,
         ImageMargin questionRange,
