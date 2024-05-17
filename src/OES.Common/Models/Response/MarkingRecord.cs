@@ -5,6 +5,9 @@ namespace OES;
 /// </summary>
 public class MarkingRecord
 {
+    /// <summary>
+    /// Creates an instance of a MarkingRecord.
+    /// </summary>
     public MarkingRecord(
         int id,
         string markerId,

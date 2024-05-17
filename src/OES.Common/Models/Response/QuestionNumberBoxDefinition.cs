@@ -6,6 +6,17 @@ namespace OES;
 public class QuestionNumberBoxDefinition
 {
     /// <summary>
+    /// Creates an instance for QuestionNumberBoxDefinition.
+    /// </summary>
+    public QuestionNumberBoxDefinition(int id, ImageMargin boxImageMargin, IEnumerable<int> validQuestionsRange, ICollection<ImageMargin> questionMargins)
+    {
+        Id = id;
+        BoxImageMargin = boxImageMargin;
+        ValidQuestionsRange = validQuestionsRange;
+        QuestionMargins = questionMargins;
+    }
+
+    /// <summary>
     /// The ID of the definition.
     /// </summary>
     public int Id { get; }
