@@ -13,7 +13,7 @@ public abstract class User
     /// <param name="loginSalt">Salt of the user.</param>
     protected User(UserType type, string id, string loginSalt)
     {
-        Type = type;
+        UserType = type;
         Id = id;
         LoginSalt = loginSalt;
     }
@@ -26,7 +26,7 @@ public abstract class User
     /// <summary>
     /// The type of this user.
     /// </summary>
-    public UserType Type { get; }
+    public UserType UserType { get; }
     
     /// <summary>
     /// The salt for password authentication with server.
