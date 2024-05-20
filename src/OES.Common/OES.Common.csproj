@@ -8,4 +8,13 @@
         <RootNamespace>OES</RootNamespace>
     </PropertyGroup>
 
+    <ItemGroup>
+      <Folder Include="Clients\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Isopoh.Cryptography.Argon2" Version="2.0.0" />
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    </ItemGroup>
+
 </Project>
