@@ -1,3 +1,5 @@
+using Newtonsoft.Json;
+
 namespace OES;
 
 /// <summary>
@@ -24,15 +26,18 @@ public abstract class UserWithDetailedName : User
     /// <summary>
     /// First name of user in English.
     /// </summary>
+    [JsonProperty("first_name_english")]
     public string EnglishFirstName { get; }
     
     /// <summary>
     /// Last name of user in English.
     /// </summary>
+    [JsonProperty("last_name_english")]
     public string EnglishLastName { get; }
     
     /// <summary>
     /// Full name of user in English.
     /// </summary>
+    [JsonProperty("name_chinese")]
     public string ChineseFullName { get; }
 }

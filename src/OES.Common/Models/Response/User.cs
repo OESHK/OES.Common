@@ -1,3 +1,5 @@
+using Newtonsoft.Json;
+
 namespace OES;
 
 /// <summary>
@@ -19,17 +21,19 @@ public abstract class User
     }
     
     /// <summary>
-    /// The Id of the user.
+    /// The ID of the user.
     /// </summary>
-    public string Id { get; }
+    protected string Id { get; set; }
     
     /// <summary>
     /// The type of this user.
     /// </summary>
+    [JsonIgnore]
     public UserType UserType { get; }
     
     /// <summary>
     /// The salt for password authentication with server.
     /// </summary>
+    [JsonProperty("login_salt")]
     public string LoginSalt { get; }
 }

@@ -17,4 +17,13 @@ public class MarkerUser : UserWithDetailedName
         UserType.Marker, id, engFirstName, engLastName, chiName, salt)
     {
     }
+    
+    /// <summary>
+    /// The ID of the marker.
+    /// </summary>
+    public string MarkerId
+    {
+        get => Id;
+        set => Id = value;
+    }
 }

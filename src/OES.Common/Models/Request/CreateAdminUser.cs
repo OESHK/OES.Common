@@ -18,8 +18,8 @@ public class CreateAdminUser
         Id = id;
         UserDisplayName = userDisplayName;
         _password = password;
-        Salt = PasswordHash.GetSalt();
-        PasswordHashed = PasswordHash.Hash(Password, Salt);
+        LoginSalt = PasswordHash.GetSalt();
+        PasswordHashed = PasswordHash.Hash(Password, LoginSalt);
     }
 
     /// <summary>
@@ -42,7 +42,7 @@ public class CreateAdminUser
         set
         {
             _password = value;
-            PasswordHashed = PasswordHash.Hash(_password, Salt);
+            PasswordHashed = PasswordHash.Hash(_password, LoginSalt);
         } 
     }
     private string _password;
@@ -57,5 +57,5 @@ public class CreateAdminUser
     /// The login salt for the user. Generated upon instance creation.
     /// </summary>
     [JsonProperty("login_salt")]
-    public string Salt { get; }
+    public string LoginSalt { get; }
 }

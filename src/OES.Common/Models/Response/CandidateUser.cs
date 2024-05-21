@@ -1,3 +1,5 @@
+using Newtonsoft.Json;
+
 namespace OES;
 
 /// Candidate users' login functionality is intended to be reserved at the moment.
@@ -37,6 +39,15 @@ public class CandidateUser : UserWithDetailedName
     }
     
     /// <summary>
+    /// The ID of the candidate.
+    /// </summary>
+    public string CandidateId
+    {
+        get => Id;
+        set => Id = value;
+    }
+    
+    /// <summary>
     /// The type of candidate's registered identification document. E.g. HKID, Passport, etc.
     /// </summary>
     public string IdType { get; }
@@ -44,6 +55,7 @@ public class CandidateUser : UserWithDetailedName
     /// <summary>
     /// The number of the candidate's registered identification document.
     /// </summary>
+    [JsonProperty("id_no")]
     public string IdNumber { get; }
     
     public Gender Gender { get; }
@@ -53,6 +65,7 @@ public class CandidateUser : UserWithDetailedName
     /// <summary>
     /// The candidate's mobile phone number. Region codes included.
     /// </summary>
+    [JsonProperty("phone_no")]
     public string PhoneNumber { get; }
     
     /// <summary>
@@ -63,6 +76,7 @@ public class CandidateUser : UserWithDetailedName
     /// <summary>
     /// The class number of the candidate.
     /// </summary>
+    [JsonProperty("class_no")]
     public int ClassNumber { get; }
     
     public DateOnly DateOfBirth { get; }
