@@ -32,4 +32,28 @@ public class AdminUser : User
     /// The name displayed on screen when the user is logged in.
     /// </summary>
     public string UserDisplayName { get; }
+
+    /// <summary>
+    /// Gets an object representing a Create Admin User request.
+    /// </summary>
+    /// <param name="id">The ID of the admin to be created.</param>
+    /// <param name="displayName">The display name of the admin.</param>
+    /// <param name="password">The login password of the admin.</param>
+    /// <returns>The object representing the admin creation request.</returns>
+    public static CreateAdminUser Create(string id, string displayName, string password)
+        => new CreateAdminUser(id, displayName, password);
+
+    /// <summary>
+    /// Gets an object representing an Update Admin User request for the current AdminUser.
+    /// </summary>
+    /// <returns>The object representing the admin update request.</returns>
+    public UpdateAdminUser Update()
+        => new (AdminId);
+
+    /// <summary>
+    /// Gets an object representing a Delete Admin User request for the current AdminUser.
+    /// </summary>
+    /// <returns>The object representing a delete request.</returns>
+    public DeleteObject Delete()
+        => new(AdminId);
 }

@@ -10,12 +10,12 @@ public class CreateAdminUser
     /// <summary>
     /// Construct a request for creating an Admin User. Password hash and salt are automatically generated.
     /// </summary>
-    /// <param name="id">The login ID of the user.</param>
+    /// <param name="adminId">The login ID of the user.</param>
     /// <param name="userDisplayName">The display name of the user.</param>
     /// <param name="password">The login password of the user.</param>
-    public CreateAdminUser(string id, string userDisplayName, string password)
+    public CreateAdminUser(string adminId, string userDisplayName, string password)
     {
-        Id = id;
+        AdminId = adminId;
         UserDisplayName = userDisplayName;
         _password = password;
         LoginSalt = PasswordHash.GetSalt();
@@ -25,8 +25,7 @@ public class CreateAdminUser
     /// <summary>
     /// The ID of the Admin user.
     /// </summary>
-    [JsonProperty("admin_id")]
-    public string Id { get; set; }
+    public string AdminId { get; set; }
     
     /// <summary>
     /// The display name of the Admin user.
@@ -34,7 +33,7 @@ public class CreateAdminUser
     public string UserDisplayName { get; set; }
     
     /// <summary>
-    /// The login password of the user.
+    /// The login password of the user. Stored explicitly, not sent to the server.
     /// </summary>
     [JsonIgnore]
     public string Password {
