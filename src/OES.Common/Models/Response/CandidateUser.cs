@@ -80,4 +80,29 @@ public class CandidateUser : UserWithDetailedName
     public int ClassNumber { get; }
     
     public DateOnly DateOfBirth { get; }
+
+    /// <summary>
+    /// Gets an object representing a Create Candidate request.
+    /// </summary>
+    /// <param name="candidateId">The ID of the candidate.</param>
+    /// <param name="engFirstName">The candidate's first name in English.</param>
+    /// <param name="engLastName">The candidate's last name in English.</param>
+    /// <param name="gender">The gender of the candidate.</param>
+    /// <param name="email">The email of the candidate.</param>
+    /// <returns>Object representing a Create Candidate request.</returns>
+    public static CreateCandidateUser ToCreate(string candidateId, string engFirstName, string engLastName, Gender gender,
+        string email)
+        => new CreateCandidateUser(candidateId, engFirstName, engLastName, gender, email);
+
+    /// <summary>
+    /// Gets an object representing an Update Candidate request.
+    /// </summary>
+    /// <returns>Object representing an Update Candidate request.</returns>
+    public UpdateCandidateUser ToUpdate() => new(this);
+
+    /// <summary>
+    /// Gets an object representing a Delete Candidate request.
+    /// </summary>
+    /// <returns>Object representing a Delete Candidate request.</returns>
+    public DeleteObject ToDelete() => new(CandidateId);
 }
