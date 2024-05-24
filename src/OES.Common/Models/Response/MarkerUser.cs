@@ -21,9 +21,22 @@ public class MarkerUser : UserWithDetailedName
     /// <summary>
     /// The ID of the marker.
     /// </summary>
-    public string MarkerId
-    {
-        get => Id;
-        set => Id = value;
-    }
+    public string MarkerId => Id;
+
+    /// <summary>
+    /// Gets an object representing a Create Marker request.
+    /// </summary>
+    public static CreateMarkerUser ToCreate(string id, string engFirstName, string engLastName, string? chiName,
+        string password) => new(id, engFirstName, engLastName, chiName, password);
+
+    /// <summary>
+    /// Gets an object representing an Update Marker request.
+    /// </summary>
+    public UpdateMarkerUser ToUpdate() => new(this);
+
+    /// <summary>
+    /// Gets an object representing a Delete Marker request.
+    /// </summary>
+    /// <returns></returns>
+    public DeleteObject ToDelete() => new(Id);
 }

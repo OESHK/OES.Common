@@ -48,10 +48,13 @@ public class CreateCandidateUser
     
     public string CandidateId { get; set; }
     
+    [JsonProperty("first_name_eng")]
     public string EnglishFirstName { get; set; }
     
+    [JsonProperty("last_mame_eng")]
     public string EnglishLastName { get; set; }
     
+    [JsonProperty("name_chinese")]
     public string? ChineseFullName { get; set; }
     
     /// <summary>

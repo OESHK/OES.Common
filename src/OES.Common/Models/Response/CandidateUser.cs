@@ -41,12 +41,8 @@ public class CandidateUser : UserWithDetailedName
     /// <summary>
     /// The ID of the candidate.
     /// </summary>
-    public string CandidateId
-    {
-        get => Id;
-        set => Id = value;
-    }
-    
+    public string CandidateId => Id;
+
     /// <summary>
     /// The type of candidate's registered identification document. E.g. HKID, Passport, etc.
     /// </summary>

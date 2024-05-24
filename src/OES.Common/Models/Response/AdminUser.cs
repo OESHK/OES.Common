@@ -22,12 +22,8 @@ public class AdminUser : User
     /// The ID of the Admin.
     /// </summary>
     [JsonProperty("admin_id")]
-    public string AdminId
-    {
-        get => Id;
-        set => Id = value;
-    }
-    
+    public string AdminId => Id;
+
     /// <summary>
     /// The name displayed on screen when the user is logged in.
     /// </summary>
