@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 namespace OES;
 
 /// <summary>
-/// A request to create a new Admin User in the database.
+/// A request to create a new Admin User.
 /// </summary>
 public class CreateAdminUser
 {

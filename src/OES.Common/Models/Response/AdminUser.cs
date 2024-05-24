@@ -48,7 +48,7 @@ public class AdminUser : User
     /// </summary>
     /// <returns>The object representing the admin update request.</returns>
     public UpdateAdminUser Update()
-        => new (AdminId);
+        => new (this);
 
     /// <summary>
     /// Gets an object representing a Delete Admin User request for the current AdminUser.
