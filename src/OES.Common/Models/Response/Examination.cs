@@ -1,3 +1,5 @@
+using System.Globalization;
+
 namespace OES;
 
 /// <summary>
@@ -7,7 +9,7 @@ public class Examination
 {
     public Examination(int id, string examinationLevel, string examinationName, string examinationYear, string subjectCode, string subjectName, string paperCode, string paperName)
     {
-        Id = id;
+        ExaminationId = id;
         ExaminationLevel = examinationLevel;
         ExaminationName = examinationName;
         ExaminationYear = examinationYear;
@@ -20,7 +22,7 @@ public class Examination
     /// <summary>
     /// The identifier of the examination.
     /// </summary>
-    public int Id { get; private set; }
+    public int ExaminationId { get; private set; }
     
     /// <summary>
     /// The level of the exam. E.g. DSE, UT, TSA etc.
@@ -56,4 +58,31 @@ public class Examination
     /// The name of the paper. E.g. LT - Listening.
     /// </summary>
     public string PaperName { get; }
+
+    /// <summary>
+    /// Gets an object representing a Create Examination request.
+    /// </summary>
+    public static CreateExamination ToCreate(
+        string? examinationLevel,
+        string? examinationYear,
+        string? examinationName,
+        string subjectCode,
+        string? subjectName,
+        string paperCode,
+        string? paperName)
+        => new(examinationLevel, examinationYear, examinationName, subjectCode, subjectName, paperCode, paperName);
+
+    /// <inheritdoc cref="ToCreate(string?,string?,string?,string,string?,string,string?)"/>
+    public static CreateExamination ToCreate(string subjectCode, string paperCode)
+        => ToCreate(null, null, null, subjectCode, null, paperCode, null);
+
+    /// <summary>
+    /// Gets an object representing an Update Examination request.
+    /// </summary>
+    public UpdateExamination ToUpdate() => new(this);
+
+    /// <summary>
+    /// Gets an object representing a Delete Examination request.
+    /// </summary>
+    public DeleteObject ToDelete() => new(ExaminationId.ToString(CultureInfo.InvariantCulture));
 }
