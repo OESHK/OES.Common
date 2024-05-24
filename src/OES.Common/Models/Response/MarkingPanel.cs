@@ -1,4 +1,4 @@
-using System.Diagnostics.CodeAnalysis;
+using Newtonsoft.Json;
 
 namespace OES;
 
@@ -18,10 +18,10 @@ public class MarkingPanel
         bool doubleMarking, 
         int markDifferenceTolerance, 
         bool isMcPanel, 
-        MarkingPanelStatus markingPanelStatus
-        )
+        MarkingPanelStatus markingPanelStatus,
+        ICollection<MarkerRosterEntry> markers)
     {
-        Id = id;
+        PanelId = id;
         ExaminationId = examinationId;
         PanelCode = panelCode;
         PanelDescription = panelDescription;
@@ -29,12 +29,13 @@ public class MarkingPanel
         MarkDifferenceTolerance = markDifferenceTolerance;
         IsMCPanel = isMcPanel;
         MarkingPanelStatus = markingPanelStatus;
+        _markers = markers;
     }
 
     /// <summary>
     /// The ID of the marking panel.
     /// </summary>
-    public int Id { get; }
+    public int PanelId { get; }
     
     /// <summary>
     /// The ID of the examination to which this panel belongs.
@@ -65,16 +66,25 @@ public class MarkingPanel
     /// the script will be marked by the subject supervisor.
     /// This value is useless when <see cref="DoubleMarking"/> is false.
     /// </summary>
+    [JsonProperty("mark_diff_tolerance")]
     public int MarkDifferenceTolerance { get; }
     
     /// <summary>
     /// Whether the scripts assigned to this panel are multiple-choice questions.
     /// When set tu true, questions will be automatically marked.
     /// </summary>
+    [JsonProperty("is_mc_panel")]
     public bool IsMCPanel { get; }
     
     /// <summary>
     /// The status of the marking panel.
     /// </summary>
     public MarkingPanelStatus MarkingPanelStatus { get; }
+
+    /// <summary>
+    /// The list of markers being rostered in this marking panel.
+    /// </summary>
+    [JsonIgnore]
+    public ICollection<MarkerRosterEntry> Markers => _markers;
+    private ICollection<MarkerRosterEntry> _markers;
 }
