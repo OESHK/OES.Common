@@ -27,7 +27,7 @@ public class UpdateMarkingPanel
     public string PanelCode { get; }
     
     /// <inheritdoc cref="MarkingPanel.PanelDescription"/>
-    public string PanelDescription { get; }
+    public string? PanelDescription { get; }
     
     /// <inheritdoc cref="MarkingPanel.DoubleMarking"/>
     public bool DoubleMarking { get; }
