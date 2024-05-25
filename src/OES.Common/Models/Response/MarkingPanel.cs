@@ -1,3 +1,5 @@
+using System.Collections.ObjectModel;
+using System.Globalization;
 using Newtonsoft.Json;
 
 namespace OES;
@@ -14,7 +16,7 @@ public class MarkingPanel
         int id, 
         int examinationId, 
         string panelCode, 
-        string panelDescription, 
+        string? panelDescription, 
         bool doubleMarking, 
         int markDifferenceTolerance, 
         bool isMcPanel, 
@@ -29,7 +31,7 @@ public class MarkingPanel
         MarkDifferenceTolerance = markDifferenceTolerance;
         IsMCPanel = isMcPanel;
         MarkingPanelStatus = markingPanelStatus;
-        _markers = markers;
+        Markers = new ReadOnlyCollection<MarkerRosterEntry>(markers.ToList());
     }
 
     /// <summary>
@@ -53,7 +55,7 @@ public class MarkingPanel
     /// <summary>
     /// Description of the marking panel.
     /// </summary>
-    public string PanelDescription { get; }
+    public string? PanelDescription { get; }
     
     /// <summary>
     /// Whether the marking panel enforces double marking policy.
@@ -85,6 +87,29 @@ public class MarkingPanel
     /// The list of markers being rostered in this marking panel.
     /// </summary>
     [JsonIgnore]
-    public ICollection<MarkerRosterEntry> Markers => _markers;
-    private ICollection<MarkerRosterEntry> _markers;
+    public IReadOnlyCollection<MarkerRosterEntry>? Markers { get; }
+
+    /// <summary>
+    /// Gets an object representing a Create Marking Panel request. New panel's status is set to <see cref="MarkingPanelStatus.Closed"/>.
+    /// </summary>
+    public static CreateMarkingPanel ToCreate(
+        int examinationId,
+        string panelCode,
+        string? panelDescription,
+        bool doubleMarking,
+        int markDifferenceTolerance,
+        bool isMcPanel,
+        ICollection<MarkerRosterEntry>? markers)
+        => new(examinationId, panelCode, panelDescription, doubleMarking, markDifferenceTolerance, isMcPanel,
+            MarkingPanelStatus.Closed, markers);
+
+    /// <summary>
+    /// Gets an object representing an Update Marking Panel request.
+    /// </summary>
+    /// <returns></returns>
+    public UpdateMarkingPanel ToUpdate()
+        => new UpdateMarkingPanel(this);
+
+    public DeleteObject ToDelete()
+        => new DeleteObject(PanelId.ToString(CultureInfo.InvariantCulture));
 }

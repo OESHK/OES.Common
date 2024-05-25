@@ -1,0 +1,91 @@
+using System.Collections.ObjectModel;
+using Newtonsoft.Json;
+
+namespace OES;
+
+public class UpdateMarkingPanel
+{
+    internal UpdateMarkingPanel(MarkingPanel markingPanel)
+    {
+        PanelId = markingPanel.PanelId;
+        ExaminationId = markingPanel.ExaminationId;
+        PanelCode = markingPanel.PanelCode;
+        PanelDescription = markingPanel.PanelDescription;
+        DoubleMarking = markingPanel.DoubleMarking;
+        MarkingPanelStatus = markingPanel.MarkingPanelStatus;
+        OriginalMarkers = markingPanel.Markers ?? Array.Empty<MarkerRosterEntry>();
+        Markers = OriginalMarkers.ToList();
+    }
+    
+    /// <inheritdoc cref="MarkingPanel.PanelId"/>
+    public int PanelId { get; }
+    
+    /// <inheritdoc cref="MarkingPanel.ExaminationId"/>
+    public int ExaminationId { get; }
+    
+    /// <inheritdoc cref="MarkingPanel.PanelCode"/>
+    public string PanelCode { get; }
+    
+    /// <inheritdoc cref="MarkingPanel.PanelDescription"/>
+    public string PanelDescription { get; }
+    
+    /// <inheritdoc cref="MarkingPanel.DoubleMarking"/>
+    public bool DoubleMarking { get; }
+    
+    /// <inheritdoc cref="MarkingPanel.MarkDifferenceTolerance"/>
+    [JsonProperty("mark_diff_tolerance")]
+    public int MarkDifferenceTolerance { get; }
+    
+    /// <inheritdoc cref="MarkingPanel.IsMCPanel"/>
+    [JsonProperty("is_mc_panel")]
+    public bool IsMCPanel { get; }
+    
+    /// <inheritdoc cref="MarkingPanel.MarkingPanelStatus"/>
+    public MarkingPanelStatus MarkingPanelStatus { get; }
+
+    /// <inheritdoc cref="MarkingPanel.Markers"/>
+    // for generating diff, two markers lists should not be nullable
+    [JsonIgnore]
+    public ICollection<MarkerRosterEntry> Markers { get; private set; }
+    
+    // used to generate diff between original and modified marker lists
+    [JsonIgnore]
+    internal IReadOnlyCollection<MarkerRosterEntry> OriginalMarkers { get; }
+
+    private bool HasMarker(string markerId) => Markers.Any(x => x.MarkerId == markerId);
+
+    /// <inheritdoc cref="CreateMarkingPanel.RosterMarker"/>
+    public void RosterMarker(string markerId, MarkerRole markerRole)
+    {
+        if (HasMarker(markerId)) RemoveMarker(markerId);
+        Markers.Add(new MarkerRosterEntry(markerId, PanelId, markerRole));
+    }
+
+    /// <inheritdoc cref="CreateMarkingPanel.RemoveMarker"/>
+    public void RemoveMarker(string markerId)
+    {
+        if (!HasMarker(markerId)) return;
+        Markers = Markers.Where(x => x.MarkerId != markerId).ToList();
+    }
+
+    /// <inheritdoc cref="CreateMarkingPanel.ClearMarkers"/>
+    public void ClearMarkers() => Markers = new List<MarkerRosterEntry>();
+
+    /// <summary>
+    /// Gets a list of modified (new/role change) markers.
+    /// </summary>
+    internal IReadOnlyCollection<MarkerRosterEntry> GetModifiedMarkerRosterEntries()
+        => new ReadOnlyCollection<MarkerRosterEntry>(Markers.Except(OriginalMarkers).ToArray());
+
+    /// <summary>
+    /// Gets a list of removed markers.
+    /// </summary>
+    internal IReadOnlyCollection<MarkerRosterEntry> GetRemovedMarkerRosterEntries()
+        => new ReadOnlyCollection<MarkerRosterEntry>(OriginalMarkers
+            .Where(old => Markers.All(@new => @new.MarkerId != old.MarkerId)).ToList());
+
+    /// <summary>
+    /// Whether the markers in this marking panel have been modified (added/changed/removed).
+    /// </summary>
+    internal bool MarkersModified => OriginalMarkers.Except(Markers).ToArray().Length == 0;
+}
