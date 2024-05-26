@@ -3,7 +3,7 @@ namespace OES;
 /// <summary>
 /// The type of examination script.
 /// </summary>
-public enum ExamScriptType
+public enum ExaminationScriptType
 {
     /// <summary>
     /// A standard A4 multiple-choice answer sheet.

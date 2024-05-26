@@ -3,7 +3,7 @@ namespace OES;
 /// <summary>
 /// The size of script images.
 /// </summary>
-public enum ExamScriptSize
+public enum ExaminationScriptSize
 {
     A3 = 0,
     
