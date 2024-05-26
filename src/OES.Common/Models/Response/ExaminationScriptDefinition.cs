@@ -22,14 +22,14 @@ public class ExaminationScriptDefinition
         string scriptBarcode
         )
     {
-        DefinitionId = id;
-        ExaminationId = examinationId;
-        ExaminationScriptType = scriptType;
-        ExaminationScriptSize = scriptSize;
-        ScriptSheetCount = scriptSheetCount;
+        DefinitionId             = id;
+        ExaminationId            = examinationId;
+        ExaminationScriptType    = scriptType;
+        ExaminationScriptSize    = scriptSize;
+        ScriptSheetCount         = scriptSheetCount;
         CandidateBarcodesMargins = candidateBarcodesMargins;
-        ScriptBarcodeMargin = scriptBarcodeMargins;
-        ScriptBarcode = scriptBarcode;
+        ScriptBarcodeMargin      = scriptBarcodeMargins;
+        ScriptBarcode            = scriptBarcode;
     }
 
     /// <summary>
@@ -82,14 +82,15 @@ public class ExaminationScriptDefinition
     /// <param name="candidateBarcodesMargins">The image margins of all candidate barcodes on different pages.</param>
     /// <param name="scriptBarcodeMargin">The image margin of the script barcode on script cover.</param>
     /// <param name="scriptBarcode">The value of the barcode on cover of the script.</param>
-    public static CreateExaminationScriptDefinition ToCreate(int examinationId,
-        ExaminationScriptType examinationScriptType,
-        ExaminationScriptSize examinationScriptSize,
-        int scriptSheetCount,
+    public static CreateExaminationScriptDefinition ToCreate(
+        int                                   examinationId,
+        ExaminationScriptType                 examinationScriptType,
+        ExaminationScriptSize                 examinationScriptSize,
+        int                                   scriptSheetCount,
         IReadOnlyDictionary<int, ImageMargin> candidateBarcodesMargins,
-        ImageMargin scriptBarcodeMargin,
-        string scriptBarcode)
-        => new CreateExaminationScriptDefinition(examinationId,
+        ImageMargin                           scriptBarcodeMargin,
+        string                                scriptBarcode)
+        => new (examinationId,
                 examinationScriptType,
                 examinationScriptSize,
                 scriptSheetCount,
