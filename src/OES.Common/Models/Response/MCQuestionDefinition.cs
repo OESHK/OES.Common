@@ -31,6 +31,7 @@ public class MCQuestionDefinition : QuestionDefinition
     
     /// <summary>
     /// The ID of the marking panel which will be responsible for marking this question.
+    /// The panel must be an MC marking panel.
     /// </summary>
     public int PanelId { get; }
 

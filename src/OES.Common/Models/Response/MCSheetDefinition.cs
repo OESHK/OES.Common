@@ -8,17 +8,17 @@ public class MCSheetDefinition
     /// <summary>
     /// Creates an instance for an MCQ OMR sheet definition.
     /// </summary>
-    public MCSheetDefinition(int id, int panelId, ICollection<MCQuestionDefinition> questionDefinitions)
+    public MCSheetDefinition(int id, int panelId, IReadOnlyCollection<MCSheetQuestionDefinition> answers)
     {
-        DefinitionId = id;
+        ScriptDefinitionId = id;
         PanelId = panelId;
-        QuestionDefinitions = questionDefinitions;
+        Answers = answers;
     }
 
     /// <summary>
     /// The ID of the definition.
     /// </summary>
-    public int DefinitionId { get; }
+    public int ScriptDefinitionId { get; }
     
     /// <summary>
     /// The ID of the marking panel responsible for marking this sheet. Must be an MC Panel.
@@ -28,5 +28,5 @@ public class MCSheetDefinition
     /// <summary>
     /// The collection of questions to be marked.
     /// </summary>
-    public ICollection<MCQuestionDefinition> QuestionDefinitions { get; }
+    public IReadOnlyCollection<MCSheetQuestionDefinition> Answers { get; }
 }
