@@ -7,7 +7,16 @@ namespace OES;
 /// </summary>
 public class Examination
 {
-    public Examination(int id, string examinationLevel, string examinationName, string examinationYear, string subjectCode, string subjectName, string paperCode, string paperName)
+    public Examination(
+        int id,
+        string examinationLevel,
+        string examinationName,
+        string examinationYear,
+        string subjectCode,
+        string subjectName,
+        string paperCode,
+        string paperName,
+        ExaminationStatus examinationStatus)
     {
         ExaminationId = id;
         ExaminationLevel = examinationLevel;
@@ -17,6 +26,7 @@ public class Examination
         SubjectName = subjectName;
         PaperCode = paperCode;
         PaperName = paperName;
+        ExaminationStatus = examinationStatus;
     }
 
     /// <summary>
@@ -58,6 +68,8 @@ public class Examination
     /// The name of the paper. E.g. LT - Listening.
     /// </summary>
     public string PaperName { get; }
+    
+    public ExaminationStatus ExaminationStatus { get; }
 
     /// <summary>
     /// Gets an object representing a Create Examination request.
