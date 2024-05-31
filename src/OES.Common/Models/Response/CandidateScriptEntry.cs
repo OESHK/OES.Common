@@ -1,3 +1,5 @@
+using System.Globalization;
+
 namespace OES;
 
 /// <summary>
@@ -8,7 +10,7 @@ public class CandidateScriptEntry
     /// <summary>
     /// Creates an instance for a script entry.
     /// </summary>
-    public CandidateScriptEntry(int id, int candidateId, int panelId, ScriptEntryStatus entryStatus)
+    public CandidateScriptEntry(int id, string candidateId, int panelId, ScriptEntryStatus entryStatus)
     {
         EntryId = id;
         CandidateId = candidateId;
@@ -24,7 +26,7 @@ public class CandidateScriptEntry
     /// <summary>
     /// The ID of the candidate to which this entry belongs.
     /// </summary>
-    public int CandidateId { get; }
+    public string CandidateId { get; }
     
     /// <summary>
     /// The ID of the marking panel for which will be responsible marking this entry.
@@ -35,4 +37,21 @@ public class CandidateScriptEntry
     /// The status of the entry.
     /// </summary>
     public ScriptEntryStatus EntryStatus { get; }
+
+    /// <summary>
+    /// Gets an object representing a create <see cref="CandidateScriptEntry"/> request.
+    /// </summary>
+    public static CreateCandidateScriptEntry ToCreate(string candidateId, int panelId)
+        => new(candidateId, panelId);
+
+    /// <summary>
+    /// Gets an object representing a update existing <see cref="CandidateScriptEntry"/> request.
+    /// </summary>
+    public UpdateCandidateScriptEntry ToUpdate() => new(this);
+
+    /// <summary>
+    /// Gets an object representing a delete <see cref="CandidateScriptEntry"/> request.
+    /// The images of the script entry will also be deleted.
+    /// </summary>
+    public DeleteObject ToDelete() => new(EntryId.ToString(CultureInfo.InvariantCulture));
 }
