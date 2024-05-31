@@ -7,38 +7,22 @@ public class UpdateMarkingPanel
 {
     internal UpdateMarkingPanel(MarkingPanel markingPanel)
     {
-        PanelId = markingPanel.PanelId;
-        ExaminationId = markingPanel.ExaminationId;
-        PanelCode = markingPanel.PanelCode;
-        PanelDescription = markingPanel.PanelDescription;
-        DoubleMarking = markingPanel.DoubleMarking;
+        PanelId            = markingPanel.PanelId;
+        PanelCode          = markingPanel.PanelCode;
+        PanelDescription   = markingPanel.PanelDescription;
         MarkingPanelStatus = markingPanel.MarkingPanelStatus;
-        OriginalMarkers = markingPanel.Markers ?? Array.Empty<MarkerRosterEntry>();
-        Markers = OriginalMarkers.ToList();
+        OriginalMarkers    = markingPanel.Markers ?? Array.Empty<MarkerRosterEntry>();
+        Markers            = OriginalMarkers.ToList();
     }
     
     /// <inheritdoc cref="MarkingPanel.PanelId"/>
     public int PanelId { get; }
     
-    /// <inheritdoc cref="MarkingPanel.ExaminationId"/>
-    public int ExaminationId { get; }
-    
     /// <inheritdoc cref="MarkingPanel.PanelCode"/>
-    public string PanelCode { get; }
+    public string PanelCode { get; set; }
     
     /// <inheritdoc cref="MarkingPanel.PanelDescription"/>
-    public string? PanelDescription { get; }
-    
-    /// <inheritdoc cref="MarkingPanel.DoubleMarking"/>
-    public bool DoubleMarking { get; }
-    
-    /// <inheritdoc cref="MarkingPanel.MarkDifferenceTolerance"/>
-    [JsonProperty("mark_diff_tolerance")]
-    public int MarkDifferenceTolerance { get; }
-    
-    /// <inheritdoc cref="MarkingPanel.IsMCPanel"/>
-    [JsonProperty("is_mc_panel")]
-    public bool IsMCPanel { get; }
+    public string? PanelDescription { get; set; }
     
     /// <inheritdoc cref="MarkingPanel.MarkingPanelStatus"/>
     public MarkingPanelStatus MarkingPanelStatus { get; }
