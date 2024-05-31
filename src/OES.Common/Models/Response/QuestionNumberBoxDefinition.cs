@@ -1,3 +1,5 @@
+using System.Globalization;
+
 namespace OES;
 
 /// <summary>
@@ -8,12 +10,17 @@ public class QuestionNumberBoxDefinition
     /// <summary>
     /// Creates an instance for QuestionNumberBoxDefinition.
     /// </summary>
-    public QuestionNumberBoxDefinition(int id, ImageMargin boxImageMargin, IEnumerable<int> validQuestionsRange, ICollection<ImageMargin> questionMargins)
+    public QuestionNumberBoxDefinition(
+        int                                   id,
+        ImageMargin                           boxImageMargin,
+        IEnumerable<int>                      validQuestionsRange,
+        IReadOnlyDictionary<int, ImageMargin> questionMargins
+        )
     {
-        Id = id;
-        BoxImageMargin = boxImageMargin;
+        Id                  = id;
+        BoxImageMargin      = boxImageMargin;
         ValidQuestionsRange = validQuestionsRange;
-        QuestionMargins = questionMargins;
+        QuestionMargins     = questionMargins;
     }
 
     /// <summary>
@@ -34,5 +41,19 @@ public class QuestionNumberBoxDefinition
     /// <summary>
     /// The image margins of each question number.
     /// </summary>
-    public ICollection<ImageMargin> QuestionMargins { get; }
+    public IReadOnlyDictionary<int, ImageMargin> QuestionMargins { get; }
+
+    /// <summary>
+    /// Gets an object representing a Create QuestionNumberBox Definition request.
+    /// </summary>
+    public static CreateQuestionNumberBoxDefinition ToCreate(ImageMargin                    boxImageMargin,
+                                                             ICollection<int>?              validQuestionsRange,
+                                                             IDictionary<int, ImageMargin>? questionMargins) =>
+        new(boxImageMargin, validQuestionsRange, questionMargins);
+
+    /// <summary>
+    /// Gets an object representing a Delete QuestionNumberBox Definition request.
+    /// </summary>
+    public DeleteObject ToDelete() 
+        => new(Id.ToString(CultureInfo.InvariantCulture));
 }
