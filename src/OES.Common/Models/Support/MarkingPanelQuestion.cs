@@ -25,4 +25,21 @@ public struct MarkingPanelQuestion
         => first.ScriptDefinitionId == second.ScriptDefinitionId && first.QuestionNumber == second.QuestionNumber;
 
     public static bool operator !=(MarkingPanelQuestion first, MarkingPanelQuestion second) => !(first == second);
+
+    
+    // overriden because custom operators == and != were defined.
+    
+    public override bool Equals(object? o)
+    {
+        if (o is not MarkingPanelQuestion question) return false;
+        return question == this;
+    }
+
+    public override int GetHashCode()
+    {
+        var hash = 17;
+        hash = hash * 23 + ScriptDefinitionId.GetHashCode();
+        hash = hash * 23 + QuestionNumber.GetHashCode();
+        return hash;
+    }
 }
