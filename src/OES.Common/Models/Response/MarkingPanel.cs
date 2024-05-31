@@ -21,17 +21,19 @@ public class MarkingPanel
         int markDifferenceTolerance, 
         bool isMcPanel, 
         MarkingPanelStatus markingPanelStatus,
-        ICollection<MarkerRosterEntry> markers)
+        ICollection<MarkerRosterEntry> markers,
+        ICollection<MarkingPanelQuestion> questions)
     {
-        PanelId = id;
-        ExaminationId = examinationId;
-        PanelCode = panelCode;
-        PanelDescription = panelDescription;
-        DoubleMarking = doubleMarking;
+        PanelId                 = id;
+        ExaminationId           = examinationId;
+        PanelCode               = panelCode;
+        PanelDescription        = panelDescription;
+        DoubleMarking           = doubleMarking;
         MarkDifferenceTolerance = markDifferenceTolerance;
-        IsMCPanel = isMcPanel;
-        MarkingPanelStatus = markingPanelStatus;
-        Markers = new ReadOnlyCollection<MarkerRosterEntry>(markers.ToList());
+        IsMCPanel               = isMcPanel;
+        MarkingPanelStatus      = markingPanelStatus;
+        Markers                 = new ReadOnlyCollection<MarkerRosterEntry>(markers.ToList());
+        Questions               = new ReadOnlyCollection<MarkingPanelQuestion>(questions.ToList());
     }
 
     /// <summary>
@@ -88,20 +90,26 @@ public class MarkingPanel
     /// </summary>
     [JsonIgnore]
     public IReadOnlyCollection<MarkerRosterEntry>? Markers { get; }
+    
+    /// <summary>
+    /// The list of questions that the marking panel is responsible for marking.
+    /// </summary>
+    public IReadOnlyCollection<MarkingPanelQuestion>? Questions { get; }
 
     /// <summary>
     /// Gets an object representing a Create Marking Panel request. New panel's status is set to <see cref="MarkingPanelStatus.Closed"/>.
     /// </summary>
     public static CreateMarkingPanel ToCreate(
-        int examinationId,
-        string panelCode,
-        string? panelDescription,
-        bool doubleMarking,
-        int markDifferenceTolerance,
-        bool isMcPanel,
-        ICollection<MarkerRosterEntry>? markers)
+        int                                examinationId,
+        string                             panelCode,
+        string?                            panelDescription,
+        bool                               doubleMarking,
+        int                                markDifferenceTolerance,
+        bool                               isMcPanel,
+        ICollection<MarkerRosterEntry>?    markers,
+        ICollection<MarkingPanelQuestion>? questions)
         => new(examinationId, panelCode, panelDescription, doubleMarking, markDifferenceTolerance, isMcPanel,
-            MarkingPanelStatus.Closed, markers);
+            MarkingPanelStatus.Closed, markers, questions);
 
     /// <summary>
     /// Gets an object representing an Update Marking Panel request.
@@ -110,6 +118,9 @@ public class MarkingPanel
     public UpdateMarkingPanel ToUpdate()
         => new UpdateMarkingPanel(this);
 
+    /// <summary>
+    /// Gets an object representing a Delete Marking Panel request.
+    /// </summary>
     public DeleteObject ToDelete()
         => new DeleteObject(PanelId.ToString(CultureInfo.InvariantCulture));
 }

@@ -15,16 +15,18 @@ public class CreateMarkingPanel
         int markDifferenceTolerance, 
         bool isMcPanel, 
         MarkingPanelStatus markingPanelStatus,
-        ICollection<MarkerRosterEntry>? markers)
+        ICollection<MarkerRosterEntry>? markers,
+        ICollection<MarkingPanelQuestion>? questions)
     {
-        ExaminationId = examinationId;
-        PanelCode = panelCode;
-        PanelDescription = panelDescription;
-        DoubleMarking = doubleMarking;
+        ExaminationId           = examinationId;
+        PanelCode               = panelCode;
+        PanelDescription        = panelDescription;
+        DoubleMarking           = doubleMarking;
         MarkDifferenceTolerance = markDifferenceTolerance;
-        IsMCPanel = isMcPanel;
-        MarkingPanelStatus = markingPanelStatus;
-        Markers = markers;
+        IsMCPanel               = isMcPanel;
+        MarkingPanelStatus      = markingPanelStatus;
+        Markers                 = markers;
+        Questions               = questions;
     }
     
     /// <inheritdoc cref="MarkingPanel.ExaminationId"/>
@@ -53,6 +55,10 @@ public class CreateMarkingPanel
     /// <inheritdoc cref="MarkingPanel.Markers"/>
     [JsonIgnore]
     public ICollection<MarkerRosterEntry>? Markers { get; private set; }
+    
+    /// <inheritdoc cref="MarkingPanel.Questions"/>
+    [JsonIgnore]
+    public ICollection<MarkingPanelQuestion>? Questions { get; private set; }
 
     /// <summary>
     /// Roster a marker to this marking panel.
@@ -88,4 +94,48 @@ public class CreateMarkingPanel
     public void ClearMarkers() => Markers = null;
 
     private bool HasMarker(string markerId) => Markers?.Any(x => x.MarkerId == markerId) ?? false;
+
+    /// <summary>
+    /// Links a question to the marking panel and the question's script definition.
+    /// </summary>
+    /// <param name="scriptDefinitionId">The ID of the script definition.</param>
+    /// <param name="questionNumber">The number of the question to be linked.</param>
+    public void AddQuestion(int scriptDefinitionId, int questionNumber)
+    {
+        AddQuestion(new MarkingPanelQuestion(scriptDefinitionId, questionNumber));
+    }
+
+    /// <summary>
+    /// Links a question to the marking panel.
+    /// </summary>
+    /// <param name="question">The question to be linked.</param>
+    public void AddQuestion(MarkingPanelQuestion question)
+    {
+        Questions ??= new List<MarkingPanelQuestion>();
+        if (HasQuestion(question)) RemoveQuestion(question);
+        Questions.Add(question);
+    }
+
+    /// <summary>
+    /// Removes a question from the marking panel if it exists.
+    /// </summary>
+    /// <param name="question">The number to be removed.</param>
+    public void RemoveQuestion(MarkingPanelQuestion question)
+    {
+        if (Questions is null)
+        {
+            Questions = new List<MarkingPanelQuestion>();
+            return;
+        }
+
+        if (HasQuestion(question)) 
+            Questions = Questions.Where(x => x != question).ToList();
+    }
+
+    /// <summary>
+    /// Clears all questions from the marking panel.
+    /// </summary>
+    public void ClearQuestions() => Questions = null;
+
+    private bool HasQuestion(MarkingPanelQuestion question) => Questions?.Any(x => x == question) ?? false;
 }
