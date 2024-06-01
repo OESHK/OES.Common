@@ -1,3 +1,5 @@
+using System.Globalization;
+
 namespace OES;
 
 /// <summary>
@@ -9,24 +11,24 @@ public class MarkingRecord
     /// Creates an instance of a MarkingRecord.
     /// </summary>
     public MarkingRecord(
-        int id,
-        string markerId,
-        int entryId,
-        DateTime startTime,
-        DateTime? endTime,
-        ICollection<IAnnotation> annotations,
-        Dictionary<int, double> marks,
-        string remarks
+        int                       recordId,
+        string                    markerId,
+        int                       markedEntryId,
+        DateTime                  startTime,
+        DateTime?                 endTime,
+        ICollection<IAnnotation>? annotations,
+        Dictionary<int, double>   marks,
+        string?                   remarks
         )
     {
-        RecordId = id;
-        MarkerId = markerId;
-        EntryId = entryId;
-        StartTime = startTime;
-        EndTime = endTime;
+        RecordId    = recordId;
+        MarkerId    = markerId;
+        MarkedEntryId     = markedEntryId;
+        StartTime   = startTime;
+        EndTime     = endTime;
         Annotations = annotations;
-        Marks = marks;
-        Remarks = remarks;
+        Marks       = marks;
+        Remarks     = remarks;
     }
     
     /// <summary>
@@ -42,7 +44,7 @@ public class MarkingRecord
     /// <summary>
     /// The ID of the script entry marked.
     /// </summary>
-    public int EntryId { get; }
+    public int MarkedEntryId { get; }
     
     /// <summary>
     /// The time when the marker started marking.
@@ -57,16 +59,40 @@ public class MarkingRecord
     /// <summary>
     /// The annotations the marker has made on the script.
     /// </summary>
-    public ICollection<IAnnotation> Annotations { get; }
+    public ICollection<IAnnotation>? Annotations { get; }
     
     /// <summary>
     /// The marks the marker has given to the candidate.
     /// Stored in a QuestionID:Marks key pair.
     /// </summary>
-    public Dictionary<int, double> Marks { get; }
+    public IReadOnlyDictionary<int, double> Marks { get; }
     
     /// <summary>
     /// The remarks the marker has entered. Only visible to the marker him/herself.
     /// </summary>
-    public string Remarks { get; }
+    public string? Remarks { get; }
+
+    /// <summary>
+    /// Gets an object representing a create <see cref="MarkingRecord"/> request.
+    /// </summary>
+    public static CreateMarkingRecord ToCreate(
+        string                    markerId,
+        int                       markedEntryId,
+        DateTime                  startTime,
+        DateTime?                 endTime,
+        ICollection<IAnnotation>? annotations,
+        Dictionary<int, double>   marks,
+        string?                   remarks)
+        => new(markerId, markedEntryId, startTime, endTime, annotations, marks, remarks);
+
+    /// <summary>
+    /// Gets an object representing a request to update an existing <see cref="MarkingRecord"/>.
+    /// </summary>
+    public UpdateMarkingRecord ToUpdate() => new(this);
+
+    /// <summary>
+    /// Gets an object representing a request to delete an existing <see cref="MarkingRecord"/>.
+    /// </summary>
+    /// <returns></returns>
+    public DeleteObject ToDelete() => new(RecordId.ToString(CultureInfo.InvariantCulture));
 }
