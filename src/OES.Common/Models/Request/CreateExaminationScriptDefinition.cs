@@ -38,21 +38,21 @@ public class CreateExaminationScriptDefinition
     /// <param name="scriptBarcodeMargin"></param>
     /// <param name="scriptBarcode"></param>
     public CreateExaminationScriptDefinition(
-        Examination examination,
-        ExaminationScriptType examinationScriptType,
-        ExaminationScriptSize examinationScriptSize,
-        int scriptSheetCount,
+        Examination                           examination,
+        ExaminationScriptType                 examinationScriptType,
+        ExaminationScriptSize                 examinationScriptSize,
+        int                                   scriptSheetCount,
         IReadOnlyDictionary<int, ImageMargin> candidateBarcodesMargins,
-        ImageMargin scriptBarcodeMargin,
-        string scriptBarcode) 
+        ImageMargin                           scriptBarcodeMargin,
+        string                                scriptBarcode)
         : this(
-        examination.ExaminationId,
-        examinationScriptType,
-        examinationScriptSize,
-        scriptSheetCount,
-        candidateBarcodesMargins,
-        scriptBarcodeMargin,
-        scriptBarcode
+            examination.ExaminationId,
+            examinationScriptType,
+            examinationScriptSize,
+            scriptSheetCount,
+            candidateBarcodesMargins,
+            scriptBarcodeMargin,
+            scriptBarcode
         )
     {
     }

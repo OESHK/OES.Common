@@ -8,11 +8,7 @@ public class CandidateAdmissionEntry
     /// <summary>
     /// Creates an instance for a CandidateAdmissionEntry.
     /// </summary>
-    /// <param name="candidateId"></param>
-    /// <param name="examinationId"></param>
-    /// <param name="centreNumber"></param>
-    /// <param name="seatNumber"></param>
-    public CandidateAdmissionEntry(string candidateId, string examinationId, string centreNumber, int seatNumber)
+    public CandidateAdmissionEntry(string candidateId, string examinationId, string? centreNumber, int? seatNumber)
     {
         CandidateId = candidateId;
         ExaminationId = examinationId;
@@ -33,10 +29,10 @@ public class CandidateAdmissionEntry
     /// <summary>
     /// The number of exam centre in which the candidate will sit the exam.
     /// </summary>
-    public string CentreNumber { get; }
+    public string? CentreNumber { get; }
     
     /// <summary>
     /// The candidate's seat number within the examination centre.
     /// </summary>
-    public int SeatNumber { get; }
+    public int? SeatNumber { get; }
 }

@@ -17,7 +17,7 @@ public abstract class UserWithDetailedName : User
     /// <param name="englishLastName">Last name of user in English.</param>
     /// <param name="chineseFullName">Full name of user in Chinese.</param>
     /// <param name="salt">Salt for logging in.</param>
-    protected UserWithDetailedName(UserType userType, string id, string englishFirstName, string englishLastName, string chineseFullName, string salt) : base(userType, id, salt)
+    protected UserWithDetailedName(UserType userType, string id, string englishFirstName, string englishLastName, string? chineseFullName, string salt) : base(userType, id, salt)
     {
         EnglishFirstName = englishFirstName;
         EnglishLastName = englishLastName;
@@ -39,5 +39,5 @@ public abstract class UserWithDetailedName : User
     /// Full name of user in English.
     /// </summary>
     [JsonProperty("name_chinese")]
-    public string ChineseFullName { get; }
+    public string? ChineseFullName { get; }
 }

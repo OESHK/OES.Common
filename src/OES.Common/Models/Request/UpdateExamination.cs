@@ -7,14 +7,14 @@ public class UpdateExamination
 {
     internal UpdateExamination(Examination examination)
     {
-        ExaminationId = examination.ExaminationId;
+        ExaminationId    = examination.ExaminationId;
         ExaminationLevel = examination.ExaminationLevel;
-        ExaminationYear = examination.ExaminationYear;
-        ExaminationName = examination.ExaminationName;
-        SubjectCode = examination.SubjectCode;
-        SubjectName = examination.SubjectName;
-        PaperCode = examination.PaperCode;
-        PaperName = examination.PaperName;
+        ExaminationYear  = examination.ExaminationYear;
+        ExaminationName  = examination.ExaminationName;
+        SubjectCode      = examination.SubjectCode;
+        SubjectName      = examination.SubjectName;
+        PaperCode        = examination.PaperCode;
+        PaperName        = examination.PaperName;
     }
     
     /// <inheritdoc cref="Examination.ExaminationId"/>

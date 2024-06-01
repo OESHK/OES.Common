@@ -14,27 +14,27 @@ public class CandidateUser : UserWithDetailedName
     /// Creates a CandidateUser instance.
     /// </summary>
     public CandidateUser(
-        string id,
-        string engFirstName,
-        string engLastName,
-        string chiName,
-        string phone,
-        string email,
-        Gender gender,
-        string @class,
-        int classNumber,
-        string idType,
-        string idNumber,
-        DateOnly dob,
-        string salt) : base(UserType.Candidate, id, engFirstName, engLastName, chiName, salt)
+        string   id,
+        string   engFirstName,
+        string   engLastName,
+        string?  chiName,
+        string?  phone,
+        string   email,
+        Gender   gender,
+        string?  @class,
+        int?     classNumber,
+        string?  idType,
+        string?  idNumber,
+        DateOnly? dob,
+        string   salt) : base(UserType.Candidate, id, engFirstName, engLastName, chiName, salt)
     {
         PhoneNumber = phone;
-        Email = email;
-        Gender = gender;
-        Class = @class;
+        Email       = email;
+        Gender      = gender;
+        Class       = @class;
         ClassNumber = classNumber;
-        IdType = idType;
-        IdNumber = idNumber;
+        IdType      = idType;
+        IdNumber    = idNumber;
         DateOfBirth = dob;
     }
     
@@ -46,13 +46,13 @@ public class CandidateUser : UserWithDetailedName
     /// <summary>
     /// The type of candidate's registered identification document. E.g. HKID, Passport, etc.
     /// </summary>
-    public string IdType { get; }
+    public string? IdType { get; }
     
     /// <summary>
     /// The number of the candidate's registered identification document.
     /// </summary>
     [JsonProperty("id_no")]
-    public string IdNumber { get; }
+    public string? IdNumber { get; }
     
     public Gender Gender { get; }
     
@@ -62,20 +62,20 @@ public class CandidateUser : UserWithDetailedName
     /// The candidate's mobile phone number. Region codes included.
     /// </summary>
     [JsonProperty("phone_no")]
-    public string PhoneNumber { get; }
+    public string? PhoneNumber { get; }
     
     /// <summary>
     /// The candidate's class. E.g. 6A
     /// </summary>
-    public string Class { get; }
+    public string? Class { get; }
     
     /// <summary>
     /// The class number of the candidate.
     /// </summary>
     [JsonProperty("class_no")]
-    public int ClassNumber { get; }
+    public int? ClassNumber { get; }
     
-    public DateOnly DateOfBirth { get; }
+    public DateOnly? DateOfBirth { get; }
 
     /// <summary>
     /// Gets an object representing a Create Candidate request.

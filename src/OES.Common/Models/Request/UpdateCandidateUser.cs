@@ -9,18 +9,18 @@ public class UpdateCandidateUser
 {
     internal UpdateCandidateUser(CandidateUser candidateUser)
     {
-        CandidateId = candidateUser.CandidateId;
+        CandidateId      = candidateUser.CandidateId;
         EnglishFirstName = candidateUser.EnglishFirstName;
-        EnglishLastName = candidateUser.EnglishLastName;
-        ChineseFullName = candidateUser.ChineseFullName;
-        IdType = candidateUser.IdType;
-        IdNumber = candidateUser.IdNumber;
-        Gender = candidateUser.Gender;
-        Email = candidateUser.Email;
-        PhoneNumber = candidateUser.PhoneNumber;
-        Class = candidateUser.Class;
-        ClassNumber = candidateUser.ClassNumber;
-        DateOfBirth = candidateUser.DateOfBirth;
+        EnglishLastName  = candidateUser.EnglishLastName;
+        ChineseFullName  = candidateUser.ChineseFullName;
+        IdType           = candidateUser.IdType;
+        IdNumber         = candidateUser.IdNumber;
+        Gender           = candidateUser.Gender;
+        Email            = candidateUser.Email;
+        PhoneNumber      = candidateUser.PhoneNumber;
+        Class            = candidateUser.Class;
+        ClassNumber      = candidateUser.ClassNumber;
+        DateOfBirth      = candidateUser.DateOfBirth;
     }
     
     /// <summary>

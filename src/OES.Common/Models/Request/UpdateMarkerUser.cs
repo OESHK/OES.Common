@@ -9,10 +9,10 @@ public class UpdateMarkerUser
 {
     internal UpdateMarkerUser(MarkerUser markerUser)
     {
-        MarkerId = markerUser.MarkerId;
+        MarkerId         = markerUser.MarkerId;
         EnglishFirstName = markerUser.EnglishFirstName;
-        EnglishLastName = markerUser.EnglishLastName;
-        ChineseFullName = markerUser.ChineseFullName;
+        EnglishLastName  = markerUser.EnglishLastName;
+        ChineseFullName  = markerUser.ChineseFullName;
     }
     
     /// <summary>

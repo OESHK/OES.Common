@@ -8,24 +8,24 @@ namespace OES;
 public class Examination
 {
     public Examination(
-        int id,
-        string examinationLevel,
-        string examinationName,
-        string examinationYear,
-        string subjectCode,
-        string subjectName,
-        string paperCode,
-        string paperName,
+        int               id,
+        string?           examinationLevel,
+        string?           examinationName,
+        string?           examinationYear,
+        string            subjectCode,
+        string?           subjectName,
+        string            paperCode,
+        string?           paperName,
         ExaminationStatus examinationStatus)
     {
-        ExaminationId = id;
-        ExaminationLevel = examinationLevel;
-        ExaminationName = examinationName;
-        ExaminationYear = examinationYear;
-        SubjectCode = subjectCode;
-        SubjectName = subjectName;
-        PaperCode = paperCode;
-        PaperName = paperName;
+        ExaminationId     = id;
+        ExaminationLevel  = examinationLevel;
+        ExaminationName   = examinationName;
+        ExaminationYear   = examinationYear;
+        SubjectCode       = subjectCode;
+        SubjectName       = subjectName;
+        PaperCode         = paperCode;
+        PaperName         = paperName;
         ExaminationStatus = examinationStatus;
     }
 
@@ -37,17 +37,17 @@ public class Examination
     /// <summary>
     /// The level of the exam. E.g. DSE, UT, TSA etc.
     /// </summary>
-    public string ExaminationLevel { get; }
+    public string? ExaminationLevel { get; }
     
     /// <summary>
     /// The name of the exam.
     /// </summary>
-    public string ExaminationName { get; }
+    public string? ExaminationName { get; }
     
     /// <summary>
     /// The year of the exam. Can be non-integers, e.g. 2023/24 is acceptable.
     /// </summary>
-    public string ExaminationYear { get; }
+    public string? ExaminationYear { get; }
     
     /// <summary>
     /// The code of the subject. This code should appear on a candidate's barcode.
@@ -57,7 +57,7 @@ public class Examination
     /// <summary>
     /// The name of the subject.
     /// </summary>
-    public string SubjectName { get; }
+    public string? SubjectName { get; }
     
     /// <summary>
     /// The code of the paper. Typically, this should be 3-char long. E.g. 003.
@@ -67,7 +67,7 @@ public class Examination
     /// <summary>
     /// The name of the paper. E.g. LT - Listening.
     /// </summary>
-    public string PaperName { get; }
+    public string? PaperName { get; }
     
     public ExaminationStatus ExaminationStatus { get; }
 
