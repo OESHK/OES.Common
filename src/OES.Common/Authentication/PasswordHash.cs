@@ -2,7 +2,7 @@ using System.Security.Cryptography;
 using System.Text;
 using Isopoh.Cryptography.Argon2;
 
-namespace OES;
+namespace OES.Internal;
 
 /// <summary>
 /// Contains the tools for generating salt and hashing passwords with salt.

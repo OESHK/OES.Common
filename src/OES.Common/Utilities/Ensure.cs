@@ -1,4 +1,4 @@
-namespace OES;
+namespace OES.Internal;
 
 internal static class Ensure
 {
