@@ -6,4 +6,9 @@ internal static class Ensure
     {
         if (string.IsNullOrEmpty(arg)) throw new ArgumentNullException(argName);
     }
+
+    public static void ArgumentNotNull(object? obj, string argName)
+    {
+        if (obj is null) throw new ArgumentNullException(argName);
+    }
 }

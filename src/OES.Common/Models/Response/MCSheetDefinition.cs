@@ -1,3 +1,5 @@
+using Newtonsoft.Json;
+
 namespace OES;
 
 /// <summary>
@@ -28,5 +30,6 @@ public class MCSheetDefinition
     /// <summary>
     /// The collection of questions to be marked.
     /// </summary>
+    [JsonConverter(typeof(MCSheetAnswerJsonConverter))]
     public IReadOnlyCollection<MCSheetQuestionDefinition> Answers { get; }
 }

@@ -78,9 +78,9 @@ public class Examination
         string? examinationLevel,
         string? examinationYear,
         string? examinationName,
-        string subjectCode,
+        string  subjectCode,
         string? subjectName,
-        string paperCode,
+        string  paperCode,
         string? paperName)
         => new(examinationLevel, examinationYear, examinationName, subjectCode, subjectName, paperCode, paperName);
 

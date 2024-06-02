@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using Newtonsoft.Json;
 
 namespace OES;
 
@@ -25,7 +26,12 @@ public class CreateMCSheetDefinition
     public int PanelId { get; set; }
 
     /// <inheritdoc cref="MCSheetDefinition.Answers"/>
-    public IReadOnlyCollection<MCSheetQuestionDefinition> Answers => new ReadOnlyCollection<MCSheetQuestionDefinition>(_answers.ToList());
+    [JsonConverter(typeof(MCSheetAnswerJsonConverter))]
+    public IReadOnlyCollection<MCSheetQuestionDefinition> Answers
+    {
+        get => new ReadOnlyCollection<MCSheetQuestionDefinition>(_answers.ToList());
+        private set => _answers = value.ToArray();
+    }
     private ICollection<MCSheetQuestionDefinition> _answers = new List<MCSheetQuestionDefinition>();
 
     /// <summary>
