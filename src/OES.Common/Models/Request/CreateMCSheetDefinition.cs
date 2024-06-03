@@ -17,6 +17,7 @@ public class CreateMCSheetDefinition
         PanelId            = panelId;
         
         WriteAnswers(answers ?? new List<MCSheetQuestionDefinition>());
+        FillMissingAnswer();
     }
     
     /// <inheritdoc cref="MCSheetDefinition.ScriptDefinitionId"/>
@@ -54,6 +55,7 @@ public class CreateMCSheetDefinition
     {
         RemoveAnswerIfExists(answer.QuestionNumber);
         _answers.Add(answer);
+        FillMissingAnswer();
     }
 
     /// <summary>
