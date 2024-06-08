@@ -11,7 +11,7 @@ internal class Request
     
     public HttpMethod Method { get; set; } = HttpMethod.Get;
 
-    public IDictionary<string, string> Parameters { get; set; } = new Dictionary<string, string>();
+    public IDictionary<string, string>? Parameters { get; set; }
 
     public string ContentType { get; set; } = "application/json";
 
@@ -22,7 +22,7 @@ internal class Request
 
         if (endpoint.ToString().StartsWith('/')) // removes leading slash(es)
             endpoint = new Uri(endpoint.ToString().TrimStart('/'));
-        result.RequestUri = new Uri(baseAddress, endpoint);
+        result.RequestUri = new Uri(baseAddress, endpoint).ApplyParams(Parameters);
         
         foreach (var header in Headers)
             result.Headers.Add(header.Key, header.Value);

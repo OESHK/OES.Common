@@ -2,6 +2,10 @@ namespace OES.Internal;
 
 internal static class HttpHelpers
 {
+    /// <summary>
+    /// Applies parameters to the <see cref="Uri"/>.
+    /// If a parameter already exists in the given uri, the value is always replaced by the passed in values.
+    /// </summary>
     public static Uri ApplyParams(this Uri uri, IDictionary<string, string>? parameters)
     {
         Ensure.ArgumentNotNull(uri, nameof(uri));

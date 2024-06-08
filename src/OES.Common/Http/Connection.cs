@@ -8,6 +8,7 @@
  *      - METHODS
  */
 
+using System.Net;
 using Newtonsoft.Json;
 
 namespace OES.Internal;
@@ -115,11 +116,35 @@ internal class Connection
         return request;
     }
 
+    public Task<ApiResponse<T>> Get<T>(Uri endpoint, IDictionary<string, string>? parameters = null, AuthenticationType authType = AuthenticationType.AccessToken)
+    {
+        Ensure.ArgumentNotNull(endpoint, nameof(endpoint));
+
+        return InternalSendRequest<T>(GetRequest(null, HttpMethod.Get, parameters), endpoint, authType);
+    }
+
+    public async Task<Stream> GetRaw(Uri endpoint, IDictionary<string, string>? parameters = null, AuthenticationType authType = AuthenticationType.AccessToken)
+    {
+        Ensure.ArgumentNotNull(endpoint, nameof(endpoint));
+
+        var response = await InternalSendRequest(GetRequest(null, HttpMethod.Get, parameters), endpoint, authType)
+            .ConfigureAwait(false);
+        if (response.Body is not Stream s)
+            throw new InvalidDataException("Data returned from server is not of type \"Stream\"");
+        return s;
+    }
+
+    /// <summary>
+    /// Constructs a <see cref="Request"/> object.
+    /// </summary>
+    private static Request GetRequest(object? body, HttpMethod method, IDictionary<string, string>? parameters)
+        => new Request { Body = body, Method = method, Parameters = parameters };
+
     // Requests made by every client will ultimately go through this method.
     private async Task<Response> InternalSendRequest(Request request, Uri endpoint, AuthenticationType authType)
     {
         request.Headers.Add("User-Agent", UserAgent);
-        request = ApplyCredentials(request, authType);
+        request        = ApplyCredentials(request, authType);
         var responseMessage = await _httpClient.SendAsync(request.GetHttpRequestMessage(_baseAddress, endpoint)).ConfigureAwait(false);
         // todo: handle error http status codes
 
