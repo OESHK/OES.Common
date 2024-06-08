@@ -27,7 +27,14 @@ internal class Request
         foreach (var header in Headers)
             result.Headers.Add(header.Key, header.Value);
 
-        if (Body is null) throw new NullReferenceException("The body of the request is null.");
+        switch (Body)
+        {
+            case null when Method == HttpMethod.Get:
+                return result; // request body can be null when method is GET
+            case null:
+                throw new NullReferenceException("Request body is null.");
+        }
+
         if (HttpHelpers.IsBinaryContentType(ContentType))
         {
             result.Content = new StreamContent(new MemoryStream((byte[])Body));
