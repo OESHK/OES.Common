@@ -29,4 +29,10 @@ public class Session
     /// The time of the expiry of this session.
     /// </summary>
     public DateTime SessionExpiry { get; }
+
+    /// <summary>
+    /// Checks if the expiry is within 5 seconds from current time.
+    /// </summary>
+    public bool IsExpiring()
+        => (SessionExpiry - DateTime.UtcNow.AddHours(8)).Seconds <= 5;
 }
