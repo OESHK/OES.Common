@@ -28,18 +28,13 @@ internal class Response
         object? responseBody;
         
         Ensure.ArgumentNotNull(responseMessage, nameof(responseMessage));
-
-        var binaryContentTypes = new[]
-        {
-            "application/octet-stream"
-        };
+        
         var contentType = "text/plain";
         if (responseMessage.Content.Headers.ContentType?.MediaType is not null)
             contentType = responseMessage.Content.Headers.ContentType.MediaType;
         var content = responseMessage.Content;
 
-        if (contentType.StartsWith("image/", StringComparison.OrdinalIgnoreCase)
-            || binaryContentTypes.Any(x => x.Equals(contentType, StringComparison.OrdinalIgnoreCase)))
+        if (HttpHelpers.IsBinaryContentType(contentType))
         {
             // binary response content type
             responseBody = await content.ReadAsStreamAsync().ConfigureAwait(false);
