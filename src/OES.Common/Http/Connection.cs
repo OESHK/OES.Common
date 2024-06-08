@@ -116,11 +116,19 @@ internal class Connection
         return request;
     }
 
-    public Task<ApiResponse<T>> Get<T>(Uri endpoint, IDictionary<string, string>? parameters = null, AuthenticationType authType = AuthenticationType.AccessToken)
+    public async Task<HttpStatusCode> Delete(Uri endpoint, IDictionary<string, string>? parameters = null, AuthenticationType authType = AuthenticationType.AccessToken)
     {
         Ensure.ArgumentNotNull(endpoint, nameof(endpoint));
 
-        return InternalSendRequest<T>(GetRequest(null, HttpMethod.Get, parameters), endpoint, authType);
+        var response = await InternalSendRequest(GetRequest(null, HttpMethod.Delete, parameters), endpoint, authType).ConfigureAwait(false);
+        return response.StatusCode;
+    }
+
+    public async Task<ApiResponse<T>> Get<T>(Uri endpoint, IDictionary<string, string>? parameters = null, AuthenticationType authType = AuthenticationType.AccessToken)
+    {
+        Ensure.ArgumentNotNull(endpoint, nameof(endpoint));
+
+        return await InternalSendRequest<T>(GetRequest(null, HttpMethod.Get, parameters), endpoint, authType).ConfigureAwait(false);
     }
 
     public async Task<Stream> GetRaw(Uri endpoint, IDictionary<string, string>? parameters = null, AuthenticationType authType = AuthenticationType.AccessToken)
