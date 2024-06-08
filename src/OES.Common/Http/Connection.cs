@@ -1,3 +1,15 @@
+/***
+ * NOTE:
+ * TO MAINTAIN READABILITY, ALL MEMBERS OF THIS CLASS SHOULD BE ARRANGED BY THEIR TYPES THEN THEIR NAMES.
+ * THE ORDER OF MEMBER TYPES WOULD BE:
+ *      - FIELDS
+ *      - PROPERTIES
+ *      - CONSTRUCTORS
+ *      - METHODS
+ */
+
+using Newtonsoft.Json;
+
 namespace OES.Internal;
 
 /// <summary>
@@ -74,15 +86,6 @@ internal class Connection
     {
     }
 
-    private async Task<Response> InternalSend(Request request, Uri endpoint, AuthenticationType authType)
-    {
-        request.Headers.Add("User-Agent", UserAgent);
-        request = ApplyCredentials(request, authType);
-        var responseMessage = await _httpClient.SendAsync(request.GetHttpRequestMessage(_baseAddress, endpoint)).ConfigureAwait(false);
-
-        return await Response.GetResponseFromMessage(responseMessage).ConfigureAwait(false);
-    }
-
     private Request ApplyCredentials(Request request, AuthenticationType authType)
     {
         switch (authType)
@@ -110,5 +113,27 @@ internal class Connection
         }
 
         return request;
+    }
+
+    // Requests made by every client will ultimately go through this method.
+    private async Task<Response> InternalSendRequest(Request request, Uri endpoint, AuthenticationType authType)
+    {
+        request.Headers.Add("User-Agent", UserAgent);
+        request = ApplyCredentials(request, authType);
+        var responseMessage = await _httpClient.SendAsync(request.GetHttpRequestMessage(_baseAddress, endpoint)).ConfigureAwait(false);
+        // todo: handle error http status codes
+
+        return await Response.GetResponseFromMessage(responseMessage).ConfigureAwait(false);
+    }
+
+    private async Task<ApiResponse<T>> InternalSendRequest<T>(
+        Request            request,
+        Uri                endpoint,
+        AuthenticationType authType)
+    {
+        var response = await InternalSendRequest(request, endpoint, authType).ConfigureAwait(false);
+        var responseBody = JsonConvert.DeserializeObject<T>((string) response.Body);
+        if (responseBody is null) throw new NullReferenceException("The response body is null.");
+        return new ApiResponse<T>(response, responseBody);
     }
 }
