@@ -5,7 +5,7 @@ namespace OES.Internal;
 
 internal class Request
 {
-    public object Body { get; set; }
+    public object? Body { get; set; }
 
     public IDictionary<string, string> Headers { get; set; } = new Dictionary<string, string>();
     
@@ -26,8 +26,16 @@ internal class Request
         
         foreach (var header in Headers)
             result.Headers.Add(header.Key, header.Value);
-        
-        result.Content = new StringContent(JsonConvert.SerializeObject(Body), Encoding.UTF8);
+
+        if (Body is null) throw new NullReferenceException("The body of the request is null.");
+        if (HttpHelpers.IsBinaryContentType(ContentType))
+        {
+            result.Content = new StreamContent(new MemoryStream((byte[])Body));
+        }
+        else
+        {
+            result.Content = new StringContent(JsonConvert.SerializeObject(Body), Encoding.UTF8);
+        }
         
         return result;
     }
