@@ -13,7 +13,12 @@ internal class Request
 
     public IDictionary<string, string>? Parameters { get; set; }
 
-    public string ContentType { get; set; } = "application/json";
+    public string? ContentType
+    {
+        get => _contentType ?? "application/json";
+        set => _contentType = value ?? "application/json";
+    }
+    private string? _contentType;
 
     public HttpRequestMessage GetHttpRequestMessage(Uri baseAddress, Uri endpoint)
     {
@@ -35,7 +40,7 @@ internal class Request
                 throw new NullReferenceException("Request body is null.");
         }
 
-        if (HttpHelpers.IsBinaryContentType(ContentType))
+        if (HttpHelpers.IsBinaryContentType(ContentType!))
         {
             result.Content = new StreamContent(new MemoryStream((byte[])Body));
         }

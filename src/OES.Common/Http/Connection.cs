@@ -116,26 +116,26 @@ internal class Connection
         return request;
     }
 
-    public async Task<HttpStatusCode> Delete(Uri endpoint, IDictionary<string, string>? parameters = null, AuthenticationType authType = AuthenticationType.AccessToken)
+    public async Task<HttpStatusCode> Delete(Uri endpoint, IDictionary<string, string>? parameters = null, string? contentType = null, AuthenticationType authType = AuthenticationType.AccessToken)
     {
         Ensure.ArgumentNotNull(endpoint, nameof(endpoint));
 
-        var response = await InternalSendRequest(GetRequest(null, HttpMethod.Delete, parameters), endpoint, authType).ConfigureAwait(false);
+        var response = await InternalSendRequest(GetRequest(null, HttpMethod.Delete, parameters, contentType), endpoint, authType).ConfigureAwait(false);
         return response.StatusCode;
     }
 
-    public async Task<ApiResponse<T>> Get<T>(Uri endpoint, IDictionary<string, string>? parameters = null, AuthenticationType authType = AuthenticationType.AccessToken)
+    public Task<ApiResponse<T>> Get<T>(Uri endpoint, IDictionary<string, string>? parameters = null, string? contentType = null, AuthenticationType authType = AuthenticationType.AccessToken)
     {
         Ensure.ArgumentNotNull(endpoint, nameof(endpoint));
 
-        return await InternalSendRequest<T>(GetRequest(null, HttpMethod.Get, parameters), endpoint, authType).ConfigureAwait(false);
+        return InternalSendRequest<T>(GetRequest(null, HttpMethod.Get, parameters, contentType), endpoint, authType);
     }
 
-    public async Task<Stream> GetRaw(Uri endpoint, IDictionary<string, string>? parameters = null, AuthenticationType authType = AuthenticationType.AccessToken)
+    public async Task<Stream> GetRaw(Uri endpoint, IDictionary<string, string>? parameters = null, string? contentType = null, AuthenticationType authType = AuthenticationType.AccessToken)
     {
         Ensure.ArgumentNotNull(endpoint, nameof(endpoint));
 
-        var response = await InternalSendRequest(GetRequest(null, HttpMethod.Get, parameters), endpoint, authType)
+        var response = await InternalSendRequest(GetRequest(null, HttpMethod.Get, parameters, contentType), endpoint, authType)
             .ConfigureAwait(false);
         if (response.Body is not Stream s)
             throw new InvalidDataException("Data returned from server is not of type \"Stream\"");
@@ -145,8 +145,8 @@ internal class Connection
     /// <summary>
     /// Constructs a <see cref="Request"/> object.
     /// </summary>
-    private static Request GetRequest(object? body, HttpMethod method, IDictionary<string, string>? parameters)
-        => new Request { Body = body, Method = method, Parameters = parameters };
+    private static Request GetRequest(object? body, HttpMethod method, IDictionary<string, string>? parameters, string? contentType)
+        => new Request { Body = body, Method = method, Parameters = parameters, ContentType = contentType };
 
     // Requests made by every client will ultimately go through this method.
     private async Task<Response> InternalSendRequest(Request request, Uri endpoint, AuthenticationType authType)
@@ -168,5 +168,56 @@ internal class Connection
         var responseBody = JsonConvert.DeserializeObject<T>((string) response.Body);
         if (responseBody is null) throw new NullReferenceException("The response body is null.");
         return new ApiResponse<T>(response, responseBody);
+    }
+
+    public Task<ApiResponse<T>> Patch<T>(Uri endpoint, object body, IDictionary<string, string> parameters, string? contentType = null, AuthenticationType authType = AuthenticationType.AccessToken)
+    {
+        Ensure.ArgumentNotNull(endpoint, nameof(endpoint));
+        Ensure.ArgumentNotNull(body, nameof(body));
+
+        return InternalSendRequest<T>(GetRequest(body, HttpMethod.Patch, parameters, contentType), endpoint, authType);
+    }
+
+    public async Task<HttpStatusCode> Patch(Uri endpoint, object body, IDictionary<string, string> parameters, string? contentType = null, AuthenticationType authType = AuthenticationType.AccessToken)
+    {
+        Ensure.ArgumentNotNull(endpoint, nameof(endpoint));
+        Ensure.ArgumentNotNull(body, nameof(body));
+
+        var response = await InternalSendRequest(GetRequest(body, HttpMethod.Patch, parameters, contentType), endpoint, authType).ConfigureAwait(false);
+        return response.StatusCode;
+    }
+
+    public Task<ApiResponse<T>> Post<T>(Uri endpoint, object body, IDictionary<string, string> parameters, string? contentType = null, AuthenticationType authType = AuthenticationType.AccessToken)
+    {
+        Ensure.ArgumentNotNull(endpoint, nameof(endpoint));
+        Ensure.ArgumentNotNull(body, nameof(body));
+
+        return InternalSendRequest<T>(GetRequest(body, HttpMethod.Post, parameters, contentType), endpoint, authType);
+    }
+
+    public async Task<HttpStatusCode> Post(Uri endpoint, object body, IDictionary<string, string> parameters, string? contentType = null, AuthenticationType authType = AuthenticationType.AccessToken)
+    {
+        Ensure.ArgumentNotNull(endpoint, nameof(endpoint));
+        Ensure.ArgumentNotNull(body, nameof(body));
+
+        var response = await InternalSendRequest(GetRequest(body, HttpMethod.Post, parameters, contentType), endpoint, authType).ConfigureAwait(false);
+        return response.StatusCode;
+    }
+    
+    public Task<ApiResponse<T>> Put<T>(Uri endpoint, object body, IDictionary<string, string> parameters, string? contentType = null, AuthenticationType authType = AuthenticationType.AccessToken)
+    {
+        Ensure.ArgumentNotNull(endpoint, nameof(endpoint));
+        Ensure.ArgumentNotNull(body, nameof(body));
+
+        return InternalSendRequest<T>(GetRequest(body, HttpMethod.Put, parameters, contentType), endpoint, authType);
+    }
+
+    public async Task<HttpStatusCode> Put(Uri endpoint, object body, IDictionary<string, string> parameters, string? contentType = null, AuthenticationType authType = AuthenticationType.AccessToken)
+    {
+        Ensure.ArgumentNotNull(endpoint, nameof(endpoint));
+        Ensure.ArgumentNotNull(body, nameof(body));
+
+        var response = await InternalSendRequest(GetRequest(body, HttpMethod.Put, parameters, contentType), endpoint, authType).ConfigureAwait(false);
+        return response.StatusCode;
     }
 }
