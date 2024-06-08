@@ -1,3 +1,6 @@
+using System.Text;
+using Newtonsoft.Json;
+
 namespace OES.Internal;
 
 internal class Request
@@ -11,4 +14,14 @@ internal class Request
     public IDictionary<string, string> Parameters { get; set; }
     
     public string ContentType { get; set; }
+
+    public HttpRequestMessage GetHttpRequestMessage()
+    {
+        var result = new HttpRequestMessage();
+        result.Method = Method;
+        foreach (var header in Headers)
+            result.Headers.Add(header.Key, header.Value);
+        result.Content = new StringContent(JsonConvert.SerializeObject(Body), Encoding.UTF8);
+        return result;
+    }
 }
