@@ -1,3 +1,4 @@
+using System.Text;
 using OES.Internal;
 
 namespace OES;
@@ -74,4 +75,37 @@ public class Credentials
     /// The password of the credential.
     /// </summary>
     public string Password { get; private set; }
+
+    internal void ApplyCredentials(Request request)
+    {
+        switch (AuthenticationType)
+        {
+            case AuthenticationType.Anonymous:
+                return;
+            case AuthenticationType.Basic:
+            {
+                var userType = UserType switch
+                {
+                    OES.UserType.Candidate => throw new ArgumentException(
+                        "Candidate authentication not supported at this point."),
+                    OES.UserType.Marker => "marker",
+                    OES.UserType.Admin => "admin",
+                    _ => throw new ArgumentOutOfRangeException(nameof(request), "Invalid UserType value is supplied.")
+                };
+                var cred = Convert.ToBase64String(Encoding.UTF8.GetBytes($"{userType}@{Login}:{Password}"));
+                request.Headers.Add("Authorization", $"Basic {cred}");
+                break;
+            }
+            case AuthenticationType.AccessToken:
+            {
+                var cred = Convert.ToBase64String(Encoding.UTF8.GetBytes($"{Login}:{Password}"));
+                request.Headers.Add("Authorization", $"Bearer {cred}");
+                break;
+            }
+            default:
+            {
+                throw new Exception("Invalid credentials. Unknown authorisation type.");
+            }
+        }
+    }
 }
