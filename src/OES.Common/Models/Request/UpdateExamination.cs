@@ -7,19 +7,12 @@ public class UpdateExamination
 {
     internal UpdateExamination(Examination examination)
     {
-        ExaminationId    = examination.ExaminationId;
-        ExaminationLevel = examination.ExaminationLevel;
-        ExaminationYear  = examination.ExaminationYear;
-        ExaminationName  = examination.ExaminationName;
-        SubjectCode      = examination.SubjectCode;
-        SubjectName      = examination.SubjectName;
-        PaperCode        = examination.PaperCode;
-        PaperName        = examination.PaperName;
+        ExaminationId = examination.ExaminationId;
     }
     
     /// <inheritdoc cref="Examination.ExaminationId"/>
     public int ExaminationId { get; }
-    
+
     /// <inheritdoc cref="Examination.ExaminationLevel"/>
     public string? ExaminationLevel { get; set; }
     
@@ -30,13 +23,13 @@ public class UpdateExamination
     public string? ExaminationName { get; set; }
     
     /// <inheritdoc cref="Examination.SubjectCode"/>
-    public string SubjectCode { get; set; }
+    public string? SubjectCode { get; set; }
     
     /// <inheritdoc cref="Examination.SubjectName"/>
     public string? SubjectName { get; set; }
     
     /// <inheritdoc cref="Examination.PaperCode"/>
-    public string PaperCode { get; set; }
+    public string? PaperCode { get; set; }
     
     /// <inheritdoc cref="Examination.PaperName"/>
     public string? PaperName { get; set; }
