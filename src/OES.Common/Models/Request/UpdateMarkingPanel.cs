@@ -76,7 +76,7 @@ public class UpdateMarkingPanel
     /// <summary>
     /// Whether the markers in this marking panel have been modified (added/changed/removed).
     /// </summary>
-    internal bool MarkersModified => OriginalMarkers.Except(Markers).ToArray().Length == 0;
+    internal bool MarkersModified => OriginalMarkers.Except(Markers).ToArray().Length != 0;
 
     private bool HasQuestion(MarkingPanelQuestion question) => Questions?.Any(x => x == question) ?? false;
     
