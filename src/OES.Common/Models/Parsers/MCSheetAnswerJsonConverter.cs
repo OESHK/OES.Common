@@ -1,7 +1,6 @@
 using Newtonsoft.Json;
-using OES.Internal;
 
-namespace OES;
+namespace OES.Internal;
 
 internal class MCSheetAnswerJsonConverter : JsonConverter<ICollection<MCSheetQuestionDefinition>>
 {
