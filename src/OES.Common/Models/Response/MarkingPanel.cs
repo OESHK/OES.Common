@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using System.Globalization;
 using Newtonsoft.Json;
+using OES.Internal;
 
 namespace OES;
 
@@ -88,7 +89,7 @@ public class MarkingPanel
     /// <summary>
     /// The list of markers being rostered in this marking panel.
     /// </summary>
-    [JsonIgnore]
+    [JsonConverter(typeof(MarkerRosterEntriesJsonConverter))]
     public IReadOnlyCollection<MarkerRosterEntry>? Markers { get; }
     
     /// <summary>
