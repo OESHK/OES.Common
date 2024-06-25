@@ -11,7 +11,8 @@ public class MCSheetDefinition
     /// <summary>
     /// Creates an instance for an MCQ OMR sheet definition.
     /// </summary>
-    public MCSheetDefinition(int id, int panelId, IReadOnlyCollection<MCSheetQuestionDefinition> answers)
+    [JsonConstructor]
+    internal MCSheetDefinition(int id, int panelId, IReadOnlyCollection<MCSheetQuestionDefinition> answers)
     {
         ScriptDefinitionId = id;
         PanelId = panelId;

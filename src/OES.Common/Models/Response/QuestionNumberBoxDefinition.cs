@@ -1,4 +1,5 @@
 using System.Globalization;
+using Newtonsoft.Json;
 
 namespace OES;
 
@@ -10,7 +11,8 @@ public class QuestionNumberBoxDefinition
     /// <summary>
     /// Creates an instance for QuestionNumberBoxDefinition.
     /// </summary>
-    public QuestionNumberBoxDefinition(
+    [JsonConstructor]
+    internal QuestionNumberBoxDefinition(
         int                                   id,
         ImageMargin                           boxImageMargin,
         IEnumerable<int>                      validQuestionsRange,

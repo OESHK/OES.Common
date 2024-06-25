@@ -1,4 +1,5 @@
 using System.Globalization;
+using Newtonsoft.Json;
 
 namespace OES;
 
@@ -10,7 +11,8 @@ public class MarkingRecord
     /// <summary>
     /// Creates an instance of a MarkingRecord.
     /// </summary>
-    public MarkingRecord(
+    [JsonConstructor]
+    internal MarkingRecord(
         int                       recordId,
         string                    markerId,
         int                       markedEntryId,

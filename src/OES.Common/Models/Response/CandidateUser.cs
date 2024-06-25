@@ -13,7 +13,8 @@ public class CandidateUser : UserWithDetailedName
     /// <summary>
     /// Creates a CandidateUser instance.
     /// </summary>
-    public CandidateUser(
+    [JsonConstructor]
+    internal CandidateUser(
         string   id,
         string   engFirstName,
         string   engLastName,

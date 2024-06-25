@@ -1,3 +1,5 @@
+using Newtonsoft.Json;
+
 namespace OES;
 
 /// <summary>
@@ -8,7 +10,8 @@ public class CandidateAdmissionEntry
     /// <summary>
     /// Creates an instance for a CandidateAdmissionEntry.
     /// </summary>
-    public CandidateAdmissionEntry(string candidateId, string examinationId, string? centreNumber, int? seatNumber)
+    [JsonConstructor]
+    internal CandidateAdmissionEntry(string candidateId, string examinationId, string? centreNumber, int? seatNumber)
     {
         CandidateId = candidateId;
         ExaminationId = examinationId;

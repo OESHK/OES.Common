@@ -1,4 +1,5 @@
 using System.Globalization;
+using Newtonsoft.Json;
 
 namespace OES;
 
@@ -7,7 +8,8 @@ namespace OES;
 /// </summary>
 public class Examination
 {
-    public Examination(
+    [JsonConstructor]
+    internal Examination(
         int               id,
         string?           examinationLevel,
         string?           examinationName,
