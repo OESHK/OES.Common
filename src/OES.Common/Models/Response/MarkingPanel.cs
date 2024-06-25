@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using System.Globalization;
 using Newtonsoft.Json;
+using OES.Internal;
 
 namespace OES;
 
@@ -12,16 +13,17 @@ public class MarkingPanel
     /// <summary>
     /// Creates an instance for MarkingPanel.
     /// </summary>
-    public MarkingPanel(
-        int id, 
-        int examinationId, 
-        string panelCode, 
-        string? panelDescription, 
-        bool doubleMarking, 
-        int markDifferenceTolerance, 
-        bool isMcPanel, 
-        MarkingPanelStatus markingPanelStatus,
-        ICollection<MarkerRosterEntry> markers,
+    [JsonConstructor]
+    internal MarkingPanel(
+        int                               id,
+        int                               examinationId,
+        string                            panelCode,
+        string                            panelDescription,
+        bool                              doubleMarking,
+        int                               markDifferenceTolerance,
+        bool                              isMcPanel,
+        MarkingPanelStatus                markingPanelStatus,
+        ICollection<MarkerRosterEntry>    markers,
         ICollection<MarkingPanelQuestion> questions)
     {
         PanelId                 = id;
@@ -53,11 +55,11 @@ public class MarkingPanel
     /// However, the rules above are not forced.
     /// </summary>
     public string PanelCode { get; }
-    
+
     /// <summary>
     /// Description of the marking panel.
     /// </summary>
-    public string? PanelDescription { get; }
+    public string PanelDescription { get; }
     
     /// <summary>
     /// Whether the marking panel enforces double marking policy.
@@ -88,7 +90,7 @@ public class MarkingPanel
     /// <summary>
     /// The list of markers being rostered in this marking panel.
     /// </summary>
-    [JsonIgnore]
+    [JsonConverter(typeof(MarkerRosterEntriesJsonConverter))]
     public IReadOnlyCollection<MarkerRosterEntry>? Markers { get; }
     
     /// <summary>

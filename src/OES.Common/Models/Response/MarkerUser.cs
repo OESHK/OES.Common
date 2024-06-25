@@ -1,3 +1,5 @@
+using Newtonsoft.Json;
+
 namespace OES;
 
 /// <summary>
@@ -13,7 +15,8 @@ public class MarkerUser : UserWithDetailedName
     /// <param name="engLastName">Last name of the marker in English.</param>
     /// <param name="chiName">Full name of the marker in Chinese.</param>
     /// <param name="salt">Salt for logging in.</param>
-    public MarkerUser(string id, string engFirstName, string engLastName, string chiName, string salt) : base(
+    [JsonConstructor]
+    internal MarkerUser(string id, string engFirstName, string engLastName, string chiName, string salt) : base(
         UserType.Marker, id, engFirstName, engLastName, chiName, salt)
     {
     }

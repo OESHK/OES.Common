@@ -1,4 +1,5 @@
 using System.Globalization;
+using Newtonsoft.Json;
 
 namespace OES;
 
@@ -11,7 +12,8 @@ public class ExaminationScriptDefinition
     /// <summary>
     /// Creates an instance for ExaminationScriptDefinition
     /// </summary>
-    public ExaminationScriptDefinition(
+    [JsonConstructor]
+    internal ExaminationScriptDefinition(
         int id, 
         int examinationId,
         ExaminationScriptType scriptType,

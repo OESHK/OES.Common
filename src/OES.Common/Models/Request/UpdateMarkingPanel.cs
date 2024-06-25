@@ -8,8 +8,6 @@ public class UpdateMarkingPanel
     internal UpdateMarkingPanel(MarkingPanel markingPanel)
     {
         PanelId           = markingPanel.PanelId;
-        PanelCode         = markingPanel.PanelCode;
-        PanelDescription  = markingPanel.PanelDescription;
         OriginalMarkers   = markingPanel.Markers ?? Array.Empty<MarkerRosterEntry>();
         Markers           = OriginalMarkers.ToList();
         OriginalQuestions = markingPanel.Questions ?? Array.Empty<MarkingPanelQuestion>();
@@ -20,7 +18,7 @@ public class UpdateMarkingPanel
     public int PanelId { get; }
     
     /// <inheritdoc cref="MarkingPanel.PanelCode"/>
-    public string PanelCode { get; set; }
+    public string? PanelCode { get; set; }
     
     /// <inheritdoc cref="MarkingPanel.PanelDescription"/>
     public string? PanelDescription { get; set; }
@@ -76,7 +74,7 @@ public class UpdateMarkingPanel
     /// <summary>
     /// Whether the markers in this marking panel have been modified (added/changed/removed).
     /// </summary>
-    internal bool MarkersModified => OriginalMarkers.Except(Markers).ToArray().Length == 0;
+    internal bool MarkersModified => OriginalMarkers.Except(Markers).ToArray().Length != 0;
 
     private bool HasQuestion(MarkingPanelQuestion question) => Questions?.Any(x => x == question) ?? false;
     

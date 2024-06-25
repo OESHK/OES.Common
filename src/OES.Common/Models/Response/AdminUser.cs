@@ -13,7 +13,8 @@ public class AdminUser : User
     /// <param name="id">The ID of the Admin.</param>
     /// <param name="userDisplayName">The name that will be displayed for the Admin.</param>
     /// <param name="loginSalt">Salt for logging in.</param>
-    public AdminUser(string id, string userDisplayName, string loginSalt) : base(UserType.Admin, id, loginSalt)
+    [JsonConstructor]
+    internal AdminUser(string id, string userDisplayName, string loginSalt) : base(UserType.Admin, id, loginSalt)
     {
         UserDisplayName = userDisplayName;
     }

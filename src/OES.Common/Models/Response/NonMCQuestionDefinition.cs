@@ -1,4 +1,5 @@
 using System.Globalization;
+using Newtonsoft.Json;
 
 namespace OES;
 
@@ -10,7 +11,8 @@ public class NonMCQuestionDefinition : QuestionDefinition
     /// <summary>
     /// Creates an instance for a non-MCQ definition
     /// </summary>
-    public NonMCQuestionDefinition(
+    [JsonConstructor]
+    internal NonMCQuestionDefinition(
         int id,
         int scriptDefinitionId,
         int questionNumber,

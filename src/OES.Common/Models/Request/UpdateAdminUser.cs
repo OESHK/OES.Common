@@ -8,7 +8,6 @@ public class UpdateAdminUser
     internal UpdateAdminUser(AdminUser adminUser)
     {
         AdminId = adminUser.AdminId;
-        UserDisplayName = adminUser.UserDisplayName;
     }
     
     /// <summary>
@@ -19,7 +18,7 @@ public class UpdateAdminUser
     /// <summary>
     /// The new display name of the Admin.
     /// </summary>
-    public string UserDisplayName { get; set; }
+    public string? UserDisplayName { get; set; }
     
     /*
      * For password reset/update, separate requests are to be made as the endpoints are different.

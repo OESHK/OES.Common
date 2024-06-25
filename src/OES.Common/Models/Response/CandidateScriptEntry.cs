@@ -1,4 +1,5 @@
 using System.Globalization;
+using Newtonsoft.Json;
 
 namespace OES;
 
@@ -10,7 +11,8 @@ public class CandidateScriptEntry
     /// <summary>
     /// Creates an instance for a script entry.
     /// </summary>
-    public CandidateScriptEntry(int id, string candidateId, int panelId, ScriptEntryStatus entryStatus)
+    [JsonConstructor]
+    internal CandidateScriptEntry(int id, string candidateId, int panelId, ScriptEntryStatus entryStatus)
     {
         EntryId = id;
         CandidateId = candidateId;

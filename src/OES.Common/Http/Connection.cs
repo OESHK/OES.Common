@@ -22,6 +22,12 @@ internal class Connection
     private readonly HttpClient   _httpClient;
     private readonly Session?     _session;
 
+    private static readonly JsonSerializerSettings JsonSerializerSettings =
+        new JsonSerializerSettings
+        {
+            NullValueHandling = NullValueHandling.Ignore // skip null values, especially for updating models
+        };
+
     private static Credentials _anonymousCredentials = Credentials.Anonymous;
     private const string       UserAgent             = "OES.Common/1.0.0";
     
@@ -165,7 +171,7 @@ internal class Connection
         AuthenticationType authType)
     {
         var response = await InternalSendRequest(request, endpoint, authType).ConfigureAwait(false);
-        var responseBody = JsonConvert.DeserializeObject<T>((string) response.Body);
+        var responseBody = JsonConvert.DeserializeObject<T>((string) response.Body, JsonSerializerSettings);
         if (responseBody is null) throw new NullReferenceException("The response body is null.");
         return new ApiResponse<T>(response, responseBody);
     }

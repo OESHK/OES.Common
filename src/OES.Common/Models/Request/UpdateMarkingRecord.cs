@@ -2,15 +2,14 @@ using Newtonsoft.Json;
 
 namespace OES;
 
+/// <summary>
+/// An object representing a request to update an existing <see cref="MarkingRecord"/>.
+/// </summary>
 public class UpdateMarkingRecord
 {
     internal UpdateMarkingRecord(MarkingRecord record)
     {
-        RecordId    = record.RecordId;
-        EndTime     = record.EndTime;
-        Annotations = record.Annotations;
-        Marks       = record.Marks.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
-        Remarks     = record.Remarks;
+        RecordId = record.RecordId;
     }
     
     /// <inheritdoc cref="MarkingRecord.RecordId"/>
@@ -24,7 +23,7 @@ public class UpdateMarkingRecord
     public ICollection<IAnnotation>? Annotations { get; set; }
     
     /// <inheritdoc cref="MarkingRecord.Marks"/>
-    public IDictionary<int, double> Marks { get; set; }
+    public IDictionary<int, double>? Marks { get; set; }
     
     /// <inheritdoc cref="MarkingRecord.Remarks"/>
     public string? Remarks { get; set; }

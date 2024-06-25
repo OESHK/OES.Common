@@ -9,18 +9,7 @@ public class UpdateCandidateUser
 {
     internal UpdateCandidateUser(CandidateUser candidateUser)
     {
-        CandidateId      = candidateUser.CandidateId;
-        EnglishFirstName = candidateUser.EnglishFirstName;
-        EnglishLastName  = candidateUser.EnglishLastName;
-        ChineseFullName  = candidateUser.ChineseFullName;
-        IdType           = candidateUser.IdType;
-        IdNumber         = candidateUser.IdNumber;
-        Gender           = candidateUser.Gender;
-        Email            = candidateUser.Email;
-        PhoneNumber      = candidateUser.PhoneNumber;
-        Class            = candidateUser.Class;
-        ClassNumber      = candidateUser.ClassNumber;
-        DateOfBirth      = candidateUser.DateOfBirth;
+        CandidateId = candidateUser.CandidateId;
     }
     
     /// <summary>
@@ -29,9 +18,9 @@ public class UpdateCandidateUser
     /// </summary>
     public string CandidateId { get; }
     
-    public string EnglishFirstName { get; set; }
+    public string? EnglishFirstName { get; set; }
     
-    public string EnglishLastName { get; set; }
+    public string? EnglishLastName { get; set; }
     
     public string? ChineseFullName { get; set; }
     
@@ -46,9 +35,9 @@ public class UpdateCandidateUser
     [JsonProperty("id_no")]
     public string? IdNumber { get; set; }
     
-    public Gender Gender { get; set; }
+    public Gender? Gender { get; set; }
     
-    public string Email { get; set; }
+    public string? Email { get; set; }
     
     /// <summary>
     /// The candidate's mobile phone number. Region codes included.

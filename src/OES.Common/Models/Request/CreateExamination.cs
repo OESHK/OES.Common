@@ -9,19 +9,19 @@ public class CreateExamination
         string? examinationLevel,
         string? examinationYear,
         string? examinationName,
-        string subjectCode,
+        string  subjectCode,
         string? subjectName,
-        string paperCode,
+        string  paperCode,
         string? paperName
-        )
+    )
     {
         ExaminationLevel = examinationLevel;
-        ExaminationYear = examinationYear;
-        ExaminationName = examinationName;
-        SubjectCode = subjectCode;
-        SubjectName = subjectName;
-        PaperCode = paperCode;
-        PaperName = paperName;
+        ExaminationYear  = examinationYear;
+        ExaminationName  = examinationName;
+        SubjectCode      = subjectCode;
+        SubjectName      = subjectName;
+        PaperCode        = paperCode;
+        PaperName        = paperName;
     }
 
     public CreateExamination(string subjectCode, string paperCode)

@@ -7,11 +7,12 @@ namespace OES;
 /// Represents a definition of one script slice. It instructs the system how to slice the scanned script images
 /// and which marking panel to assign the sliced script.
 /// </summary>
-public class ScriptSlicingDefinition
+internal class ScriptSlicingDefinition
 {
     /// <summary>
     /// Creates an instance for script slicing definition.
     /// </summary>
+    [JsonConstructor]
     public ScriptSlicingDefinition(
         int         sliceDefinitionId,
         int         scriptDefinitionId,
