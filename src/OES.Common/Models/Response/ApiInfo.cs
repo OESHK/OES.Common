@@ -1,9 +1,17 @@
-﻿namespace OES;
+﻿using Newtonsoft.Json;
+
+namespace OES;
 
 /// <summary>
 /// Provides basic information about the API server.
 /// </summary>
 public class ApiInfo
 {
-    public string ApiVersion { get; } = string.Empty;
+    [JsonConstructor]
+    internal ApiInfo(string apiVersion)
+    {
+        ApiVersion = apiVersion;
+    }
+    
+    public string ApiVersion { get; set; }
 }

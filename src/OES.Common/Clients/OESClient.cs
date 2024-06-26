@@ -29,14 +29,14 @@ public class OESClient
             throw new ArgumentException("Base address must be an absolute Uri.", nameof(baseAddress));
         
         var client = new OESClient(baseAddress, httpClient);
-        client._apiInfo = await client._apiConnection.Get<ApiInfo>(ApiEndpoints.GetApiInfo()).ConfigureAwait(false);
-        if (SupportedApiVersions.All(ver => ver != client._apiInfo.ApiVersion))
-            throw new UnsupportedApiVersionException(client._apiInfo.ApiVersion, SupportedApiVersions);
+        client.ApiInfo = await client._apiConnection.Get<ApiInfo>(ApiEndpoints.GetApiInfo(), authType: AuthenticationType.Anonymous).ConfigureAwait(false);
+        if (SupportedApiVersions.All(ver => ver != client.ApiInfo.ApiVersion))
+            throw new UnsupportedApiVersionException(client.ApiInfo.ApiVersion, SupportedApiVersions);
         
         // append version at the end of base uri
         client._connection.BaseAddress = new Uri(
             new Uri(baseAddress.ToString(), UriKind.Absolute),
-            new Uri(client._apiInfo.ApiVersion, UriKind.Relative));
+            new Uri(client.ApiInfo.ApiVersion, UriKind.Relative));
         
         client.SetCredentials(login);
         
@@ -66,7 +66,7 @@ public class OESClient
     }
     private Credentials? _basicAuthCredentials;
 
-    private ApiInfo? _apiInfo;
+    public ApiInfo? ApiInfo { get; private set; }
 
     private static readonly string[] SupportedApiVersions = 
     {

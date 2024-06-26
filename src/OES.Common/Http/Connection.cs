@@ -10,6 +10,7 @@
 
 using System.Net;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using OES.Internal;
 
 namespace OES;
@@ -25,11 +26,14 @@ public class Connection
     private static readonly JsonSerializerSettings JsonSerializerSettings =
         new JsonSerializerSettings
         {
-            NullValueHandling = NullValueHandling.Ignore // skip null values, especially for updating models
+            NullValueHandling = NullValueHandling.Ignore, // skip null values, especially for updating models
+            ContractResolver = new DefaultContractResolver
+            {
+                NamingStrategy = new SnakeCaseNamingStrategy()
+            }
         };
 
-    private static Credentials _anonymousCredentials = Credentials.Anonymous;
-    private const string       UserAgent             = "OES.Common/1.0.0";
+    private const string UserAgent = "OES.Common/1.0.0";
     
     public Credentials? Credentials { get; set; }
     public Uri BaseAddress { get; internal set; }
