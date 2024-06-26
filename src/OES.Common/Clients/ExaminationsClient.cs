@@ -6,18 +6,12 @@ namespace OES;
 /// <summary>
 /// A client for OES API Examinations endpoints.
 /// </summary>
-public class ExaminationsClient : IClient
+public class ExaminationsClient : ApiClient
 {
-    internal ExaminationsClient(ApiConnection apiConnection)
+    internal ExaminationsClient(ApiConnection apiConnection) : base(apiConnection)
     {
-        ApiConnection = apiConnection;
-        Connection    = ApiConnection.Connection;
-
         CandidateEntries = new CandidateEntriesClient(ApiConnection);
     }
-    
-    public ApiConnection ApiConnection { get; }
-    public Connection Connection { get; }
     
     public CandidateEntriesClient CandidateEntries { get; }
 

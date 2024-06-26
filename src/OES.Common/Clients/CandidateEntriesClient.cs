@@ -5,15 +5,12 @@ namespace OES;
 /// <summary>
 /// A client for Candidates Entries API.
 /// </summary>
-public class CandidateEntriesClient : IClient
+public class CandidateEntriesClient : ApiClient
 {
-    internal CandidateEntriesClient(ApiConnection apiConnection)
+    internal CandidateEntriesClient(ApiConnection apiConnection) : base(apiConnection)
     {
-        ApiConnection = apiConnection;
-        Connection    = ApiConnection.Connection;
+        
     }
-    public ApiConnection ApiConnection { get; }
-    public Connection Connection { get; }
 
     /// <summary>
     /// Gets a list of candidates of a specified examination.
