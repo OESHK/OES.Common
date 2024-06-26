@@ -11,7 +11,7 @@ internal class Request
     
     public HttpMethod Method { get; set; } = HttpMethod.Get;
 
-    public IDictionary<string, string>? Parameters { get; set; }
+    public IDictionary<string, object>? Parameters { get; set; }
 
     public string? ContentType
     {

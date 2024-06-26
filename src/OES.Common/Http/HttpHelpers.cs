@@ -6,7 +6,7 @@ internal static class HttpHelpers
     /// Applies parameters to the <see cref="Uri"/>.
     /// If a parameter already exists in the given uri, the value is always replaced by the passed in values.
     /// </summary>
-    public static Uri ApplyParams(this Uri uri, IDictionary<string, string>? parameters)
+    public static Uri ApplyParams(this Uri uri, IDictionary<string, object>? parameters)
     {
         Ensure.ArgumentNotNull(uri, nameof(uri));
         if (parameters is null || !parameters.Any()) return uri;
@@ -21,8 +21,10 @@ internal static class HttpHelpers
         var existingParams = values.ToDictionary(
             key => key[..key.IndexOf('=')],
             value => value[(value.IndexOf('=') + 1)..]);
+
+        var args = parameters.Select(kvp => new KeyValuePair<string, string>(kvp.Key, kvp.Value.ToString()!));
         
-        foreach (var parameter in parameters)
+        foreach (var parameter in args)
             if (existingParams.TryGetValue(parameter.Key, out _))
                 existingParams[parameter.Key] = parameter.Value;
             else
