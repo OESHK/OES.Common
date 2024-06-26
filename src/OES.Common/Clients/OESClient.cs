@@ -27,6 +27,8 @@ public class OESClient
     {
         if (!baseAddress.IsAbsoluteUri)
             throw new ArgumentException("Base address must be an absolute Uri.", nameof(baseAddress));
+        if (!baseAddress.ToString().EndsWith('/')) // BaseAddress MUST end with a slash
+            baseAddress = new Uri(baseAddress + "/", UriKind.Absolute);
         
         var client = new OESClient(baseAddress, httpClient);
         client.ApiInfo = await client._apiConnection.Get<ApiInfo>(ApiEndpoints.GetApiInfo(), authType: AuthenticationType.Anonymous).ConfigureAwait(false);
@@ -36,7 +38,7 @@ public class OESClient
         // append version at the end of base uri
         client._connection.BaseAddress = new Uri(
             new Uri(baseAddress.ToString(), UriKind.Absolute),
-            new Uri(client.ApiInfo.ApiVersion, UriKind.Relative));
+            new Uri(client.ApiInfo.ApiVersion + "/", UriKind.Relative));
         
         client.SetCredentials(login);
         

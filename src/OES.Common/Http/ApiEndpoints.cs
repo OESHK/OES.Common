@@ -10,7 +10,7 @@ namespace OES.Internal;
 /// <summary>
 /// Container for all API Endpoints OES API.
 /// </summary>
-public static class ApiEndpoints
+internal static class ApiEndpoints
 {
     public static Uri FormatUri(this string rawUri, params object[] values)
     {
