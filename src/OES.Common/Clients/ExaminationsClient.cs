@@ -68,6 +68,23 @@ public class ExaminationsClient : IClient
     }
 
     /// <summary>
+    /// Marks the status of an Examination as "Open".
+    /// </summary>
+    /// <param name="examination">The Examination to be marked as Open.</param>
+    /// <returns>The updated <see cref="Examination"/>.</returns>
+    public async Task<Examination> MarkAsOpen(Examination examination)
+    {
+        if (examination.ExaminationStatus == ExaminationStatus.Open)
+            throw new ArgumentException("Examination is already open.");
+        
+        var statusCode = await Connection.Post(ApiEndpoints.ExaminationById(examination.ExaminationId)).ConfigureAwait(false);
+        if (statusCode == HttpStatusCode.NoContent)
+            return await ApiConnection.Get<Examination>(ApiEndpoints.ExaminationById(examination.ExaminationId)).ConfigureAwait(false);
+        
+        throw new Exception($"Request to mark examination as open failed with error. HTTP status: {statusCode.ToString()}");
+    }
+
+    /// <summary>
     /// Updates an existing Examination.
     /// </summary>
     /// <param name="updateExamination">The <see cref="UpdateExamination"/> request object.</param>

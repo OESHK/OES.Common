@@ -7,9 +7,9 @@ namespace OES;
 /// </summary>
 public class OESClient
 {
-    internal OESClient(Uri baseAddress)
+    internal OESClient(Uri baseAddress, HttpClient? httpClient)
     {
-        _connection    = new Connection(baseAddress);
+        _connection    = new Connection(baseAddress, httpClient ?? new HttpClient());
         _apiConnection = new ApiConnection(_connection);
         
         Examinations   = new ExaminationsClient(_apiConnection);
@@ -19,15 +19,16 @@ public class OESClient
     /// Creates an OESClient instance.
     /// </summary>
     /// <param name="baseAddress">The base address of the API server.</param>
+    /// <param name="httpClient">The custom HTTP client to be used by the OESClient.</param>
     /// <param name="login">The login information for interacting with the API.</param>
     /// <returns>The created OESClient instance.</returns>
     /// <exception cref="UnsupportedApiVersionException">Thrown when the API server specified uses an API version that is not supported.</exception>
-    public static async Task<OESClient> Create(Uri baseAddress, Credentials? login = null)
+    public static async Task<OESClient> Create(Uri baseAddress, HttpClient? httpClient = null, Credentials? login = null)
     {
         if (!baseAddress.IsAbsoluteUri)
             throw new ArgumentException("Base address must be an absolute Uri.", nameof(baseAddress));
         
-        var client = new OESClient(baseAddress);
+        var client = new OESClient(baseAddress, httpClient);
         client._apiInfo = await client._apiConnection.Get<ApiInfo>(ApiEndpoints.GetApiInfo()).ConfigureAwait(false);
         if (SupportedApiVersions.All(ver => ver != client._apiInfo.ApiVersion))
             throw new UnsupportedApiVersionException(client._apiInfo.ApiVersion, SupportedApiVersions);

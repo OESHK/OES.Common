@@ -71,7 +71,7 @@ public class Examination
     /// </summary>
     public string? PaperName { get; }
     
-    public ExaminationStatus ExaminationStatus { get; }
+    public ExaminationStatus ExaminationStatus { get; internal set; }
 
     /// <summary>
     /// Gets an object representing a Create Examination request.
