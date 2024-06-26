@@ -67,6 +67,17 @@ public class ExaminationsClient : IClient
         return ApiConnection.Get<Examination>(ApiEndpoints.ExaminationById(examinationId));
     }
 
+    public Task<IReadOnlyCollection<Examination>> GetAll(int perPage = 30, int page = 1)
+    {
+        return ApiConnection.Get<IReadOnlyCollection<Examination>>(
+            ApiEndpoints.Examinations(),
+            new Dictionary<string, object>
+            {
+                { "per_page", perPage },
+                { "page", page }
+            });
+    }
+
     /// <summary>
     /// Marks the status of an Examination as "Open".
     /// </summary>
