@@ -26,7 +26,7 @@ internal class Request
         result.Method     = Method;
 
         if (endpoint.ToString().StartsWith('/')) // removes leading slash(es)
-            endpoint = new Uri(endpoint.ToString().TrimStart('/'));
+            endpoint = new Uri(endpoint.ToString().TrimStart('/'), UriKind.Relative);
         result.RequestUri = new Uri(baseAddress, endpoint).ApplyParams(Parameters);
         
         foreach (var header in Headers)
