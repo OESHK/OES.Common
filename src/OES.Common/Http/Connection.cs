@@ -177,7 +177,7 @@ public class Connection
         return new ApiResponse<T>(response, responseBody);
     }
 
-    public Task<ApiResponse<T>> Patch<T>(Uri endpoint, object body, IDictionary<string, string> parameters, string? contentType = null, AuthenticationType authType = AuthenticationType.AccessToken)
+    public Task<ApiResponse<T>> Patch<T>(Uri endpoint, object body, IDictionary<string, string>? parameters = null, string? contentType = null, AuthenticationType authType = AuthenticationType.AccessToken)
     {
         Ensure.ArgumentNotNull(endpoint, nameof(endpoint));
         Ensure.ArgumentNotNull(body, nameof(body));
@@ -185,7 +185,7 @@ public class Connection
         return InternalSendRequest<T>(GetRequest(body, HttpMethod.Patch, parameters, contentType), endpoint, authType);
     }
 
-    public async Task<HttpStatusCode> Patch(Uri endpoint, object body, IDictionary<string, string> parameters, string? contentType = null, AuthenticationType authType = AuthenticationType.AccessToken)
+    public async Task<HttpStatusCode> Patch(Uri endpoint, object body, IDictionary<string, string>? parameters = null, string? contentType = null, AuthenticationType authType = AuthenticationType.AccessToken)
     {
         Ensure.ArgumentNotNull(endpoint, nameof(endpoint));
         Ensure.ArgumentNotNull(body, nameof(body));
@@ -194,7 +194,7 @@ public class Connection
         return response.StatusCode;
     }
 
-    public Task<ApiResponse<T>> Post<T>(Uri endpoint, object body, IDictionary<string, string> parameters, string? contentType = null, AuthenticationType authType = AuthenticationType.AccessToken)
+    public Task<ApiResponse<T>> Post<T>(Uri endpoint, object body, IDictionary<string, string>? parameters = null, string? contentType = null, AuthenticationType authType = AuthenticationType.AccessToken)
     {
         Ensure.ArgumentNotNull(endpoint, nameof(endpoint));
         Ensure.ArgumentNotNull(body, nameof(body));
@@ -202,7 +202,7 @@ public class Connection
         return InternalSendRequest<T>(GetRequest(body, HttpMethod.Post, parameters, contentType), endpoint, authType);
     }
 
-    public async Task<HttpStatusCode> Post(Uri endpoint, object body, IDictionary<string, string> parameters, string? contentType = null, AuthenticationType authType = AuthenticationType.AccessToken)
+    public async Task<HttpStatusCode> Post(Uri endpoint, object body, IDictionary<string, string>? parameters = null, string? contentType = null, AuthenticationType authType = AuthenticationType.AccessToken)
     {
         Ensure.ArgumentNotNull(endpoint, nameof(endpoint));
         Ensure.ArgumentNotNull(body, nameof(body));
@@ -211,7 +211,7 @@ public class Connection
         return response.StatusCode;
     }
     
-    public Task<ApiResponse<T>> Put<T>(Uri endpoint, object body, IDictionary<string, string> parameters, string? contentType = null, AuthenticationType authType = AuthenticationType.AccessToken)
+    public Task<ApiResponse<T>> Put<T>(Uri endpoint, object body, IDictionary<string, string>? parameters = null, string? contentType = null, AuthenticationType authType = AuthenticationType.AccessToken)
     {
         Ensure.ArgumentNotNull(endpoint, nameof(endpoint));
         Ensure.ArgumentNotNull(body, nameof(body));
@@ -219,7 +219,7 @@ public class Connection
         return InternalSendRequest<T>(GetRequest(body, HttpMethod.Put, parameters, contentType), endpoint, authType);
     }
 
-    public async Task<HttpStatusCode> Put(Uri endpoint, object body, IDictionary<string, string> parameters, string? contentType = null, AuthenticationType authType = AuthenticationType.AccessToken)
+    public async Task<HttpStatusCode> Put(Uri endpoint, object body, IDictionary<string, string>? parameters = null, string? contentType = null, AuthenticationType authType = AuthenticationType.AccessToken)
     {
         Ensure.ArgumentNotNull(endpoint, nameof(endpoint));
         Ensure.ArgumentNotNull(body, nameof(body));
