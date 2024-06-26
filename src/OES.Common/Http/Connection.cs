@@ -10,13 +10,14 @@
 
 using System.Net;
 using Newtonsoft.Json;
+using OES.Internal;
 
-namespace OES.Internal;
+namespace OES;
 
 /// <summary>
 /// A connection for sending requests to the OES API endpoints.
 /// </summary>
-internal class Connection
+public class Connection
 {
     private readonly Uri          _baseAddress;
     private readonly HttpClient   _httpClient;

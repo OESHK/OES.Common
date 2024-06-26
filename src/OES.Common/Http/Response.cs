@@ -1,9 +1,10 @@
 using System.Collections.ObjectModel;
 using System.Net;
+using OES.Internal;
 
-namespace OES.Internal;
+namespace OES;
 
-internal class Response
+public class Response
 {
     public Response(HttpStatusCode statusCode, object body, IDictionary<string, string> headers, string contentType)
     {
@@ -56,7 +57,7 @@ internal class Response
     }
 }
 
-internal class ApiResponse<T>
+public class ApiResponse<T>
 {
     public ApiResponse(Response response, T body)
     {

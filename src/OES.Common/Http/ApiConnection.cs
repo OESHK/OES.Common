@@ -1,9 +1,11 @@
-namespace OES.Internal;
+using OES.Internal;
+
+namespace OES;
 
 /// <summary>
 /// A wrapper of <see cref="Connection"/> that provides type-friendly methods.
 /// </summary>
-internal class ApiConnection
+public class ApiConnection
 {
     public ApiConnection(Connection connection)
     {
