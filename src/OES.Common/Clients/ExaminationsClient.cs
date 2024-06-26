@@ -12,10 +12,14 @@ public class ExaminationsClient : IClient
     {
         ApiConnection = apiConnection;
         Connection    = ApiConnection.Connection;
+
+        CandidateEntries = new CandidateEntriesClient(ApiConnection);
     }
     
     public ApiConnection ApiConnection { get; }
     public Connection Connection { get; }
+    
+    public CandidateEntriesClient CandidateEntries { get; }
 
     /// <summary>
     /// Creates an Examination.
@@ -67,6 +71,12 @@ public class ExaminationsClient : IClient
         return ApiConnection.Get<Examination>(ApiEndpoints.ExaminationById(examinationId));
     }
 
+    /// <summary>
+    /// Gets all Examinations.
+    /// </summary>
+    /// <param name="perPage">The number of Examinations to get per page.</param>
+    /// <param name="page">The page number of Examinations.</param>
+    /// <returns>A list of <see cref="Examination"/>s.</returns>
     public Task<IReadOnlyCollection<Examination>> GetAll(int perPage = 30, int page = 1)
     {
         return ApiConnection.Get<IReadOnlyCollection<Examination>>(
