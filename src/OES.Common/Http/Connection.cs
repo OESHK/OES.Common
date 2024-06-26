@@ -19,7 +19,6 @@ namespace OES;
 /// </summary>
 public class Connection
 {
-    private readonly Uri          _baseAddress;
     private readonly HttpClient   _httpClient;
     private readonly Session?     _session;
 
@@ -33,6 +32,7 @@ public class Connection
     private const string       UserAgent             = "OES.Common/1.0.0";
     
     public Credentials? Credentials { get; set; }
+    public Uri BaseAddress { get; internal set; }
 
     /// <summary>
     /// Creates a new connection instance.
@@ -52,7 +52,7 @@ public class Connection
         if (!baseAddress.IsAbsoluteUri)
             throw new ArgumentException("Base URI must be absolute.", nameof(baseAddress));
         
-        _baseAddress = baseAddress;
+        BaseAddress = baseAddress;
         _httpClient = httpClient;
     }
 
@@ -160,7 +160,7 @@ public class Connection
     {
         request.Headers.Add("User-Agent", UserAgent);
         request        = ApplyCredentials(request, authType);
-        var responseMessage = await _httpClient.SendAsync(request.GetHttpRequestMessage(_baseAddress, endpoint)).ConfigureAwait(false);
+        var responseMessage = await _httpClient.SendAsync(request.GetHttpRequestMessage(BaseAddress, endpoint)).ConfigureAwait(false);
         // todo: handle error http status codes
 
         return await Response.GetResponseFromMessage(responseMessage).ConfigureAwait(false);
