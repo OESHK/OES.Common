@@ -34,8 +34,8 @@ internal class Request
 
         switch (Body)
         {
-            case null when Method == HttpMethod.Get:
-                return result; // request body can be null when method is GET
+            case null when Method == HttpMethod.Get || Method == HttpMethod.Post:
+                return result; // request body can be null when method is GET or POST
             case null:
                 throw new NullReferenceException("Request body is null.");
         }

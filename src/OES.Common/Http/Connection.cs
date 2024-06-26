@@ -194,7 +194,7 @@ public class Connection
         return response.StatusCode;
     }
 
-    public Task<ApiResponse<T>> Post<T>(Uri endpoint, object body, IDictionary<string, string>? parameters = null, string? contentType = null, AuthenticationType authType = AuthenticationType.AccessToken)
+    public Task<ApiResponse<T>> Post<T>(Uri endpoint, object? body = null, IDictionary<string, string>? parameters = null, string? contentType = null, AuthenticationType authType = AuthenticationType.AccessToken)
     {
         Ensure.ArgumentNotNull(endpoint, nameof(endpoint));
         Ensure.ArgumentNotNull(body, nameof(body));
@@ -202,7 +202,7 @@ public class Connection
         return InternalSendRequest<T>(GetRequest(body, HttpMethod.Post, parameters, contentType), endpoint, authType);
     }
 
-    public async Task<HttpStatusCode> Post(Uri endpoint, object body, IDictionary<string, string>? parameters = null, string? contentType = null, AuthenticationType authType = AuthenticationType.AccessToken)
+    public async Task<HttpStatusCode> Post(Uri endpoint, object? body = null, IDictionary<string, string>? parameters = null, string? contentType = null, AuthenticationType authType = AuthenticationType.AccessToken)
     {
         Ensure.ArgumentNotNull(endpoint, nameof(endpoint));
         Ensure.ArgumentNotNull(body, nameof(body));
