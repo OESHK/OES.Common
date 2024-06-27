@@ -10,7 +10,7 @@ public class Examination
 {
     [JsonConstructor]
     internal Examination(
-        int               id,
+        int               examinationId,
         string?           examinationLevel,
         string?           examinationName,
         string?           examinationYear,
@@ -20,7 +20,7 @@ public class Examination
         string?           paperName,
         ExaminationStatus examinationStatus)
     {
-        ExaminationId     = id;
+        ExaminationId     = examinationId;
         ExaminationLevel  = examinationLevel;
         ExaminationName   = examinationName;
         ExaminationYear   = examinationYear;

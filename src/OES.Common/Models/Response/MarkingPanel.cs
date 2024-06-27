@@ -15,15 +15,17 @@ public class MarkingPanel
     /// </summary>
     [JsonConstructor]
     internal MarkingPanel(
-        int                               id,
-        int                               examinationId,
-        string                            panelCode,
-        string                            panelDescription,
-        bool                              doubleMarking,
-        int                               markDifferenceTolerance,
-        bool                              isMcPanel,
-        MarkingPanelStatus                markingPanelStatus,
-        ICollection<MarkerRosterEntry>    markers,
+        int                id,
+        int                examinationId,
+        string             panelCode,
+        string             panelDescription,
+        bool               doubleMarking,
+        int                markDifferenceTolerance,
+        bool               isMcPanel,
+        MarkingPanelStatus markingPanelStatus,
+        [JsonConverter(typeof(MarkerRosterEntriesJsonConverter))]
+        [JsonProperty("members")]
+        ICollection<MarkerRosterEntry> markers,
         ICollection<MarkingPanelQuestion> questions)
     {
         PanelId                 = id;
