@@ -13,5 +13,5 @@ public class ApiInfo
         ApiVersion = apiVersion;
     }
     
-    public string ApiVersion { get; set; }
+    public string ApiVersion { get; }
 }

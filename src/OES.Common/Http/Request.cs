@@ -40,15 +40,10 @@ internal class Request
                 throw new NullReferenceException("Request body is null.");
         }
 
-        if (HttpHelpers.IsBinaryContentType(ContentType!))
-        {
-            result.Content = new StreamContent(new MemoryStream((byte[])Body));
-        }
-        else
-        {
-            result.Content = new StringContent(JsonConvert.SerializeObject(Body), Encoding.UTF8);
-        }
-        
+        result.Content = HttpHelpers.IsBinaryContentType(ContentType!)
+            ? new StreamContent(new MemoryStream((byte[])Body))
+            : new StringContent(JsonConvert.SerializeObject(Body), Encoding.UTF8);
+
         return result;
     }
 }
