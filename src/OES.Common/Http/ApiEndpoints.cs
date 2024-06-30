@@ -28,6 +28,9 @@ internal static class ApiEndpoints
     public static Uri ExaminationCandidateEntries(int examinationId) =>
         "/examinations/{0}/candidates".FormatUri(examinationId);
 
+    public static Uri ExaminationCandidateEntriesById(int examinationId, string candidateId) =>
+        "/examinations/{0}/candidates/{1}".FormatUri(examinationId, candidateId);
+
     public static Uri OpenExamination(int examinationId) => "/examinations/{0}/open".FormatUri(examinationId);
 
     public static Uri MarkingPanelById(int panelId) => "/marking_panels/{0}".FormatUri(panelId);
