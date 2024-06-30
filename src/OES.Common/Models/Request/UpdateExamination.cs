@@ -1,3 +1,5 @@
+using Newtonsoft.Json;
+
 namespace OES;
 
 /// <summary>
@@ -11,6 +13,7 @@ public class UpdateExamination
     }
     
     /// <inheritdoc cref="Examination.ExaminationId"/>
+    [JsonIgnore]
     public int ExaminationId { get; }
 
     /// <inheritdoc cref="Examination.ExaminationLevel"/>

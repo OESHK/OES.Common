@@ -1,3 +1,4 @@
+using Newtonsoft.Json.Linq;
 using OES.Internal;
 
 namespace OES;
@@ -79,5 +80,35 @@ public class CandidateEntriesClient : ApiClient
         
         return ApiConnection.Get<IReadOnlyCollection<CandidateAdmissionEntry>>(
             ApiEndpoints.ExaminationCandidateEntries(examinationId), args);
+    }
+
+    /// <summary>
+    /// Modifies an existing candidate enrollment entry.
+    /// </summary>
+    /// <param name="examinationId">The ID of the examination.</param>
+    /// <param name="candidateId">The ID of the candidate.</param>
+    /// <param name="centreNumber">The new examination centre number. Use null to stay unchanged.</param>
+    /// <param name="seatNumber">The new seat number of the candidate. Use null to stay unchanged.</param>
+    /// <returns>The modified entry.</returns>
+    /// <exception cref="ArgumentNullException">
+    /// Thrown when both <paramref name="centreNumber"/> and <paramref name="seatNumber"/> are set to null.
+    /// </exception>
+    public Task<CandidateAdmissionEntry> ModifyEntry(
+        int     examinationId,
+        string  candidateId,
+        string? centreNumber = null,
+        string? seatNumber   = null)
+    {
+        if (centreNumber is null && seatNumber is null)
+            throw new ArgumentNullException(centreNumber is null ? nameof(centreNumber) : nameof(seatNumber),
+                $"{nameof(centreNumber)} and {nameof(seatNumber)} cannot be null at the same time.");
+        
+        var body = new JObject();
+        if (centreNumber is not null) body.Add("centre_no", centreNumber);
+        if (seatNumber is not null) body.Add("seat_no", seatNumber);
+        
+        return ApiConnection.Patch<CandidateAdmissionEntry>(
+            ApiEndpoints.ExaminationCandidateEntriesById(examinationId, candidateId),
+            body);
     }
 }
