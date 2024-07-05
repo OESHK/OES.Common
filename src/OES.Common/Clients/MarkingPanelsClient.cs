@@ -22,6 +22,16 @@ public class MarkingPanelsClient : ApiClient
     }
 
     /// <summary>
+    /// Gets a specific marking panel by its ID.
+    /// </summary>
+    /// <param name="panelId">The ID of the marking panel.</param>
+    /// <returns>The specified marking panel.</returns>
+    public Task<MarkingPanel> Get(int panelId)
+    {
+        return ApiConnection.Get<MarkingPanel>(ApiEndpoints.MarkingPanelById(panelId));
+    }
+
+    /// <summary>
     /// Gets all marking panels of an examination.
     /// </summary>
     /// <param name="examinationId">The ID of the examination.</param>
@@ -41,5 +51,10 @@ public class MarkingPanelsClient : ApiClient
     public Task<MarkingPanel> GetPanelOfExamination(int examinationId, int panelId)
     {
         return ApiConnection.Get<MarkingPanel>(ApiEndpoints.MarkingPanelOfExamination(examinationId, panelId));
+    }
+
+    public Task<MarkingPanel> Update(UpdateMarkingPanel body)
+    {
+        return ApiConnection.Patch<MarkingPanel>(ApiEndpoints.MarkingPanelById(body.PanelId), body);
     }
 }

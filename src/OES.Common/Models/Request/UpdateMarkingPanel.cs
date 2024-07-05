@@ -15,6 +15,7 @@ public class UpdateMarkingPanel
     }
     
     /// <inheritdoc cref="MarkingPanel.PanelId"/>
+    [JsonIgnore]
     public int PanelId { get; }
     
     /// <inheritdoc cref="MarkingPanel.PanelCode"/>
