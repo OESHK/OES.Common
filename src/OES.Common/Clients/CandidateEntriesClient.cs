@@ -1,3 +1,4 @@
+using System.Net;
 using Newtonsoft.Json.Linq;
 using OES.Internal;
 
@@ -11,6 +12,17 @@ public class CandidateEntriesClient : ApiClient
     internal CandidateEntriesClient(ApiConnection apiConnection) : base(apiConnection)
     {
         
+    }
+
+    /// <summary>
+    /// Deletes a candidate's enrollment into an examination.
+    /// </summary>
+    /// <param name="examinationId">The ID of the examination.</param>
+    /// <param name="candidateId">The ID of the candidate.</param>
+    /// <returns>The status of the delete request.</returns>
+    public Task<HttpStatusCode> DeleteEntry(int examinationId, string candidateId)
+    {
+        return Connection.Delete(ApiEndpoints.ExaminationCandidateEntriesById(examinationId, candidateId));
     }
 
     public Task<CandidateAdmissionEntry> EnrollCandidate(int examinationId, CreateCandidateAdmissionEntry entry)
