@@ -12,7 +12,8 @@ public class OESClient
         _connection    = new Connection(baseAddress, httpClient ?? new HttpClient());
         _apiConnection = new ApiConnection(_connection);
         
-        Examinations   = new ExaminationsClient(_apiConnection);
+        Examinations  = new ExaminationsClient(_apiConnection);
+        MarkingPanels = new MarkingPanelsClient(_apiConnection);
     }
 
     /// <summary>
@@ -81,4 +82,6 @@ public class OESClient
     private readonly ApiConnection _apiConnection;
     
     public ExaminationsClient Examinations { get; }
+    
+    public MarkingPanelsClient MarkingPanels { get; }
 }
