@@ -1,3 +1,4 @@
+using System.Net;
 using OES.Internal;
 
 namespace OES;
@@ -19,6 +20,16 @@ public class MarkingPanelsClient : ApiClient
     public Task<MarkingPanel> CreateMarkingPanel(CreateMarkingPanel body)
     {
         return ApiConnection.Post<MarkingPanel>(ApiEndpoints.MarkingPanels(), body);
+    }
+
+    /// <summary>
+    /// Deletes a marking panel.
+    /// </summary>
+    /// <param name="body">See <see cref="DeleteObject"/>.</param>
+    /// <returns>The status of the delete request.</returns>
+    public Task<HttpStatusCode> Delete(DeleteObject body)
+    {
+        return Connection.Delete(ApiEndpoints.MarkingPanelById(int.Parse(body.Id)));
     }
 
     /// <summary>
