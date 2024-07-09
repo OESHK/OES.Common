@@ -1,3 +1,6 @@
+using Newtonsoft.Json;
+using OES.Internal;
+
 namespace OES;
 
 /// <summary>
@@ -9,22 +12,22 @@ public class CreateExaminationScriptDefinition
     /// Create a new examination script definition request.
     /// </summary>
     public CreateExaminationScriptDefinition(
-        int examinationId,
-        ExaminationScriptType examinationScriptType,
-        ExaminationScriptSize examinationScriptSize,
-        int scriptSheetCount,
+        int                                   examinationId,
+        ExaminationScriptType                 examinationScriptType,
+        ExaminationScriptSize                 examinationScriptSize,
+        int                                   scriptSheetCount,
         IReadOnlyDictionary<int, ImageMargin> candidateBarcodesMargins,
-        ImageMargin scriptBarcodeMargin,
-        string scriptBarcode
+        ImageMargin                           scriptBarcodeMargin,
+        string                                scriptBarcode
         )
     {
-        ExaminationId = examinationId;
-        ExaminationScriptType = examinationScriptType;
-        ExaminationScriptSize = examinationScriptSize;
-        ScriptSheetCount = scriptSheetCount;
+        ExaminationId            = examinationId;
+        ExaminationScriptType    = examinationScriptType;
+        ExaminationScriptSize    = examinationScriptSize;
+        ScriptSheetCount         = scriptSheetCount;
         CandidateBarcodesMargins = candidateBarcodesMargins;
-        ScriptBarcodeMargin = scriptBarcodeMargin;
-        ScriptBarcode = scriptBarcode;
+        ScriptBarcodeMargin      = scriptBarcodeMargin;
+        ScriptBarcode            = scriptBarcode;
     }
 
     /// <summary>
@@ -58,6 +61,7 @@ public class CreateExaminationScriptDefinition
     }
 
     /// <inheritdoc cref="ExaminationScriptDefinition.ExaminationId"/>
+    [JsonIgnore]
     public int ExaminationId { get; set; }
     
     /// <inheritdoc cref="ExaminationScriptDefinition.ExaminationScriptType"/>
@@ -70,9 +74,12 @@ public class CreateExaminationScriptDefinition
     public int ScriptSheetCount { get; set; }
     
     /// <inheritdoc cref="ExaminationScriptDefinition.CandidateBarcodesMargins"/>
+    [JsonConverter(typeof(IntImageMarginDictJsonConverter))]
+    [JsonProperty("candidate_barcode_range")]
     public IReadOnlyDictionary<int, ImageMargin> CandidateBarcodesMargins { get; set; }
     
     /// <inheritdoc cref="ExaminationScriptDefinition.ScriptBarcodeMargin"/>
+    [JsonProperty("script_barcode_range")]
     public ImageMargin ScriptBarcodeMargin { get; set; }
     
     /// <inheritdoc cref="ExaminationScriptDefinition.ScriptBarcode"/>
