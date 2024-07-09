@@ -64,6 +64,11 @@ public class MarkingPanelsClient : ApiClient
         return ApiConnection.Get<MarkingPanel>(ApiEndpoints.MarkingPanelOfExamination(examinationId, panelId));
     }
 
+    /// <summary>
+    /// Updates a marking panel.
+    /// </summary>
+    /// <param name="body">The request body.</param>
+    /// <returns>The updated marking panel.</returns>
     public Task<MarkingPanel> Update(UpdateMarkingPanel body)
     {
         return ApiConnection.Patch<MarkingPanel>(ApiEndpoints.MarkingPanelById(body.PanelId), body);

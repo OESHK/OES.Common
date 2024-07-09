@@ -1,5 +1,6 @@
 using System.Globalization;
 using Newtonsoft.Json;
+using OES.Internal;
 
 namespace OES;
 
@@ -14,17 +15,20 @@ public class ExaminationScriptDefinition
     /// </summary>
     [JsonConstructor]
     internal ExaminationScriptDefinition(
-        int id, 
-        int examinationId,
-        ExaminationScriptType scriptType,
-        ExaminationScriptSize scriptSize,
-        int scriptSheetCount,
+        int                                   scriptDefinitionId,
+        int                                   examinationId,
+        ExaminationScriptType                 scriptType,
+        ExaminationScriptSize                 scriptSize,
+        int                                   scriptSheetCount,
+        [JsonConverter(typeof(IntImageMarginDictJsonConverter))]
+        [JsonProperty("candidate_barcode_range")]
         IReadOnlyDictionary<int, ImageMargin> candidateBarcodesMargins,
-        ImageMargin scriptBarcodeMargins, 
+        [JsonProperty("script_barcode_range")]
+        ImageMargin scriptBarcodeMargins,
         string scriptBarcode
         )
     {
-        DefinitionId             = id;
+        DefinitionId             = scriptDefinitionId;
         ExaminationId            = examinationId;
         ExaminationScriptType    = scriptType;
         ExaminationScriptSize    = scriptSize;
@@ -62,11 +66,14 @@ public class ExaminationScriptDefinition
     /// <summary>
     /// The margins of candidate's barcodes on each page.
     /// </summary>
+    [JsonProperty("candidate_barcode_range")]
+    [JsonConverter(typeof(IntImageMarginDictJsonConverter))]
     public IReadOnlyDictionary<int, ImageMargin> CandidateBarcodesMargins { get; }
     
     /// <summary>
     /// The margins of the examination script's barcode. Must be on first page.
     /// </summary>
+    [JsonProperty("script_barcode_range")]
     public ImageMargin ScriptBarcodeMargin { get; }
     
     /// <summary>
