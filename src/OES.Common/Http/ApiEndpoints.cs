@@ -42,6 +42,9 @@ internal static class ApiEndpoints
     public static Uri ExamScriptDefsOfExam(int examinationId) =>
         "/examinations/{0}/script_defs".FormatUri(examinationId);
 
+    public static Uri ExamScriptDefOfExamById(int examinationId, int definitionId) =>
+        "/examinations/{0}/script_defs/{1}".FormatUri(examinationId, definitionId);
+
     public static Uri MarkingPanels() => "/marking_panels".FormatUri();
     
     public static Uri MarkingPanelById(int panelId) => "/marking_panels/{0}".FormatUri(panelId);

@@ -33,6 +33,29 @@ public class ExaminationScriptDefinitionsClient : ApiClient
     }
 
     /// <summary>
+    /// Gets a <see cref="ExaminationScriptDefinition"/> of from an <see cref="Examination"/> by ID.
+    /// </summary>
+    /// <param name="examinationId">The ID of the <see cref="Examination"/>.</param>
+    /// <param name="definitionId">The ID of the <see cref="ExaminationScriptDefinition"/>.</param>
+    /// <returns>The <see cref="ExaminationScriptDefinition"/> retrieved.</returns>
+    public Task<ExaminationScriptDefinition> GetScriptDefinitionOfExam(int examinationId, int definitionId)
+    {
+        return ApiConnection.Get<ExaminationScriptDefinition>(
+            ApiEndpoints.ExamScriptDefOfExamById(examinationId, definitionId));
+    }
+
+    /// <summary>
+    /// Gets a <see cref="ExaminationScriptDefinition"/> of from an <see cref="Examination"/> by ID.
+    /// </summary>
+    /// <param name="examination">The <see cref="Examination"/>.</param>
+    /// <param name="definitionId">The ID of the <see cref="ExaminationScriptDefinition"/>.</param>
+    /// <returns>The retrieved <see cref="ExaminationScriptDefinition"/>.</returns>
+    public Task<ExaminationScriptDefinition> GetScriptDefinitionOfExam(Examination examination, int definitionId)
+    {
+        return GetScriptDefinitionOfExam(examination.ExaminationId, definitionId);
+    }
+
+    /// <summary>
     /// Gets all <see cref="ExaminationScriptDefinition"/>s of a specific <see cref="Examination"/>.
     /// </summary>
     /// <param name="examinationId">The ID of the examination.</param>
@@ -41,5 +64,15 @@ public class ExaminationScriptDefinitionsClient : ApiClient
     {
         return ApiConnection.Get<IReadOnlyCollection<ExaminationScriptDefinition>>(
             ApiEndpoints.ExamScriptDefsOfExam(examinationId));
+    }
+
+    /// <summary>
+    /// Gets all <see cref="ExaminationScriptDefinition"/>s of a specific <see cref="Examination"/>.
+    /// </summary>
+    /// <param name="examination">The <see cref="Examination"/>.</param>
+    /// <returns>The list of <see cref="ExaminationScriptDefinition"/>s of the specified <see cref="Examination"/>.</returns>
+    public Task<IReadOnlyCollection<ExaminationScriptDefinition>> GetScriptDefsOfExam(Examination examination)
+    {
+        return GetScriptDefsOfExam(examination.ExaminationId);
     }
 }
