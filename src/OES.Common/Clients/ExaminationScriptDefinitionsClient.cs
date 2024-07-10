@@ -31,4 +31,15 @@ public class ExaminationScriptDefinitionsClient : ApiClient
     {
         return Connection.Delete(ApiEndpoints.ExamScriptDefinitionById(int.Parse(body.Id)));
     }
+
+    /// <summary>
+    /// Gets all <see cref="ExaminationScriptDefinition"/>s of a specific <see cref="Examination"/>.
+    /// </summary>
+    /// <param name="examinationId">The ID of the examination.</param>
+    /// <returns>The list of <see cref="ExaminationScriptDefinition"/>s of the specified <see cref="Examination"/>.</returns>
+    public Task<IReadOnlyCollection<ExaminationScriptDefinition>> GetScriptDefsOfExam(int examinationId)
+    {
+        return ApiConnection.Get<IReadOnlyCollection<ExaminationScriptDefinition>>(
+            ApiEndpoints.ExamScriptDefsOfExam(examinationId));
+    }
 }
