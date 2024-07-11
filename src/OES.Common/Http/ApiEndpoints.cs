@@ -52,4 +52,7 @@ internal static class ApiEndpoints
     public static Uri ExamScriptDefinitions() => "/script_defs".FormatUri();
 
     public static Uri ExamScriptDefinitionById(int definitionId) => "/script_defs/{0}".FormatUri(definitionId);
+
+    public static Uri NonMCQuestionDefinitions(int scriptDefinitionId) =>
+        "/script_defs/{0}/question_defs/non_mcqs".FormatUri(scriptDefinitionId);
 }

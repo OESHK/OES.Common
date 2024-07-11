@@ -13,20 +13,23 @@ public class NonMCQuestionDefinition : QuestionDefinition
     /// </summary>
     [JsonConstructor]
     internal NonMCQuestionDefinition(
+        [JsonProperty("non_mcq_definition_id")]
         int id,
         int scriptDefinitionId,
+        [JsonProperty("question_no")]
         int questionNumber,
         string questionName,
-        int maxMarks,
-        bool allowHalfMarks) : base(id, scriptDefinitionId, questionNumber, questionName)
+        int    maxMarks,
+        bool   allowHalfMarks) : base(id, scriptDefinitionId, questionNumber, questionName)
     {
-        MaximumMarks = maxMarks;
+        MaximumMarks   = maxMarks;
         AllowHalfMarks = allowHalfMarks;
     }
     
     /// <summary>
     /// The maximum marks can be given to this question.
     /// </summary>
+    [JsonProperty("max_marks")]
     public int MaximumMarks { get; }
     
     /// <summary>
