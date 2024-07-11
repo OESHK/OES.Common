@@ -1,3 +1,4 @@
+using System.Net;
 using OES.Internal;
 
 namespace OES;
@@ -20,5 +21,29 @@ public class NonMCQuestionDefinitionsClient : ApiClient
     {
         return ApiConnection.Post<NonMCQuestionDefinition>(
             ApiEndpoints.NonMCQuestionDefinitions(body.ScriptDefinitionId), body);
+    }
+
+    /// <summary>
+    /// Deletes an existing <see cref="NonMCQuestionDefinition"/>.
+    /// </summary>
+    /// <param name="body">The request body.</param>
+    /// <returns>The HTTP status code of the request.</returns>
+    public Task<HttpStatusCode> Delete(DeleteQuestionDefinition body)
+    {
+        return Connection.Delete(ApiEndpoints.NonMCQuestionDefinitionById(body.ScriptDefinitionId, int.Parse(body.Id)));
+    }
+
+    /// <summary>
+    /// Deletes an existing <see cref="NonMCQuestionDefinition"/>.
+    /// </summary>
+    /// <param name="scriptDefinitionId">
+    /// The ID of the <see cref="ExaminationScriptDefinition"/> to which the <see cref="NonMCQuestionDefinition"/> belongs.
+    /// </param>
+    /// <param name="nonMCQuestionDefinitionId">The ID of the <see cref="NonMCQuestionDefinition"/>.</param>
+    /// <returns>The HTTP status code of the request.</returns>
+    public Task<HttpStatusCode> Delete(int scriptDefinitionId, int nonMCQuestionDefinitionId)
+    {
+        return Connection.Delete(
+            ApiEndpoints.NonMCQuestionDefinitionById(scriptDefinitionId, nonMCQuestionDefinitionId));
     }
 }

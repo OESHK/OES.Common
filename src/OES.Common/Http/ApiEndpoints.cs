@@ -55,4 +55,7 @@ internal static class ApiEndpoints
 
     public static Uri NonMCQuestionDefinitions(int scriptDefinitionId) =>
         "/script_defs/{0}/question_defs/non_mcqs".FormatUri(scriptDefinitionId);
+
+    public static Uri NonMCQuestionDefinitionById(int scriptDefinitionId, int nonMCQuestionDefinitionId) =>
+        "/script_defs/{0}/question_defs/non_mcqs/{1}".FormatUri(scriptDefinitionId, nonMCQuestionDefinitionId);
 }

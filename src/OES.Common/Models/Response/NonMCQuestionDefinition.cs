@@ -54,6 +54,6 @@ public class NonMCQuestionDefinition : QuestionDefinition
     /// <summary>
     /// Gets an object representing a Delete Non-MCQ definition request.
     /// </summary>
-    public DeleteObject ToDelete()
-        => new(DefinitionId.ToString(CultureInfo.InvariantCulture));
+    public DeleteQuestionDefinition ToDelete()
+        => new(ScriptDefinitionId, DefinitionId.ToString(CultureInfo.InvariantCulture));
 }
