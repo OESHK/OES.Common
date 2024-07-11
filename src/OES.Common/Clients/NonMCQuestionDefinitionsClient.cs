@@ -48,6 +48,18 @@ public class NonMCQuestionDefinitionsClient : ApiClient
     }
 
     /// <summary>
+    /// Gets a specific <see cref="NonMCQuestionDefinition"/> from an <see cref="ExaminationScriptDefinition"/>.
+    /// </summary>
+    /// <param name="scriptDefinitionId">The ID of the <see cref="ExaminationScriptDefinition"/>.</param>
+    /// <param name="nonMCQuestionDefinitionId">The ID of the <see cref="NonMCQuestionDefinition"/>.</param>
+    /// <returns>The required <see cref="NonMCQuestionDefinition"/>.</returns>
+    public Task<NonMCQuestionDefinition> Get(int scriptDefinitionId, int nonMCQuestionDefinitionId)
+    {
+        return ApiConnection.Get<NonMCQuestionDefinition>(
+            ApiEndpoints.NonMCQuestionDefinitionById(scriptDefinitionId, nonMCQuestionDefinitionId));
+    }
+
+    /// <summary>
     /// Gets all <see cref="NonMCQuestionDefinition"/>s under a <see cref="ExaminationScriptDefinition"/>.
     /// </summary>
     /// <param name="scriptDefinitionId">The ID of the <see cref="ExaminationScriptDefinition"/>.</param>
