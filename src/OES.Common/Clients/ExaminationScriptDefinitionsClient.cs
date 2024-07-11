@@ -8,8 +8,9 @@ namespace OES;
 /// </summary>
 public class ExaminationScriptDefinitionsClient : ApiClient
 {
-    public ExaminationScriptDefinitionsClient(ApiConnection apiConnection) : base(apiConnection)
+    internal ExaminationScriptDefinitionsClient(ApiConnection apiConnection) : base(apiConnection)
     {
+        NonMCQuestionDefinitions = new NonMCQuestionDefinitionsClient(ApiConnection);
     }
 
     /// <summary>
@@ -75,4 +76,6 @@ public class ExaminationScriptDefinitionsClient : ApiClient
     {
         return GetScriptDefsOfExam(examination.ExaminationId);
     }
+    
+    public NonMCQuestionDefinitionsClient NonMCQuestionDefinitions { get; }
 }
