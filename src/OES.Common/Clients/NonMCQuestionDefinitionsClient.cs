@@ -46,4 +46,32 @@ public class NonMCQuestionDefinitionsClient : ApiClient
         return Connection.Delete(
             ApiEndpoints.NonMCQuestionDefinitionById(scriptDefinitionId, nonMCQuestionDefinitionId));
     }
+
+    /// <summary>
+    /// Gets all <see cref="NonMCQuestionDefinition"/>s under a <see cref="ExaminationScriptDefinition"/>.
+    /// </summary>
+    /// <param name="scriptDefinitionId">The ID of the <see cref="ExaminationScriptDefinition"/>.</param>
+    /// <returns>The list of the retrieved <see cref="NonMCQuestionDefinition"/>s.</returns>
+    public Task<IReadOnlyCollection<NonMCQuestionDefinition>> GetAll(int scriptDefinitionId)
+    {
+        return ApiConnection.Get<IReadOnlyCollection<NonMCQuestionDefinition>>(
+            ApiEndpoints.NonMCQuestionDefinitions(scriptDefinitionId));
+    }
+
+    /// <summary>
+    /// Gets <see cref="NonMCQuestionDefinition"/>s that have matching question number under a <see cref="ExaminationScriptDefinition"/>.
+    /// </summary>
+    /// <param name="scriptDefinitionId">The <see cref="ExaminationScriptDefinition"/></param>
+    /// <param name="questionNumber">The question number to filter.</param>
+    /// <returns>The list of matching <see cref="NonMCQuestionDefinition"/>s.</returns>
+    public Task<IReadOnlyCollection<NonMCQuestionDefinition>> GetAllByQuestionNumber(
+        int scriptDefinitionId, int questionNumber)
+    {
+        return ApiConnection.Get<IReadOnlyCollection<NonMCQuestionDefinition>>(
+            ApiEndpoints.NonMCQuestionDefinitions(scriptDefinitionId),
+            new Dictionary<string, object>
+            {
+                { "question_number", questionNumber }
+            });
+    }
 }
