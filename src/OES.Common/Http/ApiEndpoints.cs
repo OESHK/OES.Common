@@ -49,6 +49,8 @@ internal static class ApiEndpoints
     
     public static Uri MarkingPanelById(int panelId) => "/marking_panels/{0}".FormatUri(panelId);
 
+    public static Uri QuestionNumberBoxDefinitions() => "/qnb_defs".FormatUri();
+
     public static Uri ExamScriptDefinitions() => "/script_defs".FormatUri();
 
     public static Uri ExamScriptDefinitionById(int definitionId) => "/script_defs/{0}".FormatUri(definitionId);

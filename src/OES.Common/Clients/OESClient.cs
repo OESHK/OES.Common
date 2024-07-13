@@ -15,6 +15,7 @@ public class OESClient
         Examinations                 = new ExaminationsClient(_apiConnection);
         ExaminationScriptDefinitions = new ExaminationScriptDefinitionsClient(_apiConnection);
         MarkingPanels                = new MarkingPanelsClient(_apiConnection);
+        QuestionNumberBoxDefinitions = new QuestionNumberBoxDefinitionsClient(_apiConnection);
     }
 
     /// <summary>
@@ -87,4 +88,6 @@ public class OESClient
     public ExaminationScriptDefinitionsClient ExaminationScriptDefinitions { get; }
     
     public MarkingPanelsClient MarkingPanels { get; }
+    
+    public QuestionNumberBoxDefinitionsClient QuestionNumberBoxDefinitions { get; }
 }
