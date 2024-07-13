@@ -23,15 +23,15 @@ public class ExaminationScriptDefinition
         [JsonConverter(typeof(IntImageMarginDictJsonConverter))]
         [JsonProperty("candidate_barcode_range")]
         IReadOnlyDictionary<int, ImageMargin> candidateBarcodesMargins,
+        [JsonConverter(typeof(ImageMarginJsonConverter))]
         [JsonProperty("script_barcode_range")]
         ImageMargin scriptBarcodeMargins,
-        string scriptBarcode
-        )
+        string scriptBarcode)
     {
         DefinitionId             = scriptDefinitionId;
         ExaminationId            = examinationId;
-        ExaminationScriptType    = scriptType;
-        ExaminationScriptSize    = scriptSize;
+        ScriptType               = scriptType;
+        ScriptSize               = scriptSize;
         ScriptSheetCount         = scriptSheetCount;
         CandidateBarcodesMargins = candidateBarcodesMargins;
         ScriptBarcodeMargin      = scriptBarcodeMargins;
@@ -51,12 +51,12 @@ public class ExaminationScriptDefinition
     /// <summary>
     /// The type of script.
     /// </summary>
-    public ExaminationScriptType ExaminationScriptType { get; }
+    public ExaminationScriptType ScriptType { get; }
     
     /// <summary>
     /// The size of script images.
     /// </summary>
-    public ExaminationScriptSize ExaminationScriptSize { get; }
+    public ExaminationScriptSize ScriptSize { get; }
     
     /// <summary>
     /// The number of sheets of papers of the script.
@@ -85,23 +85,23 @@ public class ExaminationScriptDefinition
     /// Gets an object representing a Create Examination Script Definition request.
     /// </summary>
     /// <param name="examinationId">The ID of the examination to which the definition belongs.</param>
-    /// <param name="examinationScriptType">The type of script.</param>
-    /// <param name="examinationScriptSize">The page (sheet) size of the script.</param>
+    /// <param name="scriptType">The type of script.</param>
+    /// <param name="scriptSize">The page (sheet) size of the script.</param>
     /// <param name="scriptSheetCount">The number of sheets of the script.</param>
     /// <param name="candidateBarcodesMargins">The image margins of all candidate barcodes on different pages.</param>
     /// <param name="scriptBarcodeMargin">The image margin of the script barcode on script cover.</param>
     /// <param name="scriptBarcode">The value of the barcode on cover of the script.</param>
     public static CreateExaminationScriptDefinition ToCreate(
         int                                   examinationId,
-        ExaminationScriptType                 examinationScriptType,
-        ExaminationScriptSize                 examinationScriptSize,
+        ExaminationScriptType                 scriptType,
+        ExaminationScriptSize                 scriptSize,
         int                                   scriptSheetCount,
         IReadOnlyDictionary<int, ImageMargin> candidateBarcodesMargins,
         ImageMargin                           scriptBarcodeMargin,
         string                                scriptBarcode)
         => new (examinationId,
-                examinationScriptType,
-                examinationScriptSize,
+                scriptType,
+                scriptSize,
                 scriptSheetCount,
                 candidateBarcodesMargins,
                 scriptBarcodeMargin,
