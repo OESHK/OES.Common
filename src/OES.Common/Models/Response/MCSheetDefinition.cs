@@ -13,15 +13,27 @@ public class MCSheetDefinition
     /// Creates an instance for an MCQ OMR sheet definition.
     /// </summary>
     [JsonConstructor]
-    internal MCSheetDefinition(int id, int panelId, IReadOnlyCollection<MCSheetQuestionDefinition> answers)
+    internal MCSheetDefinition(
+        int mcSheetDefinitionId,
+        int scriptDefinition,
+        int panelId,
+        [JsonConverter(typeof(MCSheetAnswerJsonConverter))]
+        IReadOnlyCollection<MCSheetQuestionDefinition> answers)
     {
-        ScriptDefinitionId = id;
-        PanelId = panelId;
-        Answers = answers;
+        MCSheetDefinitionId = mcSheetDefinitionId;
+        ScriptDefinitionId  = scriptDefinition;
+        PanelId             = panelId;
+        Answers             = answers;
     }
+    
+    /// <summary>
+    /// The ID of the MC sheet definition.
+    /// </summary>
+    [JsonProperty("mc_sheet_definition_id")]
+    public int MCSheetDefinitionId { get; }
 
     /// <summary>
-    /// The ID of the definition.
+    /// The ID of the examination script definition to which the MC sheet definition belongs.
     /// </summary>
     public int ScriptDefinitionId { get; }
     

@@ -9,7 +9,7 @@ namespace OES;
 /// </summary>
 public class CreateMCSheetDefinition
 {
-    public CreateMCSheetDefinition(
+    internal CreateMCSheetDefinition(
         int                                     scriptDefinitionId,
         int                                     panelId,
         ICollection<MCSheetQuestionDefinition>? answers)
@@ -22,6 +22,7 @@ public class CreateMCSheetDefinition
     }
     
     /// <inheritdoc cref="MCSheetDefinition.ScriptDefinitionId"/>
+    [JsonIgnore]
     public int ScriptDefinitionId { get; set; }
     
     /// <inheritdoc cref="MCSheetDefinition.PanelId"/>

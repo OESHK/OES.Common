@@ -10,6 +10,7 @@ public class ExaminationScriptDefinitionsClient : ApiClient
 {
     internal ExaminationScriptDefinitionsClient(ApiConnection apiConnection) : base(apiConnection)
     {
+        MCSheetDefinitions       = new MCSheetDefinitionsClient(ApiConnection);
         NonMCQuestionDefinitions = new NonMCQuestionDefinitionsClient(ApiConnection);
     }
 
@@ -77,5 +78,7 @@ public class ExaminationScriptDefinitionsClient : ApiClient
         return GetScriptDefsOfExam(examination.ExaminationId);
     }
     
+    public MCSheetDefinitionsClient MCSheetDefinitions { get; }
+
     public NonMCQuestionDefinitionsClient NonMCQuestionDefinitions { get; }
 }
