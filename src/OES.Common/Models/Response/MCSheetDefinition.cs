@@ -52,7 +52,7 @@ public class MCSheetDefinition
     /// Gets an object representing a request to create MC sheet definition.
     /// </summary>
     /// <param name="scriptDefinitionId">The ID of the <see cref="ExaminationScriptDefinition"/> to which
-    /// the MC sheet definition belongs. Must have <see cref="ExaminationScriptDefinition.ExaminationScriptType"/>
+    /// the MC sheet definition belongs. Must have <see cref="ExaminationScriptDefinition.ScriptType"/>
     /// set as <see cref="ExaminationScriptType.MCSheet"/>.</param>
     /// <param name="panelId">The ID of the marking panel which will be responsible for marking the MC sheet.
     /// Panel must be an MC panel.</param>

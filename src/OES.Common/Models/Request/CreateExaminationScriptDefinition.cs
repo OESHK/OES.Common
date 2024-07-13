@@ -64,10 +64,10 @@ public class CreateExaminationScriptDefinition
     [JsonIgnore]
     public int ExaminationId { get; set; }
     
-    /// <inheritdoc cref="ExaminationScriptDefinition.ExaminationScriptType"/>
+    /// <inheritdoc cref="ExaminationScriptDefinition.ScriptType"/>
     public ExaminationScriptType ExaminationScriptType { get; set; }
     
-    /// <inheritdoc cref="ExaminationScriptDefinition.ExaminationScriptSize"/>
+    /// <inheritdoc cref="ExaminationScriptDefinition.ScriptSize"/>
     public ExaminationScriptSize ExaminationScriptSize { get; set; }
     
     /// <inheritdoc cref="ExaminationScriptDefinition.ScriptSheetCount"/>
