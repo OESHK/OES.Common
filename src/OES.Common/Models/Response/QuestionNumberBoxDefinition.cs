@@ -1,5 +1,6 @@
 using System.Globalization;
 using Newtonsoft.Json;
+using OES.Internal;
 
 namespace OES;
 
@@ -13,49 +14,58 @@ public class QuestionNumberBoxDefinition
     /// </summary>
     [JsonConstructor]
     internal QuestionNumberBoxDefinition(
-        int                                   id,
-        ImageMargin                           boxImageMargin,
-        IEnumerable<int>                      validQuestionsRange,
-        IReadOnlyDictionary<int, ImageMargin> questionMargins
-        )
+        int                                   qnbDefinitionId,
+        [JsonConverter(typeof(ImageMarginJsonConverter))]
+        ImageMargin                           qnbImageMargin,
+        IReadOnlyCollection<int>              validQuestionsRange,
+        [JsonConverter(typeof(IntImageMarginDictJsonConverter))]
+        IReadOnlyDictionary<int, ImageMargin> questionsMargin,
+        string                                boxName)
     {
-        Id                  = id;
-        BoxImageMargin      = boxImageMargin;
+        QnbDefinitionId                  = qnbDefinitionId;
+        QnbImageMargin      = qnbImageMargin;
         ValidQuestionsRange = validQuestionsRange;
-        QuestionMargins     = questionMargins;
+        QuestionsMargin     = questionsMargin;
+        BoxName             = boxName;
     }
 
     /// <summary>
     /// The ID of the definition.
     /// </summary>
-    public int Id { get; }
+    public int QnbDefinitionId { get; }
     
     /// <summary>
     /// The range of the image of the whole question number box.
     /// </summary>
-    public ImageMargin BoxImageMargin { get; }
+    public ImageMargin QnbImageMargin { get; }
     
     /// <summary>
     /// The valid range of questions that candidates may choose from.
     /// </summary>
-    public IEnumerable<int> ValidQuestionsRange { get; }
+    public IReadOnlyCollection<int> ValidQuestionsRange { get; }
     
     /// <summary>
     /// The image margins of each question number.
     /// </summary>
-    public IReadOnlyDictionary<int, ImageMargin> QuestionMargins { get; }
+    public IReadOnlyDictionary<int, ImageMargin> QuestionsMargin { get; }
+    
+    /// <summary>
+    /// The name of the question number box.
+    /// </summary>
+    public string BoxName { get; }
 
     /// <summary>
     /// Gets an object representing a Create QuestionNumberBox Definition request.
     /// </summary>
     public static CreateQuestionNumberBoxDefinition ToCreate(ImageMargin                    boxImageMargin,
-                                                             ICollection<int>?              validQuestionsRange,
-                                                             IDictionary<int, ImageMargin>? questionMargins) =>
-        new(boxImageMargin, validQuestionsRange, questionMargins);
+                                                             ICollection<int>               validQuestionsRange,
+                                                             IDictionary<int, ImageMargin>  questionMargins,
+                                                             string                         boxName = "") =>
+        new(boxImageMargin, validQuestionsRange, questionMargins, boxName);
 
     /// <summary>
     /// Gets an object representing a Delete QuestionNumberBox Definition request.
     /// </summary>
     public DeleteObject ToDelete() 
-        => new(Id.ToString(CultureInfo.InvariantCulture));
+        => new(QnbDefinitionId.ToString(CultureInfo.InvariantCulture));
 }

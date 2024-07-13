@@ -137,7 +137,7 @@ internal class ScriptSlicingDefinition
         int                         page,
         ImageMargin                 range,
         QuestionNumberBoxDefinition linkedQnb)
-        => ToCreate(scriptDefinitionId, page, range, null, null, null, null, linkedQnb.Id);
+        => ToCreate(scriptDefinitionId, page, range, null, null, null, null, linkedQnb.QnbDefinitionId);
 
     /// <summary>
     /// Gets an object representing a delete <see cref="ScriptSlicingDefinition"/> request.
