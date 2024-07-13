@@ -1,3 +1,4 @@
+using System.Net;
 using OES.Internal;
 
 namespace OES;
@@ -25,5 +26,25 @@ public class QuestionNumberBoxDefinitionsClient : ApiClient
                                         "Every question must have an ImageMargin defined.", nameof(body));
 
         return ApiConnection.Post<QuestionNumberBoxDefinition>(ApiEndpoints.QuestionNumberBoxDefinitions(), body);
+    }
+
+    /// <summary>
+    /// Deletes an existing <see cref="QuestionNumberBoxDefinition"/>.
+    /// </summary>
+    /// <param name="delObj">The request body.</param>
+    /// <returns>The status of the request.</returns>
+    public Task<HttpStatusCode> Delete(DeleteObject delObj)
+    {
+        return Delete(int.Parse(delObj.Id));
+    }
+
+    /// <summary>
+    /// Deletes an existing <see cref="QuestionNumberBoxDefinition"/>.
+    /// </summary>
+    /// <param name="qnbDefinitionId">The ID of the <see cref="QuestionNumberBoxDefinition"/> to be deleted.</param>
+    /// <returns>The status of the request.</returns>
+    public Task<HttpStatusCode> Delete(int qnbDefinitionId)
+    {
+        return Connection.Delete(ApiEndpoints.QuestionNumberBoxDefinitionById(qnbDefinitionId));
     }
 }
