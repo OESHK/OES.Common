@@ -49,6 +49,17 @@ public class QuestionNumberBoxDefinitionsClient : ApiClient
     }
 
     /// <summary>
+    /// Gets a <see cref="QuestionNumberBoxDefinition"/> by ID.
+    /// </summary>
+    /// <param name="qnbDefinitionId">The ID of the <see cref="QuestionNumberBoxDefinition"/>.</param>
+    /// <returns>The retrieved <see cref="QuestionNumberBoxDefinition"/>.</returns>
+    public Task<QuestionNumberBoxDefinition> Get(int qnbDefinitionId)
+    {
+        return ApiConnection.Get<QuestionNumberBoxDefinition>(
+            ApiEndpoints.QuestionNumberBoxDefinitionById(qnbDefinitionId));
+    }
+
+    /// <summary>
     /// Gets all <see cref="QuestionNumberBoxDefinition"/> with given pagination options.
     /// </summary>
     /// <param name="perPage">Number of items to get per page. (Default: 30)</param>
