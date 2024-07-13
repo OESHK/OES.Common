@@ -9,19 +9,19 @@ namespace OES;
 public class CreateQuestionNumberBoxDefinition
 {
     public CreateQuestionNumberBoxDefinition(
-        ImageMargin                   boxImageMargin,
+        ImageMargin                   qnbImageMargin,
         ICollection<int>              validQuestionsRange,
         IDictionary<int, ImageMargin> questionsMargin,
         string                        boxName)
     {
-        BoxImageMargin      = boxImageMargin;
+        QnbImageMargin      = qnbImageMargin;
         ValidQuestionsRange = validQuestionsRange;
         QuestionsMargin     = questionsMargin;
         BoxName             = boxName;
     }
     
     /// <inheritdoc cref="QuestionNumberBoxDefinition.QnbImageMargin"/>
-    public ImageMargin BoxImageMargin { get; set; }
+    public ImageMargin QnbImageMargin { get; set; }
     
     /// <inheritdoc cref="QuestionNumberBoxDefinition.ValidQuestionsRange"/>
     public ICollection<int> ValidQuestionsRange { get; set; }

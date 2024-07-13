@@ -75,4 +75,21 @@ public class QuestionNumberBoxDefinitionsClient : ApiClient
                 { "page", page }
             });
     }
+
+    /// <summary>
+    /// Updates an existing <see cref="QuestionNumberBoxDefinition"/>.
+    /// </summary>
+    /// <param name="body">The request body.</param>
+    /// <returns>The updated <see cref="QuestionNumberBoxDefinition"/>.</returns>
+    /// <exception cref="ArgumentException">Thrown when <see cref="UpdateQuestionNumberBoxDefinition.IsValid"/>
+    /// of request body returns false.</exception>
+    public Task<QuestionNumberBoxDefinition> Update(UpdateQuestionNumberBoxDefinition body)
+    {
+        if (!body.IsValid())
+            throw new ArgumentException("The request body is invalid. " +
+                                        "Every question must have an ImageMargin defined.", nameof(body));
+        
+        return ApiConnection.Patch<QuestionNumberBoxDefinition>(
+            ApiEndpoints.QuestionNumberBoxDefinitionById(body.QnbDefinitionId), body);
+    }
 }
