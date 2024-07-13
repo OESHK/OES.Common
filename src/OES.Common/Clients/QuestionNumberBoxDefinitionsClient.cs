@@ -47,4 +47,21 @@ public class QuestionNumberBoxDefinitionsClient : ApiClient
     {
         return Connection.Delete(ApiEndpoints.QuestionNumberBoxDefinitionById(qnbDefinitionId));
     }
+
+    /// <summary>
+    /// Gets all <see cref="QuestionNumberBoxDefinition"/> with given pagination options.
+    /// </summary>
+    /// <param name="perPage">Number of items to get per page. (Default: 30)</param>
+    /// <param name="page">Page number to get. (Default: 1)</param>
+    /// <returns>The list of retrieved <see cref="QuestionNumberBoxDefinition"/>.</returns>
+    public Task<IReadOnlyCollection<QuestionNumberBoxDefinition>> GetAll(int perPage = 30, int page = 1)
+    {
+        return ApiConnection.Get<IReadOnlyCollection<QuestionNumberBoxDefinition>>(
+            ApiEndpoints.QuestionNumberBoxDefinitions(),
+            new Dictionary<string, object>
+            {
+                { "per_page", perPage },
+                { "page", page }
+            });
+    }
 }
