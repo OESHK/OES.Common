@@ -24,7 +24,7 @@ public class CreateQuestionNumberBoxDefinition
     public ImageMargin BoxImageMargin { get; set; }
     
     /// <inheritdoc cref="QuestionNumberBoxDefinition.ValidQuestionsRange"/>
-    public IEnumerable<int> ValidQuestionsRange { get; set; }
+    public ICollection<int> ValidQuestionsRange { get; set; }
     
     /// <inheritdoc cref="QuestionNumberBoxDefinition.QuestionsMargin"/>
     [JsonConverter(typeof(IntImageMarginDictJsonConverter))]
@@ -32,4 +32,12 @@ public class CreateQuestionNumberBoxDefinition
     
     /// <inheritdoc cref="QuestionNumberBoxDefinition.BoxName"/>
     public string BoxName { get; set; }
+
+    /// <summary>
+    /// Checks if every question in <see cref="CreateQuestionNumberBoxDefinition.ValidQuestionsRange"/> has a matching
+    /// image margin set in <see cref="CreateQuestionNumberBoxDefinition.QuestionsMargin"/>.
+    /// </summary>
+    public bool IsValid() =>
+        ValidQuestionsRange.Count == QuestionsMargin.Count 
+        && ValidQuestionsRange.All(question => QuestionsMargin.TryGetValue(question, out _));
 }
