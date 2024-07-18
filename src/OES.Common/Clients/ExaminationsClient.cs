@@ -10,10 +10,9 @@ public class ExaminationsClient : ApiClient
 {
     internal ExaminationsClient(ApiConnection apiConnection) : base(apiConnection)
     {
-        CandidateEntries = new CandidateEntriesClient(ApiConnection);
+        CandidateEntries             = new CandidateEntriesClient(ApiConnection);
+        ExaminationScriptDefinitions = new ExaminationScriptDefinitionsClient(ApiConnection);
     }
-    
-    public CandidateEntriesClient CandidateEntries { get; }
 
     /// <summary>
     /// Creates an Examination.
@@ -109,4 +108,8 @@ public class ExaminationsClient : ApiClient
         return ApiConnection.Patch<Examination>(ApiEndpoints.ExaminationById(updateExamination.ExaminationId),
             updateExamination);
     }
+    
+    public CandidateEntriesClient CandidateEntries { get; }
+    
+    public ExaminationScriptDefinitionsClient ExaminationScriptDefinitions { get; }
 }
