@@ -9,7 +9,7 @@ namespace OES;
 [JsonConverter(typeof(ImageMarginJsonConverter))]
 public struct ImageMargin
 {
-    public ImageMargin(int left, int top, int right, int bottom)
+    public ImageMargin(float left, float top, float right, float bottom)
     {
         Left = left;
         Top = top;
@@ -27,10 +27,14 @@ public struct ImageMargin
         try
         {
             var split = @params.Split(',');
-            parseSuccess = int.TryParse(split[0], out _left)
-                           && int.TryParse(split[1], out _top)
-                           && int.TryParse(split[2], out _right)
-                           && int.TryParse(split[3], out _bottom);
+            parseSuccess = float.TryParse(split[0], out var left);
+            Left         = left;
+            parseSuccess = float.TryParse(split[1], out var top) && parseSuccess;
+            Top          = top;
+            parseSuccess = float.TryParse(split[2], out var right) && parseSuccess;
+            Right        = right;
+            parseSuccess = float.TryParse(split[3], out var bottom) && parseSuccess;
+            Bottom       = bottom;
         }
         catch (Exception e)
         {
@@ -41,33 +45,33 @@ public struct ImageMargin
         if (!parseSuccess) throw new ArgumentException("Provided ImageMargin value is invalid.", nameof(@params), innerException);
     }
     
-    public int Left
+    public float Left
     {
         get => _left;
-        set => _left = value;
+        set => _left = (float) Math.Round(value, 2);
     }
-    private int _left;
+    private float _left;
 
-    public int Top
+    public float Top
     {
         get => _top;
-        set => _top = value;
+        set => _top = (float) Math.Round(value, 2);
     }
-    private int _top;
+    private float _top;
 
-    public int Right
+    public float Right
     {
         readonly get => _right;
-        set => _right = value;
+        set => _right = (float) Math.Round(value, 2);
     }
-    private int _right;
+    private float _right;
 
-    public int Bottom
+    public float Bottom
     {
         readonly get => _bottom;
-        set => _bottom = value;
+        set => _bottom = (float) Math.Round(value, 2);
     }
-    private int _bottom;
+    private float _bottom;
 
     public override string ToString() => $"{Left},{Top},{Right},{Bottom}";
 }
