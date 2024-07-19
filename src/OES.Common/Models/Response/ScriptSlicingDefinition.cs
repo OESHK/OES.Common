@@ -96,51 +96,46 @@ public class ScriptSlicingDefinition
     /// Gets an object representing a request to create a new <see cref="ScriptSlicingDefinition"/>.
     /// </summary>
     public static CreateScriptSlicingDefinition ToCreate(
-        int         scriptDefinitionId,
         int         page,
-        ImageMargin range,
+        ImageMargin imageMargin,
         int?        panelId,
         int?        orderInPanel,
         int?        linkedSliceId,
         int?        orderInLinkage,
         int?        linkedQuestionNumberBoxId)
-        => new(scriptDefinitionId, page, range, panelId, orderInPanel, linkedSliceId, orderInLinkage,
-            linkedQuestionNumberBoxId);
+        => new(page, imageMargin, panelId, orderInPanel, linkedSliceId, orderInLinkage, linkedQuestionNumberBoxId);
 
     /// <summary>
     /// Creates a new <see cref="ScriptSlicingDefinition"/> which is linked to a <see cref="MarkingPanel"/>.
     /// </summary>
     /// <returns>An object representing a create <see cref="ScriptSlicingDefinition"/> request.</returns>
     public static CreateScriptSlicingDefinition ToCreate(
-        int          scriptDefinitionId,
         int          page,
-        ImageMargin  range,
+        ImageMargin  imageMargin,
         MarkingPanel panel,
         int          orderInPanel)
-        => ToCreate(scriptDefinitionId, page, range, panel.PanelId, orderInPanel, null, null, null);
+        => ToCreate(page, imageMargin, panel.PanelId, orderInPanel, null, null, null);
 
     /// <summary>
     /// Creates a new <see cref="ScriptSlicingDefinition"/> which is linked to another <see cref="ScriptSlicingDefinition"/>.
     /// </summary>
     /// <returns>An object representing a create <see cref="ScriptSlicingDefinition"/> request.</returns>
     public static CreateScriptSlicingDefinition ToCreate(
-        int                     scriptDefinitionId,
         int                     page,
-        ImageMargin             range,
+        ImageMargin             imageMargin,
         ScriptSlicingDefinition linkedSlice,
         int                     orderInLinkage)
-        => ToCreate(scriptDefinitionId, page, range, null, null, linkedSlice.SliceDefinitionId, orderInLinkage, null);
+        => ToCreate(page, imageMargin, null, null, linkedSlice.SliceDefinitionId, orderInLinkage, null);
 
     /// <summary>
     /// Creates a new <see cref="ScriptSlicingDefinition"/> which is linked to a <see cref="QuestionNumberBoxDefinition"/>.
     /// </summary>
     /// <returns>An object representing a create <see cref="ScriptSlicingDefinition"/> request.</returns>
     public static CreateScriptSlicingDefinition ToCreate(
-        int                         scriptDefinitionId,
         int                         page,
-        ImageMargin                 range,
+        ImageMargin                 imageMargin,
         QuestionNumberBoxDefinition linkedQnb)
-        => ToCreate(scriptDefinitionId, page, range, null, null, null, null, linkedQnb.QnbDefinitionId);
+        => ToCreate(page, imageMargin, null, null, null, null, linkedQnb.QnbDefinitionId);
 
     /// <summary>
     /// Gets an object representing a delete <see cref="ScriptSlicingDefinition"/> request.

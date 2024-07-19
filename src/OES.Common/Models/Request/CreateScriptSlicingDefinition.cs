@@ -9,7 +9,6 @@ namespace OES;
 public class CreateScriptSlicingDefinition
 {
     public CreateScriptSlicingDefinition(
-        int         scriptDefinitionId,
         int         page,
         [JsonConverter(typeof(ImageMarginJsonConverter))]
         ImageMargin range,
@@ -22,18 +21,14 @@ public class CreateScriptSlicingDefinition
         int?        linkedQuestionNumberBoxId
         )
     {
-        ScriptDefinitionId = scriptDefinitionId;
-        Page               = page;
-        Range              = range;
-        _panelId           = panelId;
-        OrderInPanel       = orderInPanel;
-        _linkedSliceId     = linkedSliceId;
-        OrderInLinkage     = orderInLinkage;
-        _linkedQnbId       = linkedQuestionNumberBoxId;
+        Page                      = page;
+        Range                     = range;
+        PanelId                   = panelId;
+        OrderInPanel              = orderInPanel;
+        LinkedSliceId             = linkedSliceId;
+        OrderInLinkage            = orderInLinkage;
+        LinkedQuestionNumberBoxId = linkedQuestionNumberBoxId;
     }
-    
-    /// <inheritdoc cref="ScriptSlicingDefinition.ScriptDefinitionId"/>
-    public int ScriptDefinitionId { get; set; }
     
     /// <inheritdoc cref="ScriptSlicingDefinition.Page"/>
     public int Page { get; set; }
@@ -54,15 +49,29 @@ public class CreateScriptSlicingDefinition
             _panelId = value;
             
             if (_panelId is null) return;
-            _linkedSliceId = null;
-            OrderInLinkage = null;
-            _linkedQnbId   = null;
+            _linkedSliceId  = null;
+            _orderInLinkage = null;
+            _linkedQnbId    = null;
         }
     }
     private int? _panelId;
 
     /// <inheritdoc cref="ScriptSlicingDefinition.OrderInPanel"/>
-    public int? OrderInPanel { get; set; }
+    public int? OrderInPanel
+    {
+        get => _orderInPanel;
+        set
+        {
+            _orderInPanel = value;
+
+            if (value is null) return;
+            _linkedSliceId  = null;
+            _orderInLinkage = null;
+            _linkedQnbId    = null;
+        }
+    }
+
+    private int? _orderInPanel;
 
     /// <summary>
     /// The ID of the slice to which this slice is linked.
@@ -78,17 +87,30 @@ public class CreateScriptSlicingDefinition
             _linkedSliceId = value;
 
             if (_linkedSliceId is null) return;
-            _panelId       = null;
-            OrderInPanel   = null;
-            _linkedQnbId   = null;
+            _panelId      = null;
+            _orderInPanel = null;
+            _linkedQnbId  = null;
         }
     }
     private int? _linkedSliceId;
-    
+
     /// <inheritdoc cref="ScriptSlicingDefinition.OrderInLinkage"/>
     [JsonProperty("link_order")]
-    public int? OrderInLinkage { get; set; }
-    
+    public int? OrderInLinkage
+    {
+        get => _orderInLinkage;
+        set
+        {
+            _orderInLinkage = value;
+
+            if (value is null) return;
+            _panelId      = null;
+            _orderInPanel = null;
+            _linkedQnbId  = null;
+        }
+    }
+    private int? _orderInLinkage;
+
     /// <summary>
     /// The ID of the Question Number Box that this slice is linked to.
     /// Setting this property will make <see cref="PanelId"/>, <see cref="OrderInPanel"/>,
@@ -103,10 +125,10 @@ public class CreateScriptSlicingDefinition
             _linkedQnbId = value;
 
             if (_linkedQnbId is null) return;
-            _panelId       = null;
-            OrderInPanel   = null;
-            _linkedSliceId = null;
-            OrderInLinkage = null;
+            _panelId        = null;
+            _orderInPanel   = null;
+            _linkedSliceId  = null;
+            _orderInLinkage = null;
         }
     }
     private int? _linkedQnbId;
