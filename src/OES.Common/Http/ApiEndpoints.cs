@@ -58,6 +58,12 @@ internal static class ApiEndpoints
     public static Uri NonMCQuestionDefinitionById(int examinationId, int scriptDefinitionId, int nonMCQuestionDefinitionId) =>
         "/examinations/{0}/script_defs/{1}/question_defs/non_mcqs/{2}".FormatUri(examinationId, scriptDefinitionId, nonMCQuestionDefinitionId);
 
+    public static Uri ScriptSliceDefinitions(int examinationId, int scriptDefinitionId) =>
+        "/examinations/{0}/script_defs/{1}/slice_defs".FormatUri(examinationId, scriptDefinitionId);
+
+    public static Uri ScriptSliceDefinitionById(int examinationId, int scriptDefinitionId, int sliceDefinitionId) =>
+        "/examinations/{0}/script_defs/{1}/slice_defs/{2}".FormatUri(examinationId, scriptDefinitionId, sliceDefinitionId);
+    
     public static Uri QuestionNumberBoxDefinitions() =>
         "/qnb_defs".FormatUri();
 

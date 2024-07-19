@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using OES.Internal;
 
 namespace OES;
 
@@ -10,11 +11,14 @@ public class CreateScriptSlicingDefinition
     public CreateScriptSlicingDefinition(
         int         scriptDefinitionId,
         int         page,
+        [JsonConverter(typeof(ImageMarginJsonConverter))]
         ImageMargin range,
         int?        panelId,
         int?        orderInPanel,
         int?        linkedSliceId,
+        [JsonProperty("order_in_linkage")]
         int?        orderInLinkage,
+        [JsonProperty("link_to_qnb")]
         int?        linkedQuestionNumberBoxId
         )
     {
@@ -34,7 +38,7 @@ public class CreateScriptSlicingDefinition
     /// <inheritdoc cref="ScriptSlicingDefinition.Page"/>
     public int Page { get; set; }
     
-    /// <inheritdoc cref="ScriptSlicingDefinition.Range"/>
+    /// <inheritdoc cref="ScriptSlicingDefinition.ImageMargin"/>
     public ImageMargin Range { get; set; }
 
     /// <summary>

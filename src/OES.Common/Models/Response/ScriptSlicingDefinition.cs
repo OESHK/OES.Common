@@ -1,5 +1,6 @@
 using System.Globalization;
 using Newtonsoft.Json;
+using OES.Internal;
 
 namespace OES;
 
@@ -7,7 +8,7 @@ namespace OES;
 /// Represents a definition of one script slice. It instructs the system how to slice the scanned script images
 /// and which marking panel to assign the sliced script.
 /// </summary>
-internal class ScriptSlicingDefinition
+public class ScriptSlicingDefinition
 {
     /// <summary>
     /// Creates an instance for script slicing definition.
@@ -17,18 +18,20 @@ internal class ScriptSlicingDefinition
         int         sliceDefinitionId,
         int         scriptDefinitionId,
         int         page,
-        ImageMargin range,
+        ImageMargin imageMargin,
         int?        panelId,
         int?        orderInPanel,
+        [JsonProperty("link_to_slice")]
         int?        linkedSliceId,
         int?        orderInLinkage,
+        [JsonProperty("link_to_qnb")]
         int?        linkedQuestionNumberBoxId
     )
     {
         SliceDefinitionId         = sliceDefinitionId;
         ScriptDefinitionId        = scriptDefinitionId;
         Page                      = page;
-        Range                     = range;
+        ImageMargin               = imageMargin;
         PanelId                   = panelId;
         OrderInPanel              = orderInPanel;
         LinkedSliceId             = linkedSliceId;
@@ -54,7 +57,8 @@ internal class ScriptSlicingDefinition
     /// <summary>
     /// The margins of the slice.
     /// </summary>
-    public ImageMargin Range { get; }
+    [JsonConverter(typeof(ImageMarginJsonConverter))]
+    public ImageMargin ImageMargin { get; }
     
     /// <summary>
     /// The panel which is responsible for marking the slice.
@@ -79,7 +83,6 @@ internal class ScriptSlicingDefinition
     /// Controls the order of all slices which are linked to the same slice. Has no effect (and likely to be null)
     /// when <see cref="LinkedSliceId"/> is null.
     /// </summary>
-    [JsonProperty("link_order")]
     public int? OrderInLinkage { get; }
     
     /// <summary>
