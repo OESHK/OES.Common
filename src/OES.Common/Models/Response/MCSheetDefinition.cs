@@ -1,4 +1,3 @@
-using System.Globalization;
 using Newtonsoft.Json;
 using OES.Internal;
 
@@ -62,9 +61,4 @@ public class MCSheetDefinition
         int                                     panelId,
         ICollection<MCSheetQuestionDefinition>? answers = null) =>
         new CreateMCSheetDefinition(scriptDefinitionId, panelId, answers);
-
-    /// <summary>
-    /// Gets an object representing a request to delete an existing <see cref="MCSheetDefinition"/>.
-    /// </summary>
-    public DeleteObject ToDelete() => new DeleteObject(ScriptDefinitionId.ToString(CultureInfo.InvariantCulture));
 }
