@@ -121,10 +121,4 @@ public class MarkingPanel
     /// <returns></returns>
     public UpdateMarkingPanel ToUpdate()
         => new UpdateMarkingPanel(this);
-
-    /// <summary>
-    /// Gets an object representing a Delete Marking Panel request.
-    /// </summary>
-    public DeleteObject ToDelete()
-        => new DeleteObject(PanelId.ToString(CultureInfo.InvariantCulture));
 }

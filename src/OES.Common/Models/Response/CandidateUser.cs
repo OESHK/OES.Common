@@ -94,9 +94,4 @@ public class CandidateUser : UserWithDetailedName
     /// Gets an object representing an Update Candidate request.
     /// </summary>
     public UpdateCandidateUser ToUpdate() => new(this);
-
-    /// <summary>
-    /// Gets an object representing a Delete Candidate request.
-    /// </summary>
-    public DeleteObject ToDelete() => new(CandidateId);
 }

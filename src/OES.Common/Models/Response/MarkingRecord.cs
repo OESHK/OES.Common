@@ -91,10 +91,4 @@ public class MarkingRecord
     /// Gets an object representing a request to update an existing <see cref="MarkingRecord"/>.
     /// </summary>
     public UpdateMarkingRecord ToUpdate() => new(this);
-
-    /// <summary>
-    /// Gets an object representing a request to delete an existing <see cref="MarkingRecord"/>.
-    /// </summary>
-    /// <returns></returns>
-    public DeleteObject ToDelete() => new(RecordId.ToString(CultureInfo.InvariantCulture));
 }

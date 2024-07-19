@@ -50,10 +50,4 @@ public class CandidateScriptEntry
     /// Gets an object representing a update existing <see cref="CandidateScriptEntry"/> request.
     /// </summary>
     public UpdateCandidateScriptEntry ToUpdate() => new(this);
-
-    /// <summary>
-    /// Gets an object representing a delete <see cref="CandidateScriptEntry"/> request.
-    /// The images of the script entry will also be deleted.
-    /// </summary>
-    public DeleteObject ToDelete() => new(EntryId.ToString(CultureInfo.InvariantCulture));
 }

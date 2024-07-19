@@ -138,11 +138,4 @@ internal class ScriptSlicingDefinition
         ImageMargin                 range,
         QuestionNumberBoxDefinition linkedQnb)
         => ToCreate(scriptDefinitionId, page, range, null, null, null, null, linkedQnb.QnbDefinitionId);
-
-    /// <summary>
-    /// Gets an object representing a delete <see cref="ScriptSlicingDefinition"/> request.
-    /// </summary>
-    /// <returns></returns>
-    public DeleteObject ToDelete()
-        => new(SliceDefinitionId.ToString(CultureInfo.InvariantCulture));
 }

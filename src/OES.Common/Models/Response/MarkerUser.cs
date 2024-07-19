@@ -36,10 +36,4 @@ public class MarkerUser : UserWithDetailedName
     /// Gets an object representing an Update Marker request.
     /// </summary>
     public UpdateMarkerUser ToUpdate() => new(this);
-
-    /// <summary>
-    /// Gets an object representing a Delete Marker request.
-    /// </summary>
-    /// <returns></returns>
-    public DeleteObject ToDelete() => new(Id);
 }

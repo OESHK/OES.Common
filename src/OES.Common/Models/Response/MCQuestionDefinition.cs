@@ -92,10 +92,4 @@ public class MCQuestionDefinition : QuestionDefinition
             markPerOption);
     
     // ToUpdate() not implemented as this object cannot be modified upon creation.
-
-    /// <summary>
-    /// Gets an object representing a delete MCQ definition request.
-    /// </summary>
-    public DeleteObject ToDelete()
-        => new(DefinitionId.ToString(CultureInfo.InvariantCulture));
 }
