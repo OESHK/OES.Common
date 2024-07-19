@@ -21,17 +21,19 @@ public class ExaminationScriptDefinitionsClient : ApiClient
     /// <returns>The created <see cref="ExaminationScriptDefinition"/>.</returns>
     public Task<ExaminationScriptDefinition> Create(CreateExaminationScriptDefinition body)
     {
-        return ApiConnection.Post<ExaminationScriptDefinition>(ApiEndpoints.ExamScriptDefinitions(), body);
+        return ApiConnection.Post<ExaminationScriptDefinition>(
+            ApiEndpoints.ExamScriptDefinitions(body.ExaminationId), body);
     }
 
     /// <summary>
     /// Deletes the existing <see cref="ExaminationScriptDefinition"/>.
     /// </summary>
-    /// <param name="body">The request body.</param>
+    /// <param name="examinationId">The ID of the examination to which the <see cref="ExaminationScriptDefinition"/> belongs.</param>
+    /// <param name="scriptDefinitionId">The ID of the <see cref="ExaminationScriptDefinition"/>.</param>
     /// <returns>The status code of the request.</returns>
-    public Task<HttpStatusCode> Delete(DeleteObject body)
+    public Task<HttpStatusCode> Delete(int examinationId, int scriptDefinitionId)
     {
-        return Connection.Delete(ApiEndpoints.ExamScriptDefinitionById(int.Parse(body.Id)));
+        return Connection.Delete(ApiEndpoints.ExamScriptDefinitionById(examinationId, scriptDefinitionId));
     }
 
     /// <summary>
@@ -43,7 +45,7 @@ public class ExaminationScriptDefinitionsClient : ApiClient
     public Task<ExaminationScriptDefinition> GetScriptDefinitionOfExam(int examinationId, int definitionId)
     {
         return ApiConnection.Get<ExaminationScriptDefinition>(
-            ApiEndpoints.ExamScriptDefOfExamById(examinationId, definitionId));
+            ApiEndpoints.ExamScriptDefinitionById(examinationId, definitionId));
     }
 
     /// <summary>
@@ -65,7 +67,7 @@ public class ExaminationScriptDefinitionsClient : ApiClient
     public Task<IReadOnlyCollection<ExaminationScriptDefinition>> GetScriptDefsOfExam(int examinationId)
     {
         return ApiConnection.Get<IReadOnlyCollection<ExaminationScriptDefinition>>(
-            ApiEndpoints.ExamScriptDefsOfExam(examinationId));
+            ApiEndpoints.ExamScriptDefinitions(examinationId));
     }
 
     /// <summary>

@@ -106,11 +106,4 @@ public class ExaminationScriptDefinition
                 candidateBarcodesMargins,
                 scriptBarcodeMargin,
                 scriptBarcode);
-    
-    // ToUpdate() is not available as ExamScriptDefinitions are immutable, i.e. cannot be modified upon creation.
-
-    /// <summary>
-    /// An object representing a Delete Examination Script Definition request.
-    /// </summary>
-    public DeleteObject ToDelete() => new(DefinitionId.ToString(CultureInfo.InvariantCulture));
 }

@@ -39,10 +39,10 @@ internal static class ApiEndpoints
 
     public static Uri OpenExamination(int examinationId) => "/examinations/{0}/open".FormatUri(examinationId);
 
-    public static Uri ExamScriptDefsOfExam(int examinationId) =>
+    public static Uri ExamScriptDefinitions(int examinationId) =>
         "/examinations/{0}/script_defs".FormatUri(examinationId);
 
-    public static Uri ExamScriptDefOfExamById(int examinationId, int definitionId) =>
+    public static Uri ExamScriptDefinitionById(int examinationId, int definitionId) =>
         "/examinations/{0}/script_defs/{1}".FormatUri(examinationId, definitionId);
 
     public static Uri MarkingPanels() => "/marking_panels".FormatUri();
@@ -53,10 +53,6 @@ internal static class ApiEndpoints
 
     public static Uri QuestionNumberBoxDefinitionById(int qnbDefinitionId) =>
         "/qnb_defs/{0}".FormatUri(qnbDefinitionId);
-
-    public static Uri ExamScriptDefinitions() => "/script_defs".FormatUri();
-
-    public static Uri ExamScriptDefinitionById(int definitionId) => "/script_defs/{0}".FormatUri(definitionId);
 
     public static Uri MCSheetDefinition(int scriptDefinitionId) =>
         "/script_defs/{0}/mc_sheet_def".FormatUri(scriptDefinitionId);
