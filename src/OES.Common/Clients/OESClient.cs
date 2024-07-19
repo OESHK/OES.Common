@@ -13,7 +13,6 @@ public class OESClient
         _apiConnection = new ApiConnection(_connection);
         
         Examinations                 = new ExaminationsClient(_apiConnection);
-        MarkingPanels                = new MarkingPanelsClient(_apiConnection);
         QuestionNumberBoxDefinitions = new QuestionNumberBoxDefinitionsClient(_apiConnection);
     }
 
@@ -83,8 +82,6 @@ public class OESClient
     private readonly ApiConnection _apiConnection;
     
     public ExaminationsClient Examinations { get; }
-    
-    public MarkingPanelsClient MarkingPanels { get; }
     
     public QuestionNumberBoxDefinitionsClient QuestionNumberBoxDefinitions { get; }
 }

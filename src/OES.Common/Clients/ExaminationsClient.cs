@@ -12,6 +12,7 @@ public class ExaminationsClient : ApiClient
     {
         CandidateEntries             = new CandidateEntriesClient(ApiConnection);
         ExaminationScriptDefinitions = new ExaminationScriptDefinitionsClient(ApiConnection);
+        MarkingPanels                = new MarkingPanelsClient(ApiConnection);
     }
 
     /// <summary>
@@ -112,4 +113,6 @@ public class ExaminationsClient : ApiClient
     public CandidateEntriesClient CandidateEntries { get; }
     
     public ExaminationScriptDefinitionsClient ExaminationScriptDefinitions { get; }
+    
+    public MarkingPanelsClient MarkingPanels { get; }
 }
