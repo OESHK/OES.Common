@@ -12,6 +12,7 @@ public class ExaminationScriptDefinitionsClient : ApiClient
     {
         MCSheetDefinitions       = new MCSheetDefinitionsClient(ApiConnection);
         NonMCQuestionDefinitions = new NonMCQuestionDefinitionsClient(ApiConnection);
+        SliceDefinitions         = new SliceDefinitionsClient(ApiConnection);
     }
 
     /// <summary>
@@ -83,4 +84,6 @@ public class ExaminationScriptDefinitionsClient : ApiClient
     public MCSheetDefinitionsClient MCSheetDefinitions { get; }
 
     public NonMCQuestionDefinitionsClient NonMCQuestionDefinitions { get; }
+    
+    public SliceDefinitionsClient SliceDefinitions { get; }
 }
