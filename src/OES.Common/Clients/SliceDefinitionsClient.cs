@@ -12,6 +12,19 @@ public class SliceDefinitionsClient : ApiClient
     }
 
     /// <summary>
+    /// Creates a new <see cref="ScriptSlicingDefinition"/>.
+    /// </summary>
+    /// <param name="examinationId">The ID of its parent <see cref="Examination"/>.</param>
+    /// <param name="scriptDefinitionId">The ID of its parent <see cref="ExaminationScriptDefinition"/>.</param>
+    /// <param name="body">The request body.</param>
+    /// <returns>The created <see cref="ScriptSlicingDefinition"/>.</returns>
+    public Task<ScriptSlicingDefinition> Create(int examinationId, int scriptDefinitionId, CreateScriptSlicingDefinition body)
+    {
+        return ApiConnection.Post<ScriptSlicingDefinition>(
+            ApiEndpoints.ScriptSliceDefinitions(examinationId, scriptDefinitionId), body);
+    }
+
+    /// <summary>
     /// Gets a specific <see cref="ScriptSlicingDefinition"/>
     /// </summary>
     /// <param name="examinationId">The ID of its parent <see cref="Examination"/>.</param>
