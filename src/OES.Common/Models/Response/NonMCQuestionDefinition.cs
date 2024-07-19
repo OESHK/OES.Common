@@ -1,4 +1,3 @@
-using System.Globalization;
 using Newtonsoft.Json;
 
 namespace OES;
@@ -50,10 +49,4 @@ public class NonMCQuestionDefinition : QuestionDefinition
         => new(scriptDefinitionId, questionNumber, questionName, maximumMarks, allowHalfMarks);
     
     // ToUpdate() is not supported. This object cannot be modified upon creation.
-
-    /// <summary>
-    /// Gets an object representing a Delete Non-MCQ definition request.
-    /// </summary>
-    public DeleteQuestionDefinition ToDelete()
-        => new(ScriptDefinitionId, DefinitionId.ToString(CultureInfo.InvariantCulture));
 }

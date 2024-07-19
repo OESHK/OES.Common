@@ -52,6 +52,12 @@ internal static class ApiEndpoints
     public static Uri MCSheetDefinition(int examinationId, int scriptDefinitionId) =>
         "/examinations/{0}/script_defs/{1}/mc_sheet_def".FormatUri(examinationId, scriptDefinitionId);
 
+    public static Uri NonMCQuestionDefinitions(int examinationId, int scriptDefinitionId) =>
+        "/examinations/{0}/script_defs/{1}/question_defs/non_mcqs".FormatUri(examinationId, scriptDefinitionId);
+
+    public static Uri NonMCQuestionDefinitionById(int examinationId, int scriptDefinitionId, int nonMCQuestionDefinitionId) =>
+        "/examinations/{0}/script_defs/{1}/question_defs/non_mcqs/{2}".FormatUri(examinationId, scriptDefinitionId, nonMCQuestionDefinitionId);
+
     public static Uri MarkingPanels() => 
         "/marking_panels".FormatUri();
     
@@ -63,10 +69,4 @@ internal static class ApiEndpoints
 
     public static Uri QuestionNumberBoxDefinitionById(int qnbDefinitionId) =>
         "/qnb_defs/{0}".FormatUri(qnbDefinitionId);
-
-    public static Uri NonMCQuestionDefinitions(int scriptDefinitionId) =>
-        "/script_defs/{0}/question_defs/non_mcqs".FormatUri(scriptDefinitionId);
-
-    public static Uri NonMCQuestionDefinitionById(int scriptDefinitionId, int nonMCQuestionDefinitionId) =>
-        "/script_defs/{0}/question_defs/non_mcqs/{1}".FormatUri(scriptDefinitionId, nonMCQuestionDefinitionId);
 }
