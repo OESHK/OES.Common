@@ -94,9 +94,4 @@ public class Examination
     /// Gets an object representing an Update Examination request.
     /// </summary>
     public UpdateExamination ToUpdate() => new(this);
-
-    /// <summary>
-    /// Gets an object representing a Delete Examination request.
-    /// </summary>
-    public DeleteObject ToDelete() => new(ExaminationId.ToString(CultureInfo.InvariantCulture));
 }

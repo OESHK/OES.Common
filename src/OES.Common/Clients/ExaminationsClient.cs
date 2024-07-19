@@ -28,16 +28,6 @@ public class ExaminationsClient : ApiClient
     /// <summary>
     /// Deletes an existing Examination.
     /// </summary>
-    /// <param name="delete">The <see cref="DeleteObject"/> request.</param>
-    /// <returns>The HTTP status code of the request.</returns>
-    public Task<HttpStatusCode> Delete(DeleteObject delete)
-    {
-        return Connection.Delete(ApiEndpoints.ExaminationById(int.Parse(delete.Id)));
-    }
-
-    /// <summary>
-    /// Deletes an existing Examination.
-    /// </summary>
     /// <param name="examination">The Examination to be deleted.</param>
     /// <returns>The HTTP status code of the request.</returns>
     public Task<HttpStatusCode> Delete(Examination examination)
@@ -52,7 +42,7 @@ public class ExaminationsClient : ApiClient
     /// <returns>The HTTP status code of the request.</returns>
     public Task<HttpStatusCode> Delete(int examinationId)
     {
-        return Delete(new DeleteObject(examinationId.ToString()));
+        return Connection.Delete(ApiEndpoints.ExaminationById(examinationId));
     }
 
     /// <summary>
