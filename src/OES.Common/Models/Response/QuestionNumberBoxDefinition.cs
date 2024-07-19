@@ -62,10 +62,4 @@ public class QuestionNumberBoxDefinition
                                                              IDictionary<int, ImageMargin>  questionMargins,
                                                              string                         boxName = "") =>
         new(boxImageMargin, validQuestionsRange, questionMargins, boxName);
-
-    /// <summary>
-    /// Gets an object representing a Delete QuestionNumberBox Definition request.
-    /// </summary>
-    public DeleteObject ToDelete() 
-        => new(QnbDefinitionId.ToString(CultureInfo.InvariantCulture));
 }

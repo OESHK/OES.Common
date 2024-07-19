@@ -13,33 +13,24 @@ public class MarkingPanelsClient : ApiClient
     }
 
     /// <summary>
-    /// Creates a new marking panel.
+    /// Creates a new <see cref="MarkingPanel"/>.
     /// </summary>
     /// <param name="body">The request body for creating a marking panel.</param>
-    /// <returns>The created marking panel.</returns>
+    /// <returns>The created <see cref="MarkingPanel"/>.</returns>
     public Task<MarkingPanel> CreateMarkingPanel(CreateMarkingPanel body)
     {
-        return ApiConnection.Post<MarkingPanel>(ApiEndpoints.MarkingPanels(), body);
+        return ApiConnection.Post<MarkingPanel>(ApiEndpoints.MarkingPanels(body.ExaminationId), body);
     }
 
     /// <summary>
-    /// Deletes a marking panel.
+    /// Deletes an existing <see cref="MarkingPanel"/>
     /// </summary>
-    /// <param name="body">See <see cref="DeleteObject"/>.</param>
+    /// <param name="examinationId">The ID of the examination to which the <see cref="MarkingPanel"/> belongs.</param>
+    /// <param name="panelId"></param>
     /// <returns>The status of the delete request.</returns>
-    public Task<HttpStatusCode> Delete(DeleteObject body)
+    public Task<HttpStatusCode> Delete(int examinationId, int panelId)
     {
-        return Connection.Delete(ApiEndpoints.MarkingPanelById(int.Parse(body.Id)));
-    }
-
-    /// <summary>
-    /// Gets a specific marking panel by its ID.
-    /// </summary>
-    /// <param name="panelId">The ID of the marking panel.</param>
-    /// <returns>The specified marking panel.</returns>
-    public Task<MarkingPanel> Get(int panelId)
-    {
-        return ApiConnection.Get<MarkingPanel>(ApiEndpoints.MarkingPanelById(panelId));
+        return Connection.Delete(ApiEndpoints.MarkingPanelById(examinationId, panelId));
     }
 
     /// <summary>
@@ -50,7 +41,7 @@ public class MarkingPanelsClient : ApiClient
     public Task<IReadOnlyCollection<MarkingPanel>> GetAllPanelsOfExamination(int examinationId)
     {
         return ApiConnection.Get<IReadOnlyCollection<MarkingPanel>>(
-            ApiEndpoints.MarkingPanelsOfExamination(examinationId));
+            ApiEndpoints.MarkingPanels(examinationId));
     }
 
     /// <summary>
@@ -61,16 +52,17 @@ public class MarkingPanelsClient : ApiClient
     /// <returns>The specified marking panel.</returns>
     public Task<MarkingPanel> GetPanelOfExamination(int examinationId, int panelId)
     {
-        return ApiConnection.Get<MarkingPanel>(ApiEndpoints.MarkingPanelOfExamination(examinationId, panelId));
+        return ApiConnection.Get<MarkingPanel>(ApiEndpoints.MarkingPanelById(examinationId, panelId));
     }
 
     /// <summary>
-    /// Updates a marking panel.
+    /// Updates a <see cref="MarkingPanel"/>.
     /// </summary>
     /// <param name="body">The request body.</param>
     /// <returns>The updated marking panel.</returns>
     public Task<MarkingPanel> Update(UpdateMarkingPanel body)
     {
-        return ApiConnection.Patch<MarkingPanel>(ApiEndpoints.MarkingPanelById(body.PanelId), body);
+        return ApiConnection.Patch<MarkingPanel>(
+            ApiEndpoints.MarkingPanelById(body.ExaminationId, body.PanelId), body);
     }
 }

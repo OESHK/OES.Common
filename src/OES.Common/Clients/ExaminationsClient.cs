@@ -10,10 +10,10 @@ public class ExaminationsClient : ApiClient
 {
     internal ExaminationsClient(ApiConnection apiConnection) : base(apiConnection)
     {
-        CandidateEntries = new CandidateEntriesClient(ApiConnection);
+        CandidateEntries             = new CandidateEntriesClient(ApiConnection);
+        ExaminationScriptDefinitions = new ExaminationScriptDefinitionsClient(ApiConnection);
+        MarkingPanels                = new MarkingPanelsClient(ApiConnection);
     }
-    
-    public CandidateEntriesClient CandidateEntries { get; }
 
     /// <summary>
     /// Creates an Examination.
@@ -23,16 +23,6 @@ public class ExaminationsClient : ApiClient
     public Task<Examination> Create(CreateExamination createExamination)
     {
         return ApiConnection.Post<Examination>(ApiEndpoints.Examinations(), createExamination);
-    }
-
-    /// <summary>
-    /// Deletes an existing Examination.
-    /// </summary>
-    /// <param name="delete">The <see cref="DeleteObject"/> request.</param>
-    /// <returns>The HTTP status code of the request.</returns>
-    public Task<HttpStatusCode> Delete(DeleteObject delete)
-    {
-        return Connection.Delete(ApiEndpoints.ExaminationById(int.Parse(delete.Id)));
     }
 
     /// <summary>
@@ -52,7 +42,7 @@ public class ExaminationsClient : ApiClient
     /// <returns>The HTTP status code of the request.</returns>
     public Task<HttpStatusCode> Delete(int examinationId)
     {
-        return Delete(new DeleteObject(examinationId.ToString()));
+        return Connection.Delete(ApiEndpoints.ExaminationById(examinationId));
     }
 
     /// <summary>
@@ -109,4 +99,10 @@ public class ExaminationsClient : ApiClient
         return ApiConnection.Patch<Examination>(ApiEndpoints.ExaminationById(updateExamination.ExaminationId),
             updateExamination);
     }
+    
+    public CandidateEntriesClient CandidateEntries { get; }
+    
+    public ExaminationScriptDefinitionsClient ExaminationScriptDefinitions { get; }
+    
+    public MarkingPanelsClient MarkingPanels { get; }
 }

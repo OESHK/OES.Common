@@ -8,6 +8,7 @@ public class UpdateMarkingPanel
     internal UpdateMarkingPanel(MarkingPanel markingPanel)
     {
         PanelId           = markingPanel.PanelId;
+        ExaminationId     = markingPanel.ExaminationId;
         OriginalMarkers   = markingPanel.Markers ?? Array.Empty<MarkerRosterEntry>();
         Markers           = OriginalMarkers.ToList();
         OriginalQuestions = markingPanel.Questions ?? Array.Empty<MarkingPanelQuestion>();
@@ -17,6 +18,10 @@ public class UpdateMarkingPanel
     /// <inheritdoc cref="MarkingPanel.PanelId"/>
     [JsonIgnore]
     public int PanelId { get; }
+    
+    /// <inheritdoc cref="MarkingPanel.ExaminationId"/>
+    [JsonIgnore]
+    public int ExaminationId { get; }
     
     /// <inheritdoc cref="MarkingPanel.PanelCode"/>
     public string? PanelCode { get; set; }
