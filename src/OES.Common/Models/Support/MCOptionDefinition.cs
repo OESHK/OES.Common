@@ -25,5 +25,5 @@ public struct MCOptionDefinition
     /// <summary>
     /// Whether the option is correct.
     /// </summary>
-    public bool IsCorrect { get; }
+    public bool IsCorrect { get; internal set; }
 }

@@ -1,19 +1,21 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using Newtonsoft.Json;
+using OES.Internal;
 
 namespace OES;
 
 /// <summary>
 /// Represents a definition of an MC Question.
 /// </summary>
+[JsonConverter(typeof(MCQuestionDefinitionJsonConverter))]
 public class MCQuestionDefinition : QuestionDefinition
 {
     /// <summary>
     /// Creates an instance of an MCQ definition.
     /// </summary>
-    [JsonConstructor]
     internal MCQuestionDefinition(
-        int                                     id,
+        int                                     mcqDefinitionId,
         int                                     scriptDefinitionId,
         int                                     panelId,
         int                                     questionNumber,
@@ -22,13 +24,32 @@ public class MCQuestionDefinition : QuestionDefinition
         IReadOnlyCollection<MCOptionDefinition> optionsDefinition,
         MCMarkingMode                           markingMode,
         int                                     marksPerOption
-        ) : base(id, scriptDefinitionId, questionNumber, questionName)
+        ) : base(mcqDefinitionId, scriptDefinitionId, questionNumber, questionName)
     {
         PanelId             = panelId;
         QuestionImageMargin = questionImageMargin;
         OptionsDefinition   = optionsDefinition;
         MarkingMode         = markingMode;
         MarksPerOption      = marksPerOption;
+    }
+    
+    /// <summary>
+    /// This constructor MUST ONLY be used by <see cref="MCQuestionDefinitionJsonConverter"/>.
+    /// </summary>
+    [JsonConstructor]
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+    internal MCQuestionDefinition(
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+        int           mcqDefinitionId,
+        int           scriptDefinitionId,
+        int           panelId,
+        int           questionNo,
+        string        questionName,
+        ImageMargin   questionImageMargin,
+        int           marksPerOption,
+        MCMarkingMode markingMode) : base(mcqDefinitionId, scriptDefinitionId, questionNo, questionName)
+    {
+        
     }
     
     /// <summary>
@@ -45,11 +66,13 @@ public class MCQuestionDefinition : QuestionDefinition
     /// <summary>
     /// The collection of options and their respective definitions.
     /// </summary>
-    public IReadOnlyCollection<MCOptionDefinition> OptionsDefinition { get; }
+    [JsonIgnore]
+    public IReadOnlyCollection<MCOptionDefinition> OptionsDefinition { get; internal set; }
 
     /// <summary>
     /// The collection of correct options.
     /// </summary>
+    [JsonIgnore]
     public IReadOnlyCollection<MCOptionDefinition> CorrectOptions 
         => OptionsDefinition.Where(def => def.IsCorrect).ToList();
 
