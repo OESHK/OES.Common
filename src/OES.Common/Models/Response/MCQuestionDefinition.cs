@@ -18,17 +18,17 @@ public class MCQuestionDefinition : QuestionDefinition
         int                                     panelId,
         int                                     questionNumber,
         string                                  questionName,
-        ImageMargin                             questionRange,
+        ImageMargin                             questionImageMargin,
         IReadOnlyCollection<MCOptionDefinition> optionsDefinition,
         MCMarkingMode                           markingMode,
-        int                                     markPerOption
+        int                                     marksPerOption
         ) : base(id, scriptDefinitionId, questionNumber, questionName)
     {
-        PanelId = panelId;
-        QuestionRange = questionRange;
-        OptionsDefinition = optionsDefinition;
-        MarkingMode = markingMode;
-        MarkPerOption = markPerOption;
+        PanelId             = panelId;
+        QuestionImageMargin = questionImageMargin;
+        OptionsDefinition   = optionsDefinition;
+        MarkingMode         = markingMode;
+        MarksPerOption      = marksPerOption;
     }
     
     /// <summary>
@@ -40,7 +40,7 @@ public class MCQuestionDefinition : QuestionDefinition
     /// <summary>
     /// The range of the question's image.
     /// </summary>
-    public ImageMargin QuestionRange { get; }
+    public ImageMargin QuestionImageMargin { get; }
     
     /// <summary>
     /// The collection of options and their respective definitions.
@@ -63,12 +63,11 @@ public class MCQuestionDefinition : QuestionDefinition
     /// This value is used as the total mark of the question
     /// when <see cref="MarkingMode"/> is set to GiveOnAllCorrect.
     /// </summary>
-    public int MarkPerOption { get; }
+    public int MarksPerOption { get; }
 
     /// <summary>
     /// Gets an object representing a new Create MCQ definition request.
     /// </summary>
-    /// <param name="scriptDefinitionId">The ID of the exam script definition to which this question definition belongs.</param>
     /// <param name="questionNumber">The numeric number of this question.</param>
     /// <param name="questionName">The short name of this question.</param>
     /// <param name="panelId">The ID of the panel which will be responsible for marking the question.</param>
@@ -79,7 +78,6 @@ public class MCQuestionDefinition : QuestionDefinition
     /// <seealso cref="MCMarkingMode.PenaltyOnIncorrect"/>
     /// <seealso cref="MCMarkingMode.GiveOnAllCorrect"/>
     public static CreateMCQuestionDefinition ToCreate(
-        int                             scriptDefinitionId,
         int                             questionNumber,
         string                          questionName,
         int                             panelId,
@@ -88,8 +86,7 @@ public class MCQuestionDefinition : QuestionDefinition
         MCMarkingMode                   markingMode,
         int                             markPerOption
     )
-        => new(scriptDefinitionId, questionNumber, questionName, panelId, questionRange, optionsDefinition, markingMode,
-            markPerOption);
+        => new(questionNumber, questionName, panelId, questionRange, optionsDefinition, markingMode, markPerOption);
     
     // ToUpdate() not implemented as this object cannot be modified upon creation.
 

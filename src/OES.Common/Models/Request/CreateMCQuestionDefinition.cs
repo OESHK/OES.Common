@@ -6,28 +6,23 @@ namespace OES;
 public class CreateMCQuestionDefinition
 {
     public CreateMCQuestionDefinition(
-        int                             scriptDefinitionId,
         int                             questionNumber,
         string                          questionName,
         int                             panelId,
-        ImageMargin                     questionRange,
+        ImageMargin                     questionImageMargin,
         ICollection<MCOptionDefinition> optionsDefinition,
         MCMarkingMode                   markingMode,
         int                             markPerOption
         )
     {
-        ScriptDefinitionId = scriptDefinitionId;
-        QuestionNumber     = questionNumber;
-        QuestionName       = questionName;
-        PanelId            = panelId;
-        QuestionRange      = questionRange;
-        OptionsDefinition  = optionsDefinition;
-        MarkingMode        = markingMode;
-        MarkPerOption      = markPerOption;
+        QuestionNumber      = questionNumber;
+        QuestionName        = questionName;
+        PanelId             = panelId;
+        QuestionImageMargin = questionImageMargin;
+        OptionsDefinition   = optionsDefinition;
+        MarkingMode         = markingMode;
+        MarkPerOption       = markPerOption;
     }
-
-    /// <inheritdoc cref="MCQuestionDefinition.ScriptDefinitionId"/>
-    public int ScriptDefinitionId { get; set; }
     
     /// <inheritdoc cref="MCQuestionDefinition.QuestionNumber"/>
     public int QuestionNumber { get; set; }
@@ -38,8 +33,8 @@ public class CreateMCQuestionDefinition
     /// <inheritdoc cref="MCQuestionDefinition.PanelId"/>
     public int PanelId { get; set; }
 
-    /// <inheritdoc cref="MCQuestionDefinition.QuestionRange"/>
-    public ImageMargin QuestionRange { get; set; }
+    /// <inheritdoc cref="MCQuestionDefinition.QuestionImageMargin"/>
+    public ImageMargin QuestionImageMargin { get; set; }
     
     /// <inheritdoc cref="MCQuestionDefinition.OptionsDefinition"/>
     public ICollection<MCOptionDefinition> OptionsDefinition { get; set; }
@@ -47,6 +42,6 @@ public class CreateMCQuestionDefinition
     /// <inheritdoc cref="MCQuestionDefinition.MarkingMode"/>
     public MCMarkingMode MarkingMode { get; set; }
     
-    /// <inheritdoc cref="MCQuestionDefinition.MarkPerOption"/>
+    /// <inheritdoc cref="MCQuestionDefinition.MarksPerOption"/>
     public int MarkPerOption { get; set; }
 }
