@@ -52,6 +52,9 @@ internal static class ApiEndpoints
     public static Uri MCSheetDefinition(int examinationId, int scriptDefinitionId) =>
         "/examinations/{0}/script_defs/{1}/mc_sheet_def".FormatUri(examinationId, scriptDefinitionId);
 
+    public static Uri MCQuestionDefinitionById(int examinationId, int scriptDefinitionId, int mcqDefinitionId) =>
+        "/examinations/{0}/script_defs/{1}/question_defs/mcqs/{2}".FormatUri(examinationId, scriptDefinitionId, mcqDefinitionId);
+
     public static Uri NonMCQuestionDefinitions(int examinationId, int scriptDefinitionId) =>
         "/examinations/{0}/script_defs/{1}/question_defs/non_mcqs".FormatUri(examinationId, scriptDefinitionId);
 
