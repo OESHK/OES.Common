@@ -1,13 +1,12 @@
 using System.Globalization;
 using Newtonsoft.Json;
-using OES.Internal;
 
 namespace OES;
 
 /// <summary>
 /// Represents a definition of an MC Question.
 /// </summary>
-public class MCQuestionDefinition : QuestionDefinition
+public class MCQuestionDefinition
 {
     /// <summary>
     /// Creates an instance of an MCQ definition.
@@ -23,15 +22,40 @@ public class MCQuestionDefinition : QuestionDefinition
         ImageMargin                             questionImageMargin,
         IReadOnlyCollection<MCOptionDefinition> options,
         MCMarkingMode                           markingMode,
-        int                                     marksPerOption
-        ) : base(mcqDefinitionId, scriptDefinitionId, questionNumber, questionName)
+        int                                     marksPerOption)
     {
+        McqDefinitionId     = mcqDefinitionId;
+        ScriptDefinitionId  = scriptDefinitionId;
+        QuestionNumber      = questionNumber;
+        QuestionName        = questionName;
         PanelId             = panelId;
         QuestionImageMargin = questionImageMargin;
         Options             = options;
         MarkingMode         = markingMode;
         MarksPerOption      = marksPerOption;
     }
+    
+    /// <summary>
+    /// The ID of the MCQ definition.
+    /// </summary>
+    public int McqDefinitionId { get; }
+    
+    /// <summary>
+    /// The ID of the examination script definition to which the MCQ definition belongs.
+    /// </summary>
+    public int ScriptDefinitionId { get; }
+    
+    /// <summary>
+    /// The number of this question.
+    /// </summary>
+    public int QuestionNumber { get; }
+    
+    /// <summary>
+    /// The short name of this question. Used in partial questions.
+    /// E.g., 1(a)(ii) is a question under question number 1.
+    /// <seealso cref="QuestionNumber"/>
+    /// </summary>
+    public string QuestionName { get; }
     
     /// <summary>
     /// The ID of the marking panel which will be responsible for marking this question.
@@ -67,28 +91,18 @@ public class MCQuestionDefinition : QuestionDefinition
     /// <param name="questionNumber">The numeric number of this question.</param>
     /// <param name="questionName">The short name of this question.</param>
     /// <param name="panelId">The ID of the panel which will be responsible for marking the question.</param>
-    /// <param name="questionRange">The image margins of the question.</param>
-    /// <param name="optionsDefinition">The list of image margins of each option.</param>
+    /// <param name="questionImageMargin">The image margins of the question.</param>
+    /// <param name="options">The list of image margins of each option.</param>
     /// <param name="markingMode">The mode of marking this MC question.</param>
-    /// <param name="markPerOption">The marks to be given per option.</param>
-    /// <seealso cref="MCMarkingMode.PenaltyOnIncorrect"/>
-    /// <seealso cref="MCMarkingMode.GiveOnAllCorrect"/>
+    /// <param name="marksPerOption">The marks to be given per option.</param>
     public static CreateMCQuestionDefinition ToCreate(
         int                             questionNumber,
         string                          questionName,
         int                             panelId,
-        ImageMargin                     questionRange,
-        ICollection<MCOptionDefinition> optionsDefinition,
+        ImageMargin                     questionImageMargin,
+        ICollection<MCOptionDefinition> options,
         MCMarkingMode                   markingMode,
-        int                             markPerOption
+        int                             marksPerOption
     )
-        => new(questionNumber, questionName, panelId, questionRange, optionsDefinition, markingMode, markPerOption);
-    
-    // ToUpdate() not implemented as this object cannot be modified upon creation.
-
-    /// <summary>
-    /// Gets an object representing a delete MCQ definition request.
-    /// </summary>
-    public DeleteObject ToDelete()
-        => new(DefinitionId.ToString(CultureInfo.InvariantCulture));
+        => new(questionNumber, questionName, panelId, questionImageMargin, options, markingMode, marksPerOption);
 }

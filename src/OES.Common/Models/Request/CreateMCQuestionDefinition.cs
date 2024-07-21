@@ -10,18 +10,18 @@ public class CreateMCQuestionDefinition
         string                          questionName,
         int                             panelId,
         ImageMargin                     questionImageMargin,
-        ICollection<MCOptionDefinition> optionsDefinition,
+        ICollection<MCOptionDefinition> options,
         MCMarkingMode                   markingMode,
-        int                             markPerOption
+        int                             marksPerOption
         )
     {
         QuestionNumber      = questionNumber;
         QuestionName        = questionName;
         PanelId             = panelId;
         QuestionImageMargin = questionImageMargin;
-        OptionsDefinition   = optionsDefinition;
+        Options             = options;
         MarkingMode         = markingMode;
-        MarkPerOption       = markPerOption;
+        MarksPerOption      = marksPerOption;
     }
     
     /// <inheritdoc cref="MCQuestionDefinition.QuestionNumber"/>
@@ -36,12 +36,12 @@ public class CreateMCQuestionDefinition
     /// <inheritdoc cref="MCQuestionDefinition.QuestionImageMargin"/>
     public ImageMargin QuestionImageMargin { get; set; }
     
-    /// <inheritdoc cref="MCQuestionDefinition.OptionsDefinition"/>
-    public ICollection<MCOptionDefinition> OptionsDefinition { get; set; }
+    /// <inheritdoc cref="MCQuestionDefinition.Options"/>
+    public ICollection<MCOptionDefinition> Options { get; set; }
 
     /// <inheritdoc cref="MCQuestionDefinition.MarkingMode"/>
     public MCMarkingMode MarkingMode { get; set; }
     
     /// <inheritdoc cref="MCQuestionDefinition.MarksPerOption"/>
-    public int MarkPerOption { get; set; }
+    public int MarksPerOption { get; set; }
 }

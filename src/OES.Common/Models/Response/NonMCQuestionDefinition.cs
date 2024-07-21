@@ -5,25 +5,51 @@ namespace OES;
 /// <summary>
 /// Represents a definition for a non-MC Question.
 /// </summary>
-public class NonMCQuestionDefinition : QuestionDefinition
+public class NonMCQuestionDefinition
 {
     /// <summary>
     /// Creates an instance for a non-MCQ definition
     /// </summary>
     [JsonConstructor]
     internal NonMCQuestionDefinition(
-        [JsonProperty("non_mcq_definition_id")]
-        int id,
+        int nonMcqDefinitionId,
         int scriptDefinitionId,
         [JsonProperty("question_no")]
         int questionNumber,
         string questionName,
         int    maxMarks,
-        bool   allowHalfMarks) : base(id, scriptDefinitionId, questionNumber, questionName)
+        bool   allowHalfMarks)
     {
-        MaximumMarks   = maxMarks;
-        AllowHalfMarks = allowHalfMarks;
+        NonMcqDefinitionId = nonMcqDefinitionId;
+        ScriptDefinitionId = scriptDefinitionId;
+        QuestionNumber     = questionNumber;
+        QuestionName       = questionName;
+        MaximumMarks       = maxMarks;
+        AllowHalfMarks     = allowHalfMarks;
     }
+    
+    /// <summary>
+    /// The ID of this question definition.
+    /// </summary>
+    public int NonMcqDefinitionId { get; }
+    
+    /// <summary>
+    /// The ID of the script definition to which this question definition belongs.
+    /// </summary>
+    public int ScriptDefinitionId { get; }
+    
+    /// <summary>
+    /// The number of this question.
+    /// </summary>
+    [JsonProperty("question_no")]
+    public int QuestionNumber { get; }
+    
+    /// <summary>
+    /// The short name of this question. Used in partial questions.
+    /// E.g., 1(a)(ii) is a question under question number 1.
+    /// <seealso cref="QuestionNumber"/>
+    /// </summary>
+    public string QuestionName { get; }
     
     /// <summary>
     /// The maximum marks can be given to this question.
@@ -47,6 +73,4 @@ public class NonMCQuestionDefinition : QuestionDefinition
     public static CreateNonMCQuestionDefinition ToCreate(
         int scriptDefinitionId, int questionNumber, string questionName, int maximumMarks, bool allowHalfMarks)
         => new(scriptDefinitionId, questionNumber, questionName, maximumMarks, allowHalfMarks);
-    
-    // ToUpdate() is not supported. This object cannot be modified upon creation.
 }
