@@ -10,6 +10,7 @@ public class MarkingPanelsClient : ApiClient
 {
     internal MarkingPanelsClient(ApiConnection apiConnection) : base(apiConnection)
     {
+        Members = new MarkingPanelMembersClient(apiConnection);
     }
 
     /// <summary>
@@ -65,4 +66,6 @@ public class MarkingPanelsClient : ApiClient
         return ApiConnection.Patch<MarkingPanel>(
             ApiEndpoints.MarkingPanelById(body.ExaminationId, body.PanelId), body);
     }
+    
+    public MarkingPanelMembersClient Members { get; }
 }
