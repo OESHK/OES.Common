@@ -10,7 +10,8 @@ public class MarkingPanelsClient : ApiClient
 {
     internal MarkingPanelsClient(ApiConnection apiConnection) : base(apiConnection)
     {
-        Members = new MarkingPanelMembersClient(apiConnection);
+        Members   = new MarkingPanelMembersClient(apiConnection);
+        Questions = new MarkingPanelQuestionsClient(apiConnection);
     }
 
     /// <summary>
@@ -68,4 +69,6 @@ public class MarkingPanelsClient : ApiClient
     }
     
     public MarkingPanelMembersClient Members { get; }
+    
+    public MarkingPanelQuestionsClient Questions { get; }
 }

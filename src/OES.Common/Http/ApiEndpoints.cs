@@ -52,6 +52,12 @@ internal static class ApiEndpoints
     public static Uri MarkingPanelMembersSupervisorById(int examinationId, int panelId, string markerId) =>
         "/examinations/{0}/marking_panels/{1}/members/supervisors/{2}".FormatUri(examinationId, panelId, markerId);
 
+    public static Uri MarkingPanelQuestions(int examinationId, int panelId) =>
+        "/examinations/{0}/marking_panels/{1}/questions".FormatUri(examinationId, panelId);
+
+    public static Uri MarkingPanelQuestionByNumber(int examinationId, int panelId, int questionNumber) =>
+        "/examinations/{0}/marking_panels/{1}/questions/{2}".FormatUri(examinationId, panelId, questionNumber);
+
     public static Uri OpenExamination(int examinationId) =>
         "/examinations/{0}/open".FormatUri(examinationId);
 
